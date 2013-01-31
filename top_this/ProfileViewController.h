@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  ProfileViewController.h
 //  top_this
 //
 //  Created by Andrew Benson on 1/31/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface ProfileViewController : UIViewController
 
 @end

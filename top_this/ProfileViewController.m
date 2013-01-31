@@ -1,18 +1,18 @@
 //
-//  SecondViewController.m
+//  ProfileViewController.m
 //  top_this
 //
 //  Created by Andrew Benson on 1/31/13.
 //  Copyright (c) 2013 Andrew Benson. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "ProfileViewController.h"
 
-@interface SecondViewController ()
+@interface ProfileViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation ProfileViewController
 
 - (void)viewDidLoad
 {
