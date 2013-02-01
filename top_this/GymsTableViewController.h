@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 
-@interface GymsTableViewController : UITableViewController <RKObjectLoaderDelegate>
+@interface GymsTableViewController : UITableViewController
 
 @end

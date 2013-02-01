@@ -12,11 +12,11 @@
 
 
 @interface GymsTableViewController ()
-@property (strong, nonatomic) NSArray *gymsIndexData;
+@property (strong, nonatomic) NSArray *gyms;
 @end
 
 @implementation GymsTableViewController
-@synthesize gymsIndexdata;
+@synthesize gyms = _gyms;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,15 +31,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    RKURL *baseURL = [RKURL URLWithBaseURLString:@"https://gym-ticks.herokuapp.com/api/v1"];
-    RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseUrl:baseURL];
-    objectManager.client.baseURL = baseURL;
     
-    RKObjectMapping *gymMapping = [RKObjectMapping mappingForClass:[Gym class]];
-    [gymMapping mapKeyPathsToAttributes:@"name", @"name", nil];
-    [objectManager.mappingProvider setMapping:gymMapping forKeyPath:@"response.gyms"];
-    
-    [self getGyms];
+    [self loadGyms];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,23 +47,23 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.gyms.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"GymCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Gym *gym = [gymsIndexData objectAtIndex:indexPath.row];
+    Gym *gym = [self.gyms objectAtIndex:indexPath.row];
     cell.textLabel.text = [gym name];
     
     return cell;
@@ -115,36 +108,28 @@
 }
 */
 
-- (void)getGyms
+- (void)loadGyms
 {
-    NSDictionary *queryParams;
-    //queryParams = [NSDictionary dictionaryWithObjectsAndKeys]
-    RKObjectManager *objectManager = [RKObjectManager sharedManager];
+    //Defing the gym mapping object
+    RKObjectMapping *gymMapping = [RKObjectMapping mappingForClass:[Gym class]];
+    [gymMapping addAttributeMappingsFromDictionary:@{@"name": @"name"}];
     
-    RKURL *URL = [RKURL URLWithBaseURL:[objectManager baseURL] resourcePath:@"/gyms"];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@", [URL resourcePath], [URL query]] delegate:self];
-}
-
-
-
-//RKObjectLoaderDelegate Protocol Methods
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
-{
-    NSLog(@"Error: %@", [error localizedDescription]);
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    NSLog(@"response code: %d", [response statusCode]);
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
-{
-    NSLog(@"objects[%d]", [objects count]);
-    gymsIndexData = objects;
+    //Responder for any successful responses
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:gymMapping pathPattern:@"/api/v1/gyms" keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
-    [self.tableView reloadData];
+    //Request data
+    NSURL *URL = [NSURL URLWithString:@"http://gym-ticks.herokuapp.com/api/v1/gyms"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    RKObjectRequestOperation *objectRequestOperation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[ responseDescriptor ]];
+    [objectRequestOperation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        RKLogInfo(@"Load collection of gyms: %@", mappingResult.array);
+        self.gyms = mappingResult.array;
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        RKLogInfo(@"Operation failed with error: %@", error);
+    }];
+    
+    [objectRequestOperation start];
 }
-
 
 #pragma mark - Table view delegate
 
