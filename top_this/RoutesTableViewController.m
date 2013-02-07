@@ -1,27 +1,27 @@
 //
-//  GymsTableViewController.m
+//  RoutesTableViewController.m
 //  top_this
 //
-//  Created by Andrew Benson on 1/31/13.
+//  Created by Andrew Benson on 2/1/13.
 //  Copyright (c) 2013 Andrew Benson. All rights reserved.
 //
 
-#import "GymsTableViewController.h"
-#import <RestKit/RestKit.h>
-#import "Gym.h"
-#import "MappingProvider.h"
 #import "RoutesTableViewController.h"
-#import "AddGymViewController.h"
+#import <RestKit/RestKit.h>
+#import "Route.h"
+#import "MappingProvider.h"
+#import "RouteDetailViewController.h"
 #import "Global.h"
 
+@interface RoutesTableViewController ()
+@property (strong, nonatomic) NSArray *routes;
+@property (strong, nonatomic) Route *selectedRoute;
 
-@interface GymsTableViewController ()
-@property (strong, nonatomic) NSArray *gyms;
-@property (strong, nonatomic) Gym *selectedGym;
 @end
 
-@implementation GymsTableViewController
-@synthesize gyms = _gyms;
+@implementation RoutesTableViewController
+@synthesize routes = _routes;
+@synthesize gym = _gym;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,9 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    [self loadGyms];
+    self.title = [NSString stringWithFormat:@"%@", self.gym.name];
+    [self loadRoutes];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,19 +45,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadGyms
+- (void)loadRoutes
 {
     NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider gymMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/gyms" keyPath:nil statusCodes:statusCodeSet];
+    RKMapping *mapping = [MappingProvider routeMapping];
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/routes" keyPath:nil statusCodes:statusCodeSet];
+    
     
     Global *globalVars = [Global getInstance];
-    NSString *urlString = [globalVars getURLStringWithPath:@"/api/v1/gyms"];
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSString *urlString = [globalVars getURLStringWithPath:@"/api/v1/routes"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithString:urlString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        self.gyms = mappingResult.array;
+        self.routes = mappingResult.array;
         [self.tableView reloadData];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
@@ -73,25 +73,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return self.gyms.count;
+    return self.routes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"GymCell";
+    static NSString *CellIdentifier = @"RouteCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Gym *gym = [self.gyms objectAtIndex:indexPath.row];
-    cell.textLabel.text = [gym name];
-    cell.detailTextLabel.text = [gym street_address];
+    Route *theRoute = [self.routes objectAtIndex:indexPath.row];
+    cell.textLabel.text = [theRoute name];
+    cell.detailTextLabel.text = [theRoute rating];
     
     return cell;
 }
@@ -110,14 +108,12 @@
      */
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"showGymRoutes"]){
-        RoutesTableViewController *routeTableViewController = segue.destinationViewController;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    RouteDetailViewController *routeDetailViewController = segue.destinationViewController;
     
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        self.selectedGym = [self.gyms objectAtIndex:indexPath.row];
-        routeTableViewController.gym = self.selectedGym;
-    }
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    self.selectedRoute = [self.routes objectAtIndex:indexPath.row];
+    routeDetailViewController.theRoute = self.selectedRoute;
 }
 
 @end

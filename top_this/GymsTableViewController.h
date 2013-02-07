@@ -11,4 +11,6 @@
 
 @interface GymsTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSString *myString;
+
 @end

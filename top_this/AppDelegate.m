@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
+#import "GymsTableViewController.h"
+#import "Gym.h"
 
 @implementation AppDelegate
 

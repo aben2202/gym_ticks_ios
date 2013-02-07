@@ -1,5 +1,5 @@
 //
-//  Gym.h
+//  Route.h
 //  top_this
 //
 //  Created by Andrew Benson on 1/31/13.
@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Gym : NSObject
+@interface Route : NSObject
 
+@property (strong, nonatomic) NSNumber *routeId;
 @property (strong, nonatomic) NSNumber *gymId;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *street_address;
-@property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
-@property (strong, nonatomic) NSNumber *zip;
+@property (strong, nonatomic) NSString *rating;
+@property (strong, nonatomic) NSDate *setDate;
+@property (strong, nonatomic) NSDate *retirementDate;
 
 @end
