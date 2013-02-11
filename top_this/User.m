@@ -14,5 +14,6 @@
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
 @synthesize email = _email;
+@synthesize adminId = _adminId;
 
 @end

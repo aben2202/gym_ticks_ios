@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import "Global.h"
 
 @interface GymsTableViewController : UITableViewController
-
-@property (nonatomic, strong) NSString *myString;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
 
 @end

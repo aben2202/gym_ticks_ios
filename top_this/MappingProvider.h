@@ -15,5 +15,6 @@
 + (RKMapping *)routeMapping;
 + (RKMapping *)routeCompletionMapping;
 + (RKMapping *)userMapping;
++ (RKMapping *)sessionMapping;
 
 @end

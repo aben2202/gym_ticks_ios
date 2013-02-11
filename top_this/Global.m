@@ -11,6 +11,12 @@
 @implementation Global
 
 @synthesize serverBaseURL = _serverBaseURL;
+@synthesize currentUser = _currentUser;
+
+-(id)init{
+    self = [super init];
+    return self;
+}
 
 -(NSMutableString *)serverBaseURL{
     return [NSMutableString stringWithFormat:@"http://localhost:3000"];

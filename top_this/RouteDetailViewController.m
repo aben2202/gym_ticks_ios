@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *sends;
 @property (strong, nonatomic) NSMutableArray *piecewises;
 @property (strong, nonatomic) NSString *personalResults;
+@property (strong, nonatomic) Global *globals;
 @end
 
 @implementation RouteDetailViewController
@@ -31,6 +32,7 @@
 @synthesize sends = _numberOfSends;
 @synthesize piecewises = _numberOfPiecewises;
 @synthesize personalResults = _personalResults;
+@synthesize globals = _globals;
 
 //synthesize iboutlets
 @synthesize routeNameLabel = _routeNameLabel;
@@ -46,6 +48,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
     }
     return self;
 }
@@ -76,9 +88,8 @@
     RKMapping *mapping = [MappingProvider routeCompletionMapping];
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/route_completions" keyPath:nil statusCodes:statusCodeSet];
     
-    Global *globalVars = [Global getInstance];
     NSString *path = [NSString stringWithFormat:@"/api/v1/route_completions?route_id=%@", self.theRoute.routeId];
-    NSString *urlString = [globalVars getURLStringWithPath:path];
+    NSString *urlString = [self.globals getURLStringWithPath:path];
     NSURL *url = [NSURL URLWithString:[NSString stringWithString:urlString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];

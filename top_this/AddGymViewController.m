@@ -12,7 +12,7 @@
 #import "GymsTableViewController.h"
 
 @interface AddGymViewController ()
-
+@property (nonatomic, strong) Global *globals;
 @end
 
 @implementation AddGymViewController
@@ -23,12 +23,23 @@
 @synthesize cityTextField = _cityTextField;
 @synthesize stateTextField = _stateTextField;
 @synthesize zipTextField = _zipTextField;
+@synthesize globals = _globals;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
     }
     return self;
 }
@@ -37,6 +48,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+     [self.view sendSubviewToBack:self.bgImageView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +78,10 @@
     [operation waitUntilFinished];
 }
 
+-(IBAction)cancel:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(NSString *)setParameters{
     NSString *gymParam = [self.gymNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
     NSString *streetAddressParam = [self.streetAddressTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
@@ -89,6 +105,8 @@
 
 - (IBAction)clickButton:(id)sender {
     [self addGym];
-    [[self presentedViewController] dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
 }
+
 @end

@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9FBCDD2FC2A481BBD5FECF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFFD532B2F8843C88310B4D4 /* libPods.a */; };
 		CB00AD9916BC627300660FD7 /* UserRouteCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00AD9816BC627300660FD7 /* UserRouteCompletionCell.m */; };
 		CB00AD9C16BC697000660FD7 /* RouteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00AD9B16BC697000660FD7 /* RouteDetailViewController.m */; };
 		CB00ADA016BC6EAE00660FD7 /* RouteCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00AD9F16BC6EAE00660FD7 /* RouteCompletion.m */; };
 		CB00ADA316BC6F2300660FD7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00ADA216BC6F2300660FD7 /* User.m */; };
+		CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB18F90616C594DE007D22D0 /* login_background.jpg */; };
 		CB21F64A16BB2783007932EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB21F64116BB2736007932EC /* libRestKit.a */; };
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
+		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
 		CB6BACEC16BC403400EA2E9F /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */; };
@@ -40,6 +43,9 @@
 		CB898FF616BAD851009544EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB898FEF16BAD851009544EC /* SystemConfiguration.framework */; };
 		CB898FF916BAE0DA009544EC /* Gym.m in Sources */ = {isa = PBXBuildFile; fileRef = CB898FF816BAE0DA009544EC /* Gym.m */; };
 		CB898FFC16BB05D1009544EC /* GymsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB898FFB16BB05D0009544EC /* GymsTableViewController.m */; };
+		CB93081E16C8B9B9008820B0 /* wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB93081D16C8B9B9008820B0 /* wall.jpg */; };
+		CB96BAA516C585AF00D3A832 /* CredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAA416C585AF00D3A832 /* CredentialStore.m */; };
+		CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */; };
 		CBBE979116BDEAF7000556B7 /* AddGymViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979016BDEAF7000556B7 /* AddGymViewController.m */; };
 		CBBE979816BDEC2C000556B7 /* AddRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979716BDEC2C000556B7 /* AddRouteViewController.m */; };
 /* End PBXBuildFile section */
@@ -83,6 +89,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA8228C06125478387EC3965 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		CB00AD9716BC627300660FD7 /* UserRouteCompletionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRouteCompletionCell.h; sourceTree = "<group>"; };
 		CB00AD9816BC627300660FD7 /* UserRouteCompletionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRouteCompletionCell.m; sourceTree = "<group>"; };
 		CB00AD9A16BC697000660FD7 /* RouteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDetailViewController.h; sourceTree = "<group>"; };
@@ -91,9 +98,12 @@
 		CB00AD9F16BC6EAE00660FD7 /* RouteCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCompletion.m; sourceTree = "<group>"; };
 		CB00ADA116BC6F2300660FD7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		CB00ADA216BC6F2300660FD7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		CB18F90616C594DE007D22D0 /* login_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_background.jpg; sourceTree = "<group>"; };
 		CB21F63616BB2736007932EC /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		CB21F64F16BB7E6C007932EC /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
 		CB21F65016BB7E6C007932EC /* MappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingProvider.m; sourceTree = "<group>"; };
+		CB2682CC16C5C082008E4CBE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		CB2682CD16C5C082008E4CBE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		CB5F612816C44FF200AE4C41 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		CB6BACE416BB8CF400EA2E9F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
@@ -131,10 +141,16 @@
 		CB898FF816BAE0DA009544EC /* Gym.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gym.m; sourceTree = "<group>"; };
 		CB898FFA16BB05D0009544EC /* GymsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GymsTableViewController.h; sourceTree = "<group>"; };
 		CB898FFB16BB05D0009544EC /* GymsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GymsTableViewController.m; sourceTree = "<group>"; };
+		CB93081D16C8B9B9008820B0 /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = wall.jpg; path = ../../../../Downloads/wall.jpg; sourceTree = "<group>"; };
+		CB96BAA316C585AF00D3A832 /* CredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialStore.h; sourceTree = "<group>"; };
+		CB96BAA416C585AF00D3A832 /* CredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialStore.m; sourceTree = "<group>"; };
+		CB96BAAA16C58FAC00D3A832 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CBBE978F16BDEAF7000556B7 /* AddGymViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGymViewController.h; sourceTree = "<group>"; };
 		CBBE979016BDEAF7000556B7 /* AddGymViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGymViewController.m; sourceTree = "<group>"; };
 		CBBE979616BDEC2C000556B7 /* AddRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRouteViewController.h; sourceTree = "<group>"; };
 		CBBE979716BDEC2C000556B7 /* AddRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRouteViewController.m; sourceTree = "<group>"; };
+		CFFD532B2F8843C88310B4D4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +169,7 @@
 				CB898FA716BACEF4009544EC /* UIKit.framework in Frameworks */,
 				CB898FA916BACEF4009544EC /* Foundation.framework in Frameworks */,
 				CB898FAB16BACEF4009544EC /* CoreGraphics.framework in Frameworks */,
+				C9FBCDD2FC2A481BBD5FECF1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +201,7 @@
 				CB898FAC16BACEF4009544EC /* top_this */,
 				CB898FA516BACEF4009544EC /* Frameworks */,
 				CB898FA316BACEF4009544EC /* Products */,
+				BA8228C06125478387EC3965 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +219,7 @@
 				CB898FA616BACEF4009544EC /* UIKit.framework */,
 				CB898FA816BACEF4009544EC /* Foundation.framework */,
 				CB898FAA16BACEF4009544EC /* CoreGraphics.framework */,
+				CFFD532B2F8843C88310B4D4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -252,6 +271,8 @@
 				CBBE979016BDEAF7000556B7 /* AddGymViewController.m */,
 				CBBE979616BDEC2C000556B7 /* AddRouteViewController.h */,
 				CBBE979716BDEC2C000556B7 /* AddRouteViewController.m */,
+				CB96BAAA16C58FAC00D3A832 /* LoginViewController.h */,
+				CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -269,6 +290,10 @@
 				CB00AD9F16BC6EAE00660FD7 /* RouteCompletion.m */,
 				CB5F612716C44FF200AE4C41 /* Global.h */,
 				CB5F612816C44FF200AE4C41 /* Global.m */,
+				CB96BAA316C585AF00D3A832 /* CredentialStore.h */,
+				CB96BAA416C585AF00D3A832 /* CredentialStore.m */,
+				CB2682CC16C5C082008E4CBE /* Session.h */,
+				CB2682CD16C5C082008E4CBE /* Session.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -284,6 +309,8 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CB93081D16C8B9B9008820B0 /* wall.jpg */,
+				CB18F90616C594DE007D22D0 /* login_background.jpg */,
 				CB898FC416BACEF4009544EC /* first.png */,
 				CB898FC616BACEF4009544EC /* first@2x.png */,
 				CB898FCB16BACEF4009544EC /* second.png */,
@@ -302,6 +329,7 @@
 				CB898F9E16BACEF4009544EC /* Sources */,
 				CB898F9F16BACEF4009544EC /* Frameworks */,
 				CB898FA016BACEF4009544EC /* Resources */,
+				20966F0069854EF1BB639B6A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -390,10 +418,29 @@
 				CB898FC716BACEF4009544EC /* first@2x.png in Resources */,
 				CB898FCC16BACEF4009544EC /* second.png in Resources */,
 				CB898FCE16BACEF4009544EC /* second@2x.png in Resources */,
+				CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */,
+				CB93081E16C8B9B9008820B0 /* wall.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20966F0069854EF1BB639B6A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CB898F9E16BACEF4009544EC /* Sources */ = {
@@ -415,6 +462,9 @@
 				CBBE979116BDEAF7000556B7 /* AddGymViewController.m in Sources */,
 				CBBE979816BDEC2C000556B7 /* AddRouteViewController.m in Sources */,
 				CB5F612916C44FF200AE4C41 /* Global.m in Sources */,
+				CB96BAA516C585AF00D3A832 /* CredentialStore.m in Sources */,
+				CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */,
+				CB2682CE16C5C082008E4CBE /* Session.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,12 +552,19 @@
 		};
 		CB898FD216BACEF4009544EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA8228C06125478387EC3965 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "top_this/top_this-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "top_this/top_this-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -515,12 +572,20 @@
 		};
 		CB898FD316BACEF4009544EC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA8228C06125478387EC3965 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "top_this/top_this-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "top_this/top_this-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

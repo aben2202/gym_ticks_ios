@@ -11,6 +11,7 @@
 #import "Route.h"
 #import "RouteCompletion.h"
 #import "User.h"
+#import "Session.h"
 
 @implementation MappingProvider
 
@@ -52,8 +53,17 @@
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"userId",
                                                   @"email": @"email",
                                                   @"first_name": @"firstName",
-                                                  @"last_name": @"lastName"}];
+                                                  @"last_name": @"lastName",
+                                                  @"admin_to": @"adminId"}];
 
+    return mapping;
+}
+
++ (RKMapping *)sessionMapping{
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Session class]];
+    [mapping addAttributeMappingsFromArray:@[@"auth_token"]];
+    [mapping addRelationshipMappingWithSourceKeyPath:@"current_user" mapping:[MappingProvider userMapping]];
+    
     return mapping;
 }
 

@@ -16,7 +16,10 @@
 @property (retain, nonatomic) IBOutlet UITextField *stateTextField;
 @property (retain, nonatomic) IBOutlet UITextField *zipTextField;
 @property (weak, nonatomic) IBOutlet UIButton *addGymButton;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 
 - (IBAction)clickButton:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 
 @end

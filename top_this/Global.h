@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 @interface Global : NSObject
 
 @property(nonatomic,retain)NSMutableString *serverBaseURL;
+@property(nonatomic, retain)User *currentUser;
 
 -(NSString *)getURLStringWithPath:(NSString *)path;
 +(Global*)getInstance;

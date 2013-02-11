@@ -18,24 +18,53 @@
 @interface GymsTableViewController ()
 @property (strong, nonatomic) NSArray *gyms;
 @property (strong, nonatomic) Gym *selectedGym;
+@property (nonatomic, strong) Global *globals;
 @end
 
 @implementation GymsTableViewController
 @synthesize gyms = _gyms;
+@synthesize globals = _globals;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.globals = [Global getInstance];
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
+    [tempImageView setFrame:self.tableView.frame];
+    [tempImageView setAlpha:0.25f];
+    self.tableView.backgroundView = tempImageView;
+
     
     [self loadGyms];
 }
@@ -52,8 +81,7 @@
     RKMapping *mapping = [MappingProvider gymMapping];
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/gyms" keyPath:nil statusCodes:statusCodeSet];
     
-    Global *globalVars = [Global getInstance];
-    NSString *urlString = [globalVars getURLStringWithPath:@"/api/v1/gyms"];
+    NSString *urlString = [self.globals getURLStringWithPath:@"/api/v1/gyms"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
@@ -66,6 +94,16 @@
     }];
     
     [operation start];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self loadGyms];
+    [[self tableView] reloadData];
+    
+    //Only app admins have the ability to add a gym
+    if (self.globals.currentUser.adminId != -1) {
+        self.navigationItem.rightBarButtonItems = nil;
+    }
 }
 
 

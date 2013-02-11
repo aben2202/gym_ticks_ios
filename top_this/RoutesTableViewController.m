@@ -16,26 +16,61 @@
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
 @property (strong, nonatomic) Route *selectedRoute;
+@property (strong, nonatomic) Global *globals;
 
 @end
 
 @implementation RoutesTableViewController
 @synthesize routes = _routes;
 @synthesize gym = _gym;
+@synthesize globals = _globals;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.globals = [Global getInstance];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.globals = [Global getInstance];
+    }
+    return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if (self.globals.currentUser.adminId != -1 && self.globals.currentUser.adminId != self.gym.gymId) {
+        self.navigationItem.rightBarButtonItems = nil;
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = [NSString stringWithFormat:@"%@", self.gym.name];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
+    [tempImageView setFrame:self.tableView.frame];
+    [tempImageView setAlpha:0.25f];
+    self.tableView.backgroundView = tempImageView;
+
     [self loadRoutes];
 }
 
@@ -53,7 +88,8 @@
     
     
     Global *globalVars = [Global getInstance];
-    NSString *urlString = [globalVars getURLStringWithPath:@"/api/v1/routes"];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/routes?gym_id=%d", self.gym.gymId];
+    NSString *urlString = [globalVars getURLStringWithPath:path];
     NSURL *url = [NSURL URLWithString:[NSString stringWithString:urlString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
