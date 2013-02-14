@@ -20,5 +20,6 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImage;
 
 @end

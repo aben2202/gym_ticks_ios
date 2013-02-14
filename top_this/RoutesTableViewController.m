@@ -12,6 +12,7 @@
 #import "MappingProvider.h"
 #import "RouteDetailViewController.h"
 #import "Global.h"
+#import "AddRouteViewController.h"
 
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
@@ -60,6 +61,9 @@
     if (self.globals.currentUser.adminId != -1 && self.globals.currentUser.adminId != self.gym.gymId) {
         self.navigationItem.rightBarButtonItems = nil;
     }
+    
+    [self loadRoutes];
+    [[self tableView] reloadData];
 }
 
 - (void)viewDidLoad
@@ -145,11 +149,17 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    RouteDetailViewController *routeDetailViewController = segue.destinationViewController;
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    self.selectedRoute = [self.routes objectAtIndex:indexPath.row];
-    routeDetailViewController.theRoute = self.selectedRoute;
+    if ([segue.identifier isEqualToString:@"showRouteDetails"]){
+        RouteDetailViewController *routeDetailViewController = segue.destinationViewController;
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        self.selectedRoute = [self.routes objectAtIndex:indexPath.row];
+        routeDetailViewController.theRoute = self.selectedRoute;
+    }
+    else if ([segue.identifier isEqualToString:@"addRoute"]){
+        AddRouteViewController *addRouteController = segue.destinationViewController;
+        addRouteController.gym = self.gym;
+    }
 }
 
 @end

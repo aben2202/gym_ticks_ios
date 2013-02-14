@@ -11,6 +11,7 @@
 #import "UserRouteCompletionCell.h"
 #import "MappingProvider.h"
 #import "Global.h"
+#import "AddRouteResultViewController.h"
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *routeCompletions;
@@ -62,6 +63,11 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self loadRouteCompletions];
+    [self.view sendSubviewToBack:self.bgImage];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,11 +76,6 @@
     self.flashes = [NSMutableArray array];
     self.sends = [NSMutableArray array];
     self.piecewises = [NSMutableArray array];
-
-    //We do not need to load the route since it was passed to this controller from the controller displaying
-    //    the list of routes for this particular gym.  We do, however, need to load the completions for this
-    //    route.
-    [self loadRouteCompletions];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,6 +99,7 @@
         [self parseCompletions];
         [self setGeneralInfo];
         [self.resultsTableView reloadData];
+        [self displayAddResultsButton];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
@@ -124,8 +126,6 @@
         else if ([currentCompletion.completionType isEqualToString:@"Piecewise"] || [currentCompletion.completionType isEqualToString:@"PIECEWISE"]) {
             [self.piecewises addObject:currentCompletion];
         }
-        
-        //check for personal result
     }
 }
 
@@ -134,6 +134,21 @@
     self.routeRatingLabel.text = self.theRoute.rating;
     //self.routeLocationLabel.text = self.theRoute.location;            //need to add location to route info
     self.routeCompletionsLabel.text = [NSString stringWithFormat:@"%u",self.routeCompletions.count];
+}
+
+-(void)displayAddResultsButton{
+    //Don't show the 'Add Results' button if we've already submitted our results for this route.
+    int x = 0;
+    BOOL alreadySubmitted = FALSE;
+    for (x=0; x < self.routeCompletions.count; x++){
+        RouteCompletion *thisIterRoute = self.routeCompletions[x];
+        if (thisIterRoute.user.userId == self.globals.currentUser.userId){
+            alreadySubmitted = TRUE;
+        }
+    }
+    if (alreadySubmitted == TRUE) {
+        self.navigationItem.rightBarButtonItems=nil;
+    }  
 }
 
 #pragma mark - Table view data source
@@ -199,6 +214,11 @@
     //cell.userProfilePicture
     
     return cell;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    AddRouteResultViewController *resultsVC = segue.destinationViewController;
+    resultsVC.theRoute = self.theRoute;
 }
 
 

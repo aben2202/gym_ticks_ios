@@ -53,11 +53,11 @@
 
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if ([self.credentialStore isLoggedIn]) {
         //if logged in, just segue to the app
-        
+        [self performSegueWithIdentifier:@"toMainApp" sender:self];
     }
 }
 
@@ -124,7 +124,6 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if ([identifier isEqualToString:@"toMainApp"]) {
-        [self submitCredentials:sender];
         if ([self.credentialStore isLoggedIn]) {
             return TRUE;
         }

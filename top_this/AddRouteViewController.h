@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Gym.h"
 
 @interface AddRouteViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (weak, nonatomic) IBOutlet UITextField *routeNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *ratingTextField;
+@property (weak, nonatomic) IBOutlet UITextField *locationTextField;
+@property (weak, nonatomic) IBOutlet UITextField *routeSetterTextField;
+@property (weak, nonatomic) IBOutlet UIButton *addRouteButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+
+@property (strong, nonatomic) Gym *gym;
+
+- (IBAction)addRoute:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 
 @end

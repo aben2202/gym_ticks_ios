@@ -25,7 +25,7 @@
 
 + (RKMapping *)routeMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Route class]];
-    [mapping addAttributeMappingsFromArray:@[@"name",@"rating"]];
+    [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"routeId",
                                                   @"gym_id": @"gymId",
                                                   @"set_date": @"setDate",

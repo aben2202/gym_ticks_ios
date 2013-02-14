@@ -106,6 +106,17 @@
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"showGymRoutes"]){
+        RoutesTableViewController *routeTableViewController = segue.destinationViewController;
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        self.selectedGym = [self.gyms objectAtIndex:indexPath.row];
+        routeTableViewController.gym = self.selectedGym;
+    }
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -146,16 +157,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"showGymRoutes"]){
-        RoutesTableViewController *routeTableViewController = segue.destinationViewController;
-    
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        self.selectedGym = [self.gyms objectAtIndex:indexPath.row];
-        routeTableViewController.gym = self.selectedGym;
-    }
 }
 
 @end
