@@ -12,11 +12,15 @@
 		CB00AD9C16BC697000660FD7 /* RouteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00AD9B16BC697000660FD7 /* RouteDetailViewController.m */; };
 		CB00ADA016BC6EAE00660FD7 /* RouteCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00AD9F16BC6EAE00660FD7 /* RouteCompletion.m */; };
 		CB00ADA316BC6F2300660FD7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CB00ADA216BC6F2300660FD7 /* User.m */; };
+		CB167C2416CF0335007E2C8C /* 111-user.png in Resources */ = {isa = PBXBuildFile; fileRef = CB167C2316CF0335007E2C8C /* 111-user.png */; };
+		CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */ = {isa = PBXBuildFile; fileRef = CB167C2816CF03BF007E2C8C /* 06-magnify.png */; };
+		CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = CB167C2B16CF7787007E2C8C /* LoginCredentials.m */; };
 		CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB18F90616C594DE007D22D0 /* login_background.jpg */; };
 		CB21F64A16BB2783007932EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB21F64116BB2736007932EC /* libRestKit.a */; };
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
 		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
 		CB5128B616CD6C19007102DE /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5128B516CD6C19007102DE /* profile_icon.png */; };
+		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
 		CB6BACEC16BC403400EA2E9F /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */; };
@@ -101,6 +105,10 @@
 		CB00AD9F16BC6EAE00660FD7 /* RouteCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCompletion.m; sourceTree = "<group>"; };
 		CB00ADA116BC6F2300660FD7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		CB00ADA216BC6F2300660FD7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		CB167C2316CF0335007E2C8C /* 111-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "111-user.png"; path = "../../../../Downloads/glyphish-icons/PNG icons/111-user.png"; sourceTree = "<group>"; };
+		CB167C2816CF03BF007E2C8C /* 06-magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "06-magnify.png"; path = "../../../../Downloads/glyphish-icons/PNG icons/06-magnify.png"; sourceTree = "<group>"; };
+		CB167C2A16CF7787007E2C8C /* LoginCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCredentials.h; sourceTree = "<group>"; };
+		CB167C2B16CF7787007E2C8C /* LoginCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCredentials.m; sourceTree = "<group>"; };
 		CB18F90616C594DE007D22D0 /* login_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_background.jpg; sourceTree = "<group>"; };
 		CB21F63616BB2736007932EC /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		CB21F64F16BB7E6C007932EC /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
@@ -108,6 +116,8 @@
 		CB2682CC16C5C082008E4CBE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		CB2682CD16C5C082008E4CBE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		CB5128B516CD6C19007102DE /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_icon.png; path = ../../../../Desktop/profile_icon.png; sourceTree = "<group>"; };
+		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
+		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		CB5F612816C44FF200AE4C41 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		CB6BACE416BB8CF400EA2E9F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
@@ -195,6 +205,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CB5128BA16CD89A0007102DE /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CB00AD9716BC627300660FD7 /* UserRouteCompletionCell.h */,
+				CB00AD9816BC627300660FD7 /* UserRouteCompletionCell.m */,
+				CB5128B716CD898A007102DE /* RecentClimbsCell.h */,
+				CB5128B816CD898A007102DE /* RecentClimbsCell.m */,
+			);
+			name = "Table Cells";
+			sourceTree = "<group>";
+		};
 		CB898F9716BACEF4009544EC = {
 			isa = PBXGroup;
 			children = (
@@ -235,14 +256,13 @@
 		CB898FAC16BACEF4009544EC /* top_this */ = {
 			isa = PBXGroup;
 			children = (
+				CB5128BA16CD89A0007102DE /* Table Cells */,
 				CBBE979416BDEBA2000556B7 /* Resources */,
 				CBBE979316BDEB73000556B7 /* Models */,
 				CBBE979216BDEB06000556B7 /* View Controllers */,
 				CB898FB516BACEF4009544EC /* AppDelegate.h */,
 				CB898FB616BACEF4009544EC /* AppDelegate.m */,
 				CB898FBE16BACEF4009544EC /* MainStoryboard.storyboard */,
-				CB00AD9716BC627300660FD7 /* UserRouteCompletionCell.h */,
-				CB00AD9816BC627300660FD7 /* UserRouteCompletionCell.m */,
 				CB898FAD16BACEF4009544EC /* Supporting Files */,
 			);
 			path = top_this;
@@ -306,6 +326,8 @@
 				CB96BAA416C585AF00D3A832 /* CredentialStore.m */,
 				CB2682CC16C5C082008E4CBE /* Session.h */,
 				CB2682CD16C5C082008E4CBE /* Session.m */,
+				CB167C2A16CF7787007E2C8C /* LoginCredentials.h */,
+				CB167C2B16CF7787007E2C8C /* LoginCredentials.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,6 +343,8 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CB167C2816CF03BF007E2C8C /* 06-magnify.png */,
+				CB167C2316CF0335007E2C8C /* 111-user.png */,
 				CB5128B516CD6C19007102DE /* profile_icon.png */,
 				CB93081D16C8B9B9008820B0 /* wall.jpg */,
 				CB18F90616C594DE007D22D0 /* login_background.jpg */,
@@ -434,6 +458,8 @@
 				CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */,
 				CB93081E16C8B9B9008820B0 /* wall.jpg in Resources */,
 				CB5128B616CD6C19007102DE /* profile_icon.png in Resources */,
+				CB167C2416CF0335007E2C8C /* 111-user.png in Resources */,
+				CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +507,8 @@
 				CB2682CE16C5C082008E4CBE /* Session.m in Sources */,
 				CB93082416CB15FE008820B0 /* AddRouteResultViewController.m in Sources */,
 				CB93082816CC0663008820B0 /* CreateNewUserViewController.m in Sources */,
+				CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */,
+				CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

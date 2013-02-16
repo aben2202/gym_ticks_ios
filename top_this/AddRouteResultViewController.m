@@ -9,8 +9,11 @@
 #import "AddRouteResultViewController.h"
 #import <RestKit/RestKit.h>
 #import "MappingProvider.h"
+#import "RouteCompletion.h"
 
 @interface AddRouteResultViewController ()
+
+@property RKObjectManager *objectManager;
 
 @end
 
@@ -18,7 +21,7 @@
 @synthesize completionTypeSelector = _completionTypeSelector;
 @synthesize pickerOptions = _pickerOptions;
 @synthesize theRoute = _theRoute;
-
+@synthesize objectManager = _objectManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +44,7 @@
         [self.pickerOptions addObject:@"PIECEWISE"];
         
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -59,31 +63,29 @@
 }
 
 - (IBAction)submitRouteCompletion:(id)sender {
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider routeCompletionMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/route_completions" keyPath:nil statusCodes:statusCodeSet];
-    NSString *thePs = [self setParameters];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3000/api/v1/route_completions?%@", thePs]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    RouteCompletion *theCompletion = [self getRouteCompletionFromFields];
+    [self.objectManager postObject:theCompletion path:@"route_completions" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully submitted result!");
         [self dismissViewControllerAnimated:YES completion:NULL];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
-    
-    [operation start];
-    [operation waitUntilFinished];
 }
 
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-
+-(RouteCompletion *)getRouteCompletionFromFields{
+    RouteCompletion *theNewCompletion = [[RouteCompletion alloc] init];
+    theNewCompletion.completionType = [self.pickerOptions objectAtIndex:[self.completionTypeSelector selectedRowInComponent:0]];
+    theNewCompletion.route = self.theRoute;
+    theNewCompletion.user = self.globals.currentUser;
+    
+    return theNewCompletion;
+}
+     
 -(NSString *)setParameters{
     NSInteger routeId = [self.theRoute.routeId integerValue];
     NSInteger userId = self.globals.currentUser.userId;

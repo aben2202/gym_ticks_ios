@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Gym.h"
 
 @interface Route : NSObject
 

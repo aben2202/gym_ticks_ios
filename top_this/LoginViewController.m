@@ -14,12 +14,17 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "GymsTableViewController.h"
 #import "Session.h"
+#import "User.h"
+#import "LoginCredentials.h"
+#import "AppDelegate.h"
 
 @interface LoginViewController ()
 
 @property Global *globals;
 @property CGPoint viewOriginalCenter;
 @property CredentialStore *credentialStore;
+@property RKObjectManager *objectManager;
+
 
 @end
 
@@ -29,6 +34,7 @@
 @synthesize emailTextField = _emailTextField;
 @synthesize passwordTextField = _passwordTextField;
 @synthesize credentialStore = _credentialStore;
+@synthesize objectManager = _objectManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,7 +43,9 @@
         // Custom initialization
         self.globals = [Global getInstance];
         self.credentialStore = [CredentialStore getInstance];
-
+        AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [delegate setupObjectManager];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -48,6 +56,10 @@
         // Custom initialization
         self.globals = [Global getInstance];
         self.credentialStore = [CredentialStore getInstance];
+        AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [delegate setupObjectManager];
+        self.objectManager = [RKObjectManager sharedManager];
+        //
     }
     return self;
 
@@ -56,8 +68,13 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if ([self.credentialStore isLoggedIn]) {
-        //if logged in, just segue to the app
-        [self performSegueWithIdentifier:@"toMainApp" sender:self];
+        //if logged in, get current user info and just segue to the app
+        if (self.globals.currentUser == nil) {
+            [self setCurrentUser];
+        }
+        else{
+            [self performSegueWithIdentifier:@"toMainApp" sender:self];
+        }
     }
 }
 
@@ -78,27 +95,18 @@
 }
 
 - (IBAction)submitCredentials:(id)sender{
-    [SVProgressHUD show];
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider sessionMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/users/sign_in" keyPath:nil statusCodes:statusCodeSet];
-
-    NSString *thePs = [self getLoginParameters];
-    NSString *path = [NSString stringWithFormat:@"/api/v1/users/sign_in?%@", thePs];
-    NSString *urlString = [self.globals getURLStringWithPath:path];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation,   RKMappingResult *mappingResult) {
+    LoginCredentials *credentials = [[LoginCredentials alloc] init];
+    credentials.email = self.emailTextField.text;
+    credentials.password = self.passwordTextField.text;
+    [self.objectManager postObject:credentials path:@"users/sign_in" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully logged in!");
         Session *newSession = mappingResult.array[0];
         self.globals.currentUser = newSession.current_user;
-        NSString *auth_token = [mappingResult.dictionary objectForKey:@"auth_token"];
+        NSString *auth_token = newSession.auth_token;
         [self.credentialStore setAuthToken:auth_token];
         [SVProgressHUD showSuccessWithStatus:@"Success"];
+        [self.objectManager.HTTPClient setDefaultHeader:@"Auth_token" value:[self.credentialStore authToken]];
         [self performSegueWithIdentifier:@"toMainApp" sender:self];
-                                               
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
@@ -107,19 +115,22 @@
         }
         else if (error.code == 500){
             [SVProgressHUD showErrorWithStatus:@"The server is experiencing issues.  Please try again later."];
-        }       
+        }
     }];
-    
-    [operation start];
 
 }
 
-- (NSString *)getLoginParameters{
-    NSString *email = self.emailTextField.text;
-    NSString *password = self.passwordTextField.text;
-    
-    NSString *parameters = [NSString stringWithFormat:@"credentials[email]=%@&credentials[password]=%@", email, password];
-    return parameters;
+-(void)setCurrentUser{
+    [self.objectManager getObjectsAtPath:@"users" parameters:@{@"auth_token":[self.credentialStore authToken]} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"Successfully retrieved current user!");
+        User *newUser = mappingResult.array[0];
+        self.globals.currentUser = newUser;
+        [self.objectManager.HTTPClient setDefaultHeader:@"Auth_token" value:[self.credentialStore authToken]];
+        [self performSegueWithIdentifier:@"toMainApp" sender:self];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{

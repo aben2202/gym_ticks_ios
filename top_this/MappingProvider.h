@@ -12,9 +12,14 @@
 @interface MappingProvider : NSObject
 
 + (RKMapping *)gymMapping;
++ (RKMapping *)gymRequestMapping;
 + (RKMapping *)routeMapping;
++ (RKMapping *)routeRequestMapping;
 + (RKMapping *)routeCompletionMapping;
++ (RKMapping *)routeCompletionRequestMapping;
 + (RKMapping *)userMapping;
++ (RKMapping *)userRequestMapping;
 + (RKMapping *)sessionMapping;
++ (RKMapping *)loginRequestMapping;
 
 @end

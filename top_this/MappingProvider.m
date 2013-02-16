@@ -23,6 +23,13 @@
     return mapping;
 }
 
++ (RKMapping *)gymRequestMapping {
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromArray:@[@"name",@"street_address",@"city",@"state",@"zip"]];
+    
+    return mapping;
+}
+
 + (RKMapping *)routeMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Route class]];
     [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
@@ -33,6 +40,15 @@
     
     return mapping;
 }
+
++ (RKMapping *)routeRequestMapping {
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
+    [mapping addAttributeMappingsFromDictionary:@{@"gymId": @"gym_id"}];
+    
+    return mapping;
+}
+
 
 + (RKMapping *)routeCompletionMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[RouteCompletion class]];
@@ -48,6 +64,20 @@
     return mapping;
 }
 
++ (RKMapping *)routeCompletionRequestMapping {
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromDictionary:@{@"climbType": @"climb_type",
+                                                  @"completionType": @"completion_type",
+                                                  @"route.routeId": @"route_id",
+                                                  @"user.userId": @"user_id"}];
+//    [mapping addRelationshipMappingWithSourceKeyPath:@"user"
+//                                             mapping:[MappingProvider userRequestMapping]];
+//    [mapping addRelationshipMappingWithSourceKeyPath:@"route"
+//                                             mapping:[MappingProvider routeRequestMapping]];
+    
+    return mapping;
+}
+
 + (RKMapping *)userMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[User class]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"userId",
@@ -59,10 +89,28 @@
     return mapping;
 }
 
++ (RKMapping *)userRequestMapping {
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromDictionary:@{@"email": @"email",
+                                                  @"firstName": @"first_name",
+                                                  @"lastName": @"last_name",
+                                                  @"password": @"password"}];
+    
+    return mapping;
+}
+
+
 + (RKMapping *)sessionMapping{
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Session class]];
     [mapping addAttributeMappingsFromArray:@[@"auth_token"]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"current_user" mapping:[MappingProvider userMapping]];
+    
+    return mapping;
+}
+
++ (RKMapping *)loginRequestMapping{
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromArray:@[@"email",@"password"]];
     
     return mapping;
 }

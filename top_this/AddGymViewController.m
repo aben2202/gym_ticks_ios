@@ -10,9 +10,11 @@
 #import <RestKit/RestKit.h>
 #import "MappingProvider.h"
 #import "GymsTableViewController.h"
+#import "Gym.h"
 
 @interface AddGymViewController ()
 @property (nonatomic, strong) Global *globals;
+@property (nonatomic, strong) RKObjectManager *objectManager;
 @end
 
 @implementation AddGymViewController
@@ -24,6 +26,7 @@
 @synthesize stateTextField = _stateTextField;
 @synthesize zipTextField = _zipTextField;
 @synthesize globals = _globals;
+@synthesize objectManager = _objectManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +34,7 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -40,6 +44,7 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -59,40 +64,30 @@
 
 -(void)addGym
 {
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider gymMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/gyms" keyPath:nil statusCodes:statusCodeSet];
-    NSString *thePs = [self setParameters];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3000/api/v1/gyms?%@", thePs]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    Gym *gymToAdd = [self createGymFromFields];
+    [self.objectManager postObject:gymToAdd path:@"gyms" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully added gym!");
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
-
-    [operation start];
-    [operation waitUntilFinished];
 }
 
 -(IBAction)cancel:(id)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(NSString *)setParameters{
-    NSString *gymParam = [self.gymNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
-    NSString *streetAddressParam = [self.streetAddressTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
-    NSString *cityParam = [self.cityTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
-    NSString *stateParam = [self.stateTextField.text stringByReplacingOccurrencesOfString:@" " withString:@"\%20"];
-    NSString *zipParam = self.zipTextField.text;
-
-    NSString *theParameterString = [NSString stringWithFormat:@"name=%@&street_address=%@&city=%@&state=%@&zip=%@",
-                                    gymParam, streetAddressParam, cityParam, stateParam, zipParam];
+-(Gym *)createGymFromFields{
+    Gym *newGym = [[Gym alloc] init];
+    newGym.name = self.gymNameTextField.text;
+    newGym.street_address = self.streetAddressTextField.text;
+    newGym.city = self.cityTextField.text;
+    newGym.state = self.stateTextField.text;
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    newGym.zip = [formatter numberFromString:self.zipTextField.text];
     
-    return theParameterString;
+    return newGym;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

@@ -10,12 +10,19 @@
 #import <RestKit/RestKit.h>
 #import "GymsTableViewController.h"
 #import "Gym.h"
+#import "MappingProvider.h"
+#import "LoginCredentials.h"
+#import "Route.h"
+#import "RouteCompletion.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self setupObjectManager];
+    
+    
     return YES;
 }
 							
@@ -44,6 +51,64 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)setupObjectManager{
+    NSURL *baseURL = [NSURL URLWithString:@"http://localhost:3000/api/v1"];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:baseURL];
+    
+    //Setup request/response descriptors
+    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+    
+    // users ///////////////
+    RKMapping *userRequestMapping = [MappingProvider userRequestMapping];
+    RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userRequestMapping objectClass:[User class] rootKeyPath:@"user"];
+    [objectManager addRequestDescriptor:userRequestDescriptor];
+    // responses
+    RKMapping *userMapping = [MappingProvider userMapping];
+    RKResponseDescriptor *usersResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:@"users" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:usersResponseDescriptor];
+
+    
+    // gyms ////////////////
+    // requests
+    RKMapping *gymRequestMapping = [MappingProvider gymRequestMapping];
+    RKRequestDescriptor *addGymRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:gymRequestMapping objectClass:[Gym class] rootKeyPath:@"gym"];
+    [objectManager addRequestDescriptor:addGymRequestDescriptor];
+    // responses
+    RKMapping *gymMapping = [MappingProvider gymMapping];
+    RKResponseDescriptor *gymsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:gymMapping pathPattern:@"gyms" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:gymsResponseDescriptor];
+    
+    // routes //////////////
+    // requests
+    RKMapping *routeRequestMapping = [MappingProvider routeRequestMapping];
+    RKRequestDescriptor *addRouteRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:routeRequestMapping objectClass:[Route class] rootKeyPath:@"route"];
+    [objectManager addRequestDescriptor:addRouteRequestDescriptor];
+    // responses
+    RKMapping *routeMapping = [MappingProvider routeMapping];
+    RKResponseDescriptor *routesResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:routeMapping pathPattern:@"routes" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:routesResponseDescriptor];
+    
+    // route completions ////
+    // requests
+    RKMapping *routeCompletionRequestMapping = [MappingProvider routeCompletionRequestMapping];
+    RKRequestDescriptor *routeCompletionRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:routeCompletionRequestMapping objectClass:[RouteCompletion class] rootKeyPath:@"route_completion"];
+    [objectManager addRequestDescriptor:routeCompletionRequestDescriptor];
+    // responses
+    RKMapping *routeCompletionMapping = [MappingProvider routeCompletionMapping];
+    RKResponseDescriptor *routeCompletionsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:routeCompletionMapping pathPattern:@"route_completions" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:routeCompletionsResponseDescriptor];
+    
+    // sessions /////////////
+    // requests
+    RKMapping *loginRequestMapping = [MappingProvider loginRequestMapping];
+    RKRequestDescriptor *login = [RKRequestDescriptor requestDescriptorWithMapping:loginRequestMapping objectClass:[LoginCredentials class] rootKeyPath:@"credentials"];
+    [objectManager addRequestDescriptor:login];
+    // responses
+    RKMapping *loginResponseMapping = [MappingProvider sessionMapping];
+    RKResponseDescriptor *session = [RKResponseDescriptor responseDescriptorWithMapping:loginResponseMapping pathPattern:@"users/sign_in" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:session];
 }
 
 @end

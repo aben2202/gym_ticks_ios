@@ -12,6 +12,7 @@
 #import "MappingProvider.h"
 #import "Global.h"
 #import "AddRouteResultViewController.h"
+#import <RestKit/RestKit.h>
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *routeCompletions;
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *piecewises;
 @property (strong, nonatomic) NSString *personalResults;
 @property (strong, nonatomic) Global *globals;
+@property (strong, nonatomic) RKObjectManager *objectManager;
 @end
 
 @implementation RouteDetailViewController
@@ -28,12 +30,13 @@
 //synthesize properties
 @synthesize theRoute = _theRoute;
 @synthesize routeCompletions = _routeCompletions;
-@synthesize onsites = _numberOfOnsites;
-@synthesize flashes = _numberOfFlashes;
-@synthesize sends = _numberOfSends;
-@synthesize piecewises = _numberOfPiecewises;
+@synthesize onsites = _onsites;
+@synthesize flashes = _flashes;
+@synthesize sends = _sends;
+@synthesize piecewises = _piecewises;
 @synthesize personalResults = _personalResults;
 @synthesize globals = _globals;
+@synthesize objectManager = _objectManager;
 
 //synthesize iboutlets
 @synthesize routeNameLabel = _routeNameLabel;
@@ -50,6 +53,7 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -59,23 +63,18 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [self loadRouteCompletions];
-    [self.view sendSubviewToBack:self.bgImage];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.onsites = [NSMutableArray array];
-    self.flashes = [NSMutableArray array];
-    self.sends = [NSMutableArray array];
-    self.piecewises = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,16 +84,8 @@
 }
 
 -(void)loadRouteCompletions{
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider routeCompletionMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/route_completions" keyPath:nil statusCodes:statusCodeSet];
-    
-    NSString *path = [NSString stringWithFormat:@"/api/v1/route_completions?route_id=%@", self.theRoute.routeId];
-    NSString *urlString = [self.globals getURLStringWithPath:path];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithString:urlString]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    NSDictionary *params = @{@"route_id": self.theRoute.routeId};
+    [self.objectManager getObjectsAtPath:@"route_completions" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routeCompletions = mappingResult.array;
         [self parseCompletions];
         [self setGeneralInfo];
@@ -104,12 +95,14 @@
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
-    
-    [operation start];
-    [operation waitUntilFinished];
 }
 
 -(void)parseCompletions{
+    self.onsites = [NSMutableArray array];
+    self.flashes = [NSMutableArray array];
+    self.sends = [NSMutableArray array];
+    self.piecewises = [NSMutableArray array];
+    
     
     int i = 0;
     for(i = 0; i < [self.routeCompletions count]; i++){
@@ -142,7 +135,7 @@
     BOOL alreadySubmitted = FALSE;
     for (x=0; x < self.routeCompletions.count; x++){
         RouteCompletion *thisIterRoute = self.routeCompletions[x];
-        if (thisIterRoute.user.userId == self.globals.currentUser.userId){
+        if ([thisIterRoute.user.userId integerValue] == [self.globals.currentUser.userId integerValue]){
             alreadySubmitted = TRUE;
         }
     }
@@ -205,13 +198,45 @@
     static NSString *CellIdentifier = @"RouteCompletionCell";
     UserRouteCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    RouteCompletion *theCompletion;
     // Configure the cell...
-    RouteCompletion *theCompletion = [self.routeCompletions objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) { //onsites
+        theCompletion = [self.onsites objectAtIndex:indexPath.row];
+    }
+    else if (indexPath.section == 1){ //flashes
+        theCompletion = [self.flashes objectAtIndex:indexPath.row];
+    }
+    else if (indexPath.section == 2){ //sends
+        theCompletion = [self.sends objectAtIndex:indexPath.row];
+    }
+    else if (indexPath.section == 3){ //piecewises
+        theCompletion = [self.piecewises objectAtIndex:indexPath.row];
+    }
+    
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
     cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
     NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
     cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
     //cell.userProfilePicture
+    
+    //color cell backgrounds
+    if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
+        //light red background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
+        //light green background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
+        //light blue background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
+        //light yellow background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+    }
+
     
     return cell;
 }

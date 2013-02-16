@@ -10,11 +10,11 @@
 
 @interface Gym : NSObject
 
-@property NSInteger gymId;
+@property (strong, nonatomic) NSNumber *gymId;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *street_address;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
-@property NSInteger zip;
+@property (strong, nonatomic) NSNumber *zip;
 
 @end

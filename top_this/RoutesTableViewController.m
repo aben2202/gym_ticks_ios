@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSArray *routes;
 @property (strong, nonatomic) Route *selectedRoute;
 @property (strong, nonatomic) Global *globals;
+@property (strong, nonatomic) RKObjectManager *objectManager;
 
 @end
 
@@ -25,6 +26,7 @@
 @synthesize routes = _routes;
 @synthesize gym = _gym;
 @synthesize globals = _globals;
+@synthesize objectManager = _objectManager;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -33,6 +35,7 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -43,6 +46,7 @@
     if (self) {
         // Custom initialization
         self.globals = [Global getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -58,7 +62,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    if (self.globals.currentUser.adminId != -1 && self.globals.currentUser.adminId != self.gym.gymId) {
+    if ([self.globals.currentUser.adminId integerValue] != -1 && [self.globals.currentUser.adminId integerValue] != [self.gym.gymId integerValue]) {
         self.navigationItem.rightBarButtonItems = nil;
     }
     
@@ -86,26 +90,14 @@
 
 - (void)loadRoutes
 {
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider routeMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/routes" keyPath:nil statusCodes:statusCodeSet];
-    
-    
-    Global *globalVars = [Global getInstance];
-    NSString *path = [NSString stringWithFormat:@"/api/v1/routes?gym_id=%d", self.gym.gymId];
-    NSString *urlString = [globalVars getURLStringWithPath:path];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithString:urlString]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    NSDictionary *params = @{@"gym_id": self.gym.gymId};
+    [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
         [self.tableView reloadData];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
-    
-    [operation start];
 }
 
 

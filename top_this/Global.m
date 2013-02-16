@@ -35,7 +35,6 @@ static Global *instance =nil;
     {
         if(instance==nil)
         {
-            
             instance= [Global new];
         }
     }

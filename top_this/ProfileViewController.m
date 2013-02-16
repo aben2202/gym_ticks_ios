@@ -7,23 +7,208 @@
 //
 
 #import "ProfileViewController.h"
+#import <RestKit/RestKit.h>
+#import "MappingProvider.h"
+#import "RouteCompletion.h"
+#import "RecentClimbsCell.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "User.h"
+
 
 @interface ProfileViewController ()
+
+@property (strong, nonatomic) RKObjectManager *objectManager;
 
 @end
 
 @implementation ProfileViewController
+@synthesize globals = _globals;
+@synthesize credentialStore = _credentialStore;
+@synthesize objectManager = _objectManager;
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        //custom init here
+        self.globals = [Global getInstance];
+        self.credentialStore = [CredentialStore getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self loadUserData];
+    [self loadUserCompletions];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)loadUserData{
+    self.climbersNameLabel.text = [NSString stringWithFormat:@"%@ %@", self.globals.currentUser.firstName, self.globals.currentUser.lastName];
+}
+
+-(void)loadUserCompletions{
+    [self.objectManager getObjectsAtPath:@"route_completions" parameters:@{@"user_id":self.globals.currentUser.userId} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.routeCompletions = mappingResult.array;
+        [self.recentClimbsTable reloadData];
+        self.climbsCompletedLabel.text = [NSString stringWithFormat:@"Climbs Completed: %d", self.routeCompletions.count];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
+}
+
+- (IBAction)uploadNewImage:(id)sender {
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary | UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        imagePickerController.sourceType |= UIImagePickerControllerSourceTypeCamera;
+    }
+    
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.profilePic.image = image;
+    self.globals.currentUser.photoData = UIImagePNGRepresentation(image);
+    [self updateUserOnServer];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+}
+
+-(void)updateUserOnServer{
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    [SVProgressHUD show];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/users/%d", [self.globals.currentUser.userId integerValue]];
+    NSDictionary *params = @{@"user[first_name]" : self.globals.currentUser.firstName,
+                             @"user[last_name]" : self.globals.currentUser.lastName};
+    
+    
+    
+    NSMutableURLRequest *updateRequest = [[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.globals.serverBaseURL]] multipartFormRequestWithMethod:@"PUT" path:path parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                 [formData appendPartWithFileData:self.globals.currentUser.photoData
+                                                             name:@"user[profile_pic]"
+                                                         fileName:@"profile_pic.png"
+                                                         mimeType:@"image/png"];
+                             }];
+    
+    AFHTTPRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:updateRequest];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        CGFloat progress = ((CGFloat)totalBytesWritten/ totalBytesExpectedToWrite);
+        [SVProgressHUD showProgress:progress];
+    }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (operation.response.statusCode == 200 || operation.response.statusCode == 201){
+            NSLog(@"Successfully updated user!");
+            [SVProgressHUD dismiss];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.responseString);
+    }];
+}
+
+-(void)logout{
+    [self.objectManager deleteObject:nil path:@"users/sign_out" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"Successfully logged out!");
+        [self.credentialStore clearSavedCredentails];
+        [SVProgressHUD showSuccessWithStatus:@"Success"];
+        [self performSegueWithIdentifier:@"toLoginController" sender:self];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if ([identifier isEqualToString:@"toLoginController"]) {
+        [self logout];
+        return ![self.credentialStore isLoggedIn];
+    }
+    else{
+        return TRUE;
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return self.routeCompletions.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"RecentCompletionsCell";
+    RecentClimbsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    // Configure the cell...
+    RouteCompletion *theCompletion = [self.routeCompletions objectAtIndex:indexPath.row];
+    cell.routeNameLabel.text = theCompletion.route.name;
+    cell.completionTypeLabel.text = theCompletion.completionType;
+    cell.completionDateLabel.text = [NSDateFormatter localizedStringFromDate:theCompletion.completionDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+    cell.ratingLabel.text = theCompletion.route.rating;
+    
+    //color cell backgrounds
+    if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
+        //light red background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
+        //light green background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
+        //light blue background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+    }
+    else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
+        //light yellow background color
+        cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+    }
+    
+    return cell;
 }
 
 @end

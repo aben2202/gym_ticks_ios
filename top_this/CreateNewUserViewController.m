@@ -11,8 +11,11 @@
 #import "MappingProvider.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "Session.h"
+#import "LoginCredentials.h"
 
 @interface CreateNewUserViewController ()
+
+@property RKObjectManager *objectManager;
 
 @end
 
@@ -23,6 +26,7 @@
 @synthesize passwordTextField = _passwordTextField;
 @synthesize passwordConfirmationTextField = _passwordConfirmationTextField;
 @synthesize globals = _globals;
+@synthesize objectManager = _objectManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +43,7 @@
         // Custom initialization
         self.globals = [Global getInstance];
         self.credentialStore = [CredentialStore getInstance];
+        self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
@@ -65,25 +70,14 @@
 
 - (IBAction)createNewUser:(id)sender{
     if ([self confirmPasswordAndConfirmationMatch] == TRUE){
-        NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-        RKMapping *mapping = [MappingProvider userMapping];
-        RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/users" keyPath:nil statusCodes:statusCodeSet];
-        NSString *thePs = [self setParameters];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3000/api/v1/users?%@", thePs]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        [request setHTTPMethod:@"POST"];
-        RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-        [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        User *newUser = [self getUserFromFields];
+        [self.objectManager postObject:newUser path:@"users" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
             NSLog(@"Successfully created user!");
             [self loginNewUser];
-            
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
             NSLog(@"ERROR: %@", error);
             NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
         }];
-        
-        [operation start];
-        [operation waitUntilFinished];
     }
     else{
         self.passwordErrorLabel.hidden = FALSE;
@@ -95,17 +89,10 @@
          
 -(void)loginNewUser{
     [SVProgressHUD show];
-    NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [MappingProvider sessionMapping];
-    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping pathPattern:@"/api/v1/users/sign_in" keyPath:nil statusCodes:statusCodeSet];
-    
-    NSString *path = [NSString stringWithFormat:@"/api/v1/users/sign_in?credentials[email]=%@&credentials[password]=%@", self.emailTextField.text, self.passwordTextField.text];
-    NSString *urlString = [self.globals getURLStringWithPath:path];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation,   RKMappingResult *mappingResult) {
+    LoginCredentials *credentials = [[LoginCredentials alloc] init];
+    credentials.email = self.emailTextField.text;
+    credentials.password = self.passwordTextField.text;
+    [self.objectManager postObject:credentials path:@"users/sign_in" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully logged in!");
         Session *newSession = mappingResult.array[0];
         self.globals.currentUser = newSession.current_user;
@@ -113,7 +100,6 @@
         [self.credentialStore setAuthToken:auth_token];
         [SVProgressHUD showSuccessWithStatus:@"Success"];
         [self dismissViewControllerAnimated:YES completion:NULL];
-        
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
@@ -124,8 +110,6 @@
             [SVProgressHUD showErrorWithStatus:@"The server is experiencing issues.  Please try again later."];
         }
     }];
-    
-    [operation start];
 }
 
 -(BOOL)confirmPasswordAndConfirmationMatch{
@@ -136,6 +120,16 @@
         return FALSE;
     }
 }
+         
+ -(User *)getUserFromFields{
+     User *newUser = [[User alloc] init];
+     newUser.email = self.emailTextField.text;
+     newUser.firstName = self.firstNameTextField.text;
+     newUser.lastName = self.lastNameTextField.text;
+     newUser.password = self.passwordTextField.text;
+     
+     return newUser;
+ }
 
 -(NSString *)setParameters{
     NSString *email = self.emailTextField.text;

@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Global.h"
+#import "CredentialStore.h"
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
+@property (weak, nonatomic) IBOutlet UITableView *recentClimbsTable;
+@property (strong, nonatomic) Global *globals;
+@property (strong, nonatomic) NSArray *routeCompletions;
+@property (strong, nonatomic) CredentialStore *credentialStore;
+@property (weak, nonatomic) IBOutlet UILabel *climbsCompletedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *climbersNameLabel;
+- (IBAction)uploadNewImage:(id)sender;
+
+- (void)logout;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
+#import <RestKit/RestKit.h>
 
 @interface Global : NSObject
 
