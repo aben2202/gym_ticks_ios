@@ -19,6 +19,8 @@
 @property (strong, nonatomic) CredentialStore *credentialStore;
 @property (weak, nonatomic) IBOutlet UILabel *climbsCompletedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *climbersNameLabel;
+@property (strong, nonatomic) NSData *photoData;
+
 - (IBAction)uploadNewImage:(id)sender;
 
 - (void)logout;

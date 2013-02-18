@@ -10,7 +10,7 @@
 #import "Global.h"
 #import "CredentialStore.h"
 
-@interface CreateNewUserViewController : UIViewController
+@interface CreateNewUserViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
@@ -20,8 +20,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *passwordErrorLabel;
 @property (strong, nonatomic) Global *globals;
 @property (strong, nonatomic) CredentialStore *credentialStore;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
+@property (strong, nonatomic) NSData *photoData;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)createNewUser:(id)sender;
+- (IBAction)addPhoto:(id)sender;
 
 @end

@@ -68,6 +68,9 @@
     RKMapping *userMapping = [MappingProvider userMapping];
     RKResponseDescriptor *usersResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:@"users" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:usersResponseDescriptor];
+    //update user response descriptor
+    RKResponseDescriptor *updateUserResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:@"users/:userId" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:updateUserResponseDescriptor];
 
     
     // gyms ////////////////

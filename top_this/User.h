@@ -17,5 +17,6 @@
 @property (strong, nonatomic) NSNumber *adminId;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSData *photoData;
+@property (strong, nonatomic) NSString *profilePicURL;
 
 @end

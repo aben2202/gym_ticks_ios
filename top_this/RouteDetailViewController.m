@@ -213,6 +213,10 @@
         theCompletion = [self.piecewises objectAtIndex:indexPath.row];
     }
     
+    //set url for profile pic
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
+    [cell.userProfilePicture setImageWithURL:url];
+    
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
     cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
     NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];

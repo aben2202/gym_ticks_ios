@@ -70,11 +70,7 @@
                                                   @"completionType": @"completion_type",
                                                   @"route.routeId": @"route_id",
                                                   @"user.userId": @"user_id"}];
-//    [mapping addRelationshipMappingWithSourceKeyPath:@"user"
-//                                             mapping:[MappingProvider userRequestMapping]];
-//    [mapping addRelationshipMappingWithSourceKeyPath:@"route"
-//                                             mapping:[MappingProvider routeRequestMapping]];
-    
+  
     return mapping;
 }
 
@@ -84,7 +80,8 @@
                                                   @"email": @"email",
                                                   @"first_name": @"firstName",
                                                   @"last_name": @"lastName",
-                                                  @"admin_to": @"adminId"}];
+                                                  @"admin_to": @"adminId",
+                                                  @"profile_pic_url": @"profilePicURL"}];
 
     return mapping;
 }

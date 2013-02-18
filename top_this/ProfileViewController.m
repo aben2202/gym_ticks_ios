@@ -15,6 +15,7 @@
 #import "User.h"
 
 
+
 @interface ProfileViewController ()
 
 @property (strong, nonatomic) RKObjectManager *objectManager;
@@ -25,6 +26,7 @@
 @synthesize globals = _globals;
 @synthesize credentialStore = _credentialStore;
 @synthesize objectManager = _objectManager;
+@synthesize photoData = _photoData;
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
@@ -37,6 +39,11 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    //make sure profile picture is correct dimensions
+    self.profilePic.frame = CGRectMake(self.profilePic.frame.origin.x, self.profilePic.frame.origin.y, 100, 100);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,6 +51,7 @@
     
     [self loadUserData];
     [self loadUserCompletions];
+    self.photoData = UIImagePNGRepresentation(self.profilePic.image);
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +62,8 @@
 
 -(void)loadUserData{
     self.climbersNameLabel.text = [NSString stringWithFormat:@"%@ %@", self.globals.currentUser.firstName, self.globals.currentUser.lastName];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.globals.serverBaseURL, self.globals.currentUser.profilePicURL]];
+    [self.profilePic setImageWithURL:url];
 }
 
 -(void)loadUserCompletions{
@@ -83,63 +93,30 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     self.profilePic.image = image;
-    self.globals.currentUser.photoData = UIImagePNGRepresentation(image);
+    self.photoData = UIImagePNGRepresentation(image);
     [self updateUserOnServer];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
 }
 
 -(void)updateUserOnServer{
-    RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     [SVProgressHUD show];
-    NSString *path = [NSString stringWithFormat:@"/api/v1/users/%d", [self.globals.currentUser.userId integerValue]];
-    NSDictionary *params = @{@"user[first_name]" : self.globals.currentUser.firstName,
-                             @"user[last_name]" : self.globals.currentUser.lastName};
-    
-    
-    
-    NSMutableURLRequest *updateRequest = [[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:self.globals.serverBaseURL]] multipartFormRequestWithMethod:@"PUT" path:path parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                 [formData appendPartWithFileData:self.globals.currentUser.photoData
-                                                             name:@"user[profile_pic]"
-                                                         fileName:@"profile_pic.png"
-                                                         mimeType:@"image/png"];
-                             }];
-    
-    AFHTTPRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:updateRequest];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        CGFloat progress = ((CGFloat)totalBytesWritten/ totalBytesExpectedToWrite);
-        [SVProgressHUD showProgress:progress];
+    NSString *path = [NSString stringWithFormat:@"users/%d", [self.globals.currentUser.userId integerValue]];
+    NSURLRequest *request = [self.objectManager multipartFormRequestWithObject:self.globals.currentUser method:RKRequestMethodPUT path:path parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpg"];
     }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (operation.response.statusCode == 200 || operation.response.statusCode == 201){
-            NSLog(@"Successfully updated user!");
-            [SVProgressHUD dismiss];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    RKObjectRequestOperation *operation =
+    [self.objectManager objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"Successfully updated user!");
+        [SVProgressHUD showSuccessWithStatus:@"Successfully updated picture!"];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.profilePic setNeedsDisplay];
+
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.responseString);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to create user!"];
     }];
+    
+    [self.objectManager enqueueObjectRequestOperation:operation];
 }
 
 -(void)logout{

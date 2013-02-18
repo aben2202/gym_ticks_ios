@@ -27,6 +27,8 @@
 @synthesize passwordConfirmationTextField = _passwordConfirmationTextField;
 @synthesize globals = _globals;
 @synthesize objectManager = _objectManager;
+@synthesize profilePic = _profilePic;
+@synthesize photoData = _photoData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +58,7 @@
     self.passwordTextField.secureTextEntry = YES;
     self.passwordConfirmationTextField.secureTextEntry = YES;
     self.passwordErrorLabel.hidden = TRUE;
+    self.photoData = UIImagePNGRepresentation(self.profilePic.image);
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,14 +73,23 @@
 
 - (IBAction)createNewUser:(id)sender{
     if ([self confirmPasswordAndConfirmationMatch] == TRUE){
+        [SVProgressHUD show];
         User *newUser = [self getUserFromFields];
-        [self.objectManager postObject:newUser path:@"users" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSURLRequest *request = [self.objectManager multipartFormRequestWithObject:newUser method:RKRequestMethodPOST path:@"users" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpg"];
+        }];
+        RKObjectRequestOperation *operation =
+        [self.objectManager objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
             NSLog(@"Successfully created user!");
             [self loginNewUser];
+            [SVProgressHUD showSuccessWithStatus:@"Successfully created user!"];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
             NSLog(@"ERROR: %@", error);
             NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+            [SVProgressHUD showErrorWithStatus:@"Unable to create user!"];
         }];
+        
+        [self.objectManager enqueueObjectRequestOperation:operation];
     }
     else{
         self.passwordErrorLabel.hidden = FALSE;
@@ -86,6 +98,27 @@
         [self.passwordTextField becomeFirstResponder];
     }
 }
+
+- (IBAction)addPhoto:(id)sender{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary | UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        imagePickerController.sourceType |= UIImagePickerControllerSourceTypeCamera;
+    }
+    
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.profilePic.image = image;
+    self.photoData = UIImagePNGRepresentation(image);
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
          
 -(void)loginNewUser{
     [SVProgressHUD show];
@@ -130,6 +163,10 @@
      
      return newUser;
  }
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [textField resignFirstResponder];
+}
 
 -(NSString *)setParameters{
     NSString *email = self.emailTextField.text;

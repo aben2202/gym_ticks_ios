@@ -15,11 +15,11 @@
 		CB167C2416CF0335007E2C8C /* 111-user.png in Resources */ = {isa = PBXBuildFile; fileRef = CB167C2316CF0335007E2C8C /* 111-user.png */; };
 		CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */ = {isa = PBXBuildFile; fileRef = CB167C2816CF03BF007E2C8C /* 06-magnify.png */; };
 		CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = CB167C2B16CF7787007E2C8C /* LoginCredentials.m */; };
+		CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */; };
 		CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB18F90616C594DE007D22D0 /* login_background.jpg */; };
 		CB21F64A16BB2783007932EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB21F64116BB2736007932EC /* libRestKit.a */; };
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
 		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
-		CB5128B616CD6C19007102DE /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5128B516CD6C19007102DE /* profile_icon.png */; };
 		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
@@ -109,13 +109,13 @@
 		CB167C2816CF03BF007E2C8C /* 06-magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "06-magnify.png"; path = "../../../../Downloads/glyphish-icons/PNG icons/06-magnify.png"; sourceTree = "<group>"; };
 		CB167C2A16CF7787007E2C8C /* LoginCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCredentials.h; sourceTree = "<group>"; };
 		CB167C2B16CF7787007E2C8C /* LoginCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCredentials.m; sourceTree = "<group>"; };
+		CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 12809070_s.jpg; path = ../../../../Downloads/12809070_s.jpg; sourceTree = "<group>"; };
 		CB18F90616C594DE007D22D0 /* login_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_background.jpg; sourceTree = "<group>"; };
 		CB21F63616BB2736007932EC /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		CB21F64F16BB7E6C007932EC /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
 		CB21F65016BB7E6C007932EC /* MappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingProvider.m; sourceTree = "<group>"; };
 		CB2682CC16C5C082008E4CBE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		CB2682CD16C5C082008E4CBE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
-		CB5128B516CD6C19007102DE /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_icon.png; path = ../../../../Desktop/profile_icon.png; sourceTree = "<group>"; };
 		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
 		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -343,9 +343,9 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */,
 				CB167C2816CF03BF007E2C8C /* 06-magnify.png */,
 				CB167C2316CF0335007E2C8C /* 111-user.png */,
-				CB5128B516CD6C19007102DE /* profile_icon.png */,
 				CB93081D16C8B9B9008820B0 /* wall.jpg */,
 				CB18F90616C594DE007D22D0 /* login_background.jpg */,
 				CB898FC416BACEF4009544EC /* first.png */,
@@ -457,9 +457,9 @@
 				CB898FCE16BACEF4009544EC /* second@2x.png in Resources */,
 				CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */,
 				CB93081E16C8B9B9008820B0 /* wall.jpg in Resources */,
-				CB5128B616CD6C19007102DE /* profile_icon.png in Resources */,
 				CB167C2416CF0335007E2C8C /* 111-user.png in Resources */,
 				CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */,
+				CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

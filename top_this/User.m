@@ -15,5 +15,7 @@
 @synthesize lastName = _lastName;
 @synthesize email = _email;
 @synthesize adminId = _adminId;
+@synthesize photoData = _photoData;
+@synthesize profilePicURL = _profilePicURL;
 
 @end
