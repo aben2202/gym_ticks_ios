@@ -12,6 +12,7 @@
 #import "RouteCompletion.h"
 #import "User.h"
 #import "Session.h"
+#import "Beta.h"
 
 @implementation MappingProvider
 
@@ -56,10 +57,8 @@
                                                   @"climb_type": @"climbType",
                                                   @"completion_type": @"completionType",
                                                   @"completion_date": @"completionDate"}];
-    [mapping addRelationshipMappingWithSourceKeyPath:@"user"
-                                             mapping:[MappingProvider userMapping]];
-    [mapping addRelationshipMappingWithSourceKeyPath:@"route"
-                                             mapping:[MappingProvider routeMapping]];
+    [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
+    [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
     
     return mapping;
 }
@@ -92,6 +91,24 @@
                                                   @"firstName": @"first_name",
                                                   @"lastName": @"last_name",
                                                   @"password": @"password"}];
+    
+    return mapping;
+}
+
++ (RKMapping *)betaMapping{
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Beta class]];
+    [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId", @"comment": @"comment", @"date": @"date"}];
+    [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
+    [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
+    
+    return mapping;
+}
+
++ (RKMapping *)betaRequestMapping{
+    RKObjectMapping *mapping = [RKObjectMapping requestMapping];
+    [mapping addAttributeMappingsFromDictionary:@{@"comment": @"comment",
+                                                  @"user.userId": @"user_id",
+                                                  @"route.routeId": @"route_id"}];
     
     return mapping;
 }

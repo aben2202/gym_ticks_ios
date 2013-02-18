@@ -70,6 +70,7 @@
     if ([self.credentialStore isLoggedIn]) {
         //if logged in, get current user info and just segue to the app
         if (self.globals.currentUser == nil) {
+            [self.objectManager.HTTPClient setDefaultHeader:@"Auth_token" value:[self.credentialStore authToken]];
             [self setCurrentUser];
         }
         else{

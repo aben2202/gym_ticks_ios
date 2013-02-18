@@ -53,6 +53,8 @@
 		CB93082816CC0663008820B0 /* CreateNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB93082716CC0663008820B0 /* CreateNewUserViewController.m */; };
 		CB96BAA516C585AF00D3A832 /* CredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAA416C585AF00D3A832 /* CredentialStore.m */; };
 		CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */; };
+		CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */; };
+		CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B616D2BAEB009E4B86 /* Beta.m */; };
 		CBBE979116BDEAF7000556B7 /* AddGymViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979016BDEAF7000556B7 /* AddGymViewController.m */; };
 		CBBE979816BDEC2C000556B7 /* AddRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979716BDEC2C000556B7 /* AddRouteViewController.m */; };
 /* End PBXBuildFile section */
@@ -164,6 +166,10 @@
 		CB96BAA416C585AF00D3A832 /* CredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialStore.m; sourceTree = "<group>"; };
 		CB96BAAA16C58FAC00D3A832 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteBetaCell.h; sourceTree = "<group>"; };
+		CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetaCell.m; sourceTree = "<group>"; };
+		CBBC91B516D2BAEB009E4B86 /* Beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beta.h; sourceTree = "<group>"; };
+		CBBC91B616D2BAEB009E4B86 /* Beta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beta.m; sourceTree = "<group>"; };
 		CBBE978F16BDEAF7000556B7 /* AddGymViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGymViewController.h; sourceTree = "<group>"; };
 		CBBE979016BDEAF7000556B7 /* AddGymViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGymViewController.m; sourceTree = "<group>"; };
 		CBBE979616BDEC2C000556B7 /* AddRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRouteViewController.h; sourceTree = "<group>"; };
@@ -212,6 +218,8 @@
 				CB00AD9816BC627300660FD7 /* UserRouteCompletionCell.m */,
 				CB5128B716CD898A007102DE /* RecentClimbsCell.h */,
 				CB5128B816CD898A007102DE /* RecentClimbsCell.m */,
+				CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */,
+				CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -328,6 +336,8 @@
 				CB2682CD16C5C082008E4CBE /* Session.m */,
 				CB167C2A16CF7787007E2C8C /* LoginCredentials.h */,
 				CB167C2B16CF7787007E2C8C /* LoginCredentials.m */,
+				CBBC91B516D2BAEB009E4B86 /* Beta.h */,
+				CBBC91B616D2BAEB009E4B86 /* Beta.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -509,6 +519,8 @@
 				CB93082816CC0663008820B0 /* CreateNewUserViewController.m in Sources */,
 				CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */,
 				CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */,
+				CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */,
+				CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

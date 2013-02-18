@@ -39,11 +39,6 @@
     return self;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    //make sure profile picture is correct dimensions
-    self.profilePic.frame = CGRectMake(self.profilePic.frame.origin.x, self.profilePic.frame.origin.y, 100, 100);
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -109,6 +104,7 @@
         [SVProgressHUD showSuccessWithStatus:@"Successfully updated picture!"];
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.profilePic setNeedsDisplay];
+        self.profilePic.frame = CGRectMake(self.profilePic.frame.origin.x, self.profilePic.frame.origin.y, 100, 100);
 
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);

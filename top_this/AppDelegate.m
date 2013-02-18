@@ -14,6 +14,7 @@
 #import "LoginCredentials.h"
 #import "Route.h"
 #import "RouteCompletion.h"
+#import "Beta.h"
 
 @implementation AppDelegate
 
@@ -102,6 +103,16 @@
     RKMapping *routeCompletionMapping = [MappingProvider routeCompletionMapping];
     RKResponseDescriptor *routeCompletionsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:routeCompletionMapping pathPattern:@"route_completions" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:routeCompletionsResponseDescriptor];
+    
+    // betas ////////////////
+    // requests
+    RKMapping *betaRequestMapping = [MappingProvider betaRequestMapping];
+    RKRequestDescriptor *betaRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:betaRequestMapping objectClass:[Beta class] rootKeyPath:@"beta"];
+    [objectManager addRequestDescriptor:betaRequestDescriptor];
+    // responses
+    RKMapping *betaMapping = [MappingProvider betaMapping];
+    RKResponseDescriptor *betaResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:betaMapping pathPattern:@"beta" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:betaResponseDescriptor];
     
     // sessions /////////////
     // requests
