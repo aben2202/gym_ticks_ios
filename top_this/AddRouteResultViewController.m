@@ -19,7 +19,8 @@
 
 @implementation AddRouteResultViewController
 @synthesize completionTypeSelector = _completionTypeSelector;
-@synthesize pickerOptions = _pickerOptions;
+@synthesize completionTypes = _pickerOptions;
+@synthesize climbTypes = _climbTypes;
 @synthesize theRoute = _theRoute;
 @synthesize objectManager = _objectManager;
 
@@ -38,24 +39,29 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        self.pickerOptions = [[NSMutableArray alloc] init];
-        [self.pickerOptions addObject:@"ONSITE"];
-        [self.pickerOptions addObject:@"FLASH"];
-        [self.pickerOptions addObject:@"SEND"];
-        [self.pickerOptions addObject:@"PIECEWISE"];
-        [self.completionTypeSelector setFrame:CGRectMake(0, 0, 320, 75)];
+        self.completionTypes = [NSMutableArray array];
+        [self.completionTypes addObject:@"ONSITE"];
+        [self.completionTypes addObject:@"FLASH"];
+        [self.completionTypes addObject:@"SEND"];
+        [self.completionTypes addObject:@"PIECEWISE"];
+        
+        self.climbTypes = [NSMutableArray array];
+        [self.climbTypes addObject:@"Toprope"];
+        [self.climbTypes addObject:@"Sport"];
             
         self.globals = [Global getInstance];
         self.objectManager = [RKObjectManager sharedManager];
     }
     return self;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.completionTypeSelector setFrame:CGRectMake(0, 0, 320, 75)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +87,13 @@
 
 -(RouteCompletion *)getRouteCompletionFromFields{
     RouteCompletion *theNewCompletion = [[RouteCompletion alloc] init];
-    theNewCompletion.completionType = [self.pickerOptions objectAtIndex:[self.completionTypeSelector selectedRowInComponent:0]];
+    theNewCompletion.completionType = [self.completionTypes objectAtIndex:[self.completionTypeSelector selectedRowInComponent:0]];
+    if ([self.theRoute.routeType isEqualToString:@"Boulder"]){
+        theNewCompletion.climbType = @"Boulder";
+    }
+    else{
+        theNewCompletion.climbType = [self.climbTypes objectAtIndex:[self.completionTypeSelector selectedRowInComponent:1]];
+    }
     theNewCompletion.route = self.theRoute;
     theNewCompletion.user = self.globals.currentUser;
     
@@ -91,7 +103,7 @@
 -(NSString *)setParameters{
     NSInteger routeId = [self.theRoute.routeId integerValue];
     NSInteger userId = self.globals.currentUser.userId;
-    NSString *completionType = [self.pickerOptions objectAtIndex:[self.completionTypeSelector selectedRowInComponent:0]];
+    NSString *completionType = [self.completionTypes objectAtIndex:[self.completionTypeSelector selectedRowInComponent:0]];
     
     return [NSString stringWithFormat:@"route_completion[route_id]=%d&route_completion[user_id]=%d&route_completion[completion_type]=%@", routeId, userId, completionType];
 }
@@ -99,17 +111,32 @@
 # pragma mark - UIPickerViewDataSource methods
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
+    if ([self.theRoute.routeType isEqualToString:@"Boulder"]) {
+        return 1;
+    }
+    else{
+        return 2;
+    }
 }
 
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return self.pickerOptions.count;
+    if (component == 0){
+        return self.completionTypes.count;
+    }
+    else{
+        return self.climbTypes.count;
+    }
 }
 
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [self.pickerOptions objectAtIndex:row];
+    if (component == 0){
+        return [self.completionTypes objectAtIndex:row];
+    }
+    else{
+        return [self.climbTypes objectAtIndex:row];
+    }
 }
 
 @end

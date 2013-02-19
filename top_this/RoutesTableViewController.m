@@ -71,7 +71,6 @@
     }
     
     [self loadRoutes];
-    [[self tableView] reloadData];
 }
 
 - (void)viewDidLoad
@@ -223,7 +222,12 @@
         RouteDetailViewController *routeDetailViewController = segue.destinationViewController;
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        self.selectedRoute = [self.routes objectAtIndex:indexPath.row];
+        if(indexPath.section == 0){
+            self.selectedRoute = [self.boulderProblems objectAtIndex:indexPath.row];
+        }
+        else{
+            self.selectedRoute = [self.verticalRoutes objectAtIndex:indexPath.row];
+        }
         routeDetailViewController.theRoute = self.selectedRoute;
     }
     else if ([segue.identifier isEqualToString:@"addRoute"]){

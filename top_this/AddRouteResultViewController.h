@@ -12,9 +12,10 @@
 
 @interface AddRouteResultViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (retain, nonatomic) IBOutlet UIPickerView *completionTypeSelector;
-@property (strong, nonatomic) NSMutableArray *pickerOptions;
+@property (strong, nonatomic) NSMutableArray *completionTypes;
 @property (strong, nonatomic) Route *theRoute;
 @property (strong, nonatomic) Global *globals;
+@property (strong, nonatomic) NSMutableArray *climbTypes;
 
 - (IBAction)submitRouteCompletion:(id)sender;
 - (IBAction)cancel:(id)sender;
