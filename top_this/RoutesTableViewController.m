@@ -133,6 +133,33 @@
 
 #pragma mark - Table view delegate
 
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self userIsGymAdmin]) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    else{
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSUInteger row = [indexPath row];
+    
+    //attempt to update route retirement date on server
+    Route *routeToRetire = [self.routes objectAtIndex:row];
+    routeToRetire.retirementDate = [NSDate date];
+    NSString *path = [NSString stringWithFormat:@"routes/%d", [routeToRetire.routeId integerValue]];
+    [self.objectManager putObject:routeToRetire path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"Successfully deleted gym!");
+        [self loadRoutes];
+        [self.tableView reloadData];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.

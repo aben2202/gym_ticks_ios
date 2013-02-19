@@ -148,8 +148,18 @@
     }
 }
 
-//UITextFieldDelegate methods
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.emailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
 
+//UITextFieldDelegate methods
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    if(textField == self.passwordTextField)
+        [self submitCredentials:textField];
+    return YES;
+}
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     self.view.center = CGPointMake(self.viewOriginalCenter.x, self.viewOriginalCenter.y - 130);
@@ -158,19 +168,6 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     self.view.center = self.viewOriginalCenter;
     [textField resignFirstResponder];
-}
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([string isEqualToString:@"\n"]) {
-        [textField resignFirstResponder];
-        return false;
-    }
-    return true;
-}
-
--(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
 }
 
 @end

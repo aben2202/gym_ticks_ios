@@ -130,7 +130,8 @@
 -(void)setGeneralInfo{
     self.routeNameLabel.text = self.theRoute.name;
     self.routeRatingLabel.text = self.theRoute.rating;
-    //self.routeLocationLabel.text = self.theRoute.location;            //need to add location to route info
+    self.routeSetterLabel.text = self.theRoute.setter;
+    self.routeLocationLabel.text = self.theRoute.location;            
     self.routeCompletionsLabel.text = [NSString stringWithFormat:@"%u",self.routeCompletions.count];
 }
 
@@ -264,6 +265,7 @@
 }
 
 #pragma mark - Table view delegate
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -16,6 +16,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (retain, nonatomic) IBOutlet UILabel *routeRatingLabel;
 @property (retain, nonatomic) IBOutlet UILabel *routeLocationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *routeSetterLabel;
 @property (retain, nonatomic) IBOutlet UILabel *routeCompletionsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *postResultsButton;
 
