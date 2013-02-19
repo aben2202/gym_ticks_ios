@@ -62,7 +62,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    if ([self.globals.currentUser.adminId integerValue] != -1 && [self.globals.currentUser.adminId integerValue] != [self.gym.gymId integerValue]) {
+    if (![self userIsGymAdmin]) {
         self.navigationItem.rightBarButtonItems = nil;
     }
     
@@ -98,6 +98,10 @@
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
+}
+
+-(BOOL)userIsGymAdmin{
+    return ([self.globals.currentUser.adminId integerValue] == -1 || [self.globals.currentUser.adminId integerValue] == [self.gym.gymId integerValue]);
 }
 
 

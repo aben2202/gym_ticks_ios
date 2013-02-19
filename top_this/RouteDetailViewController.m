@@ -14,7 +14,7 @@
 #import "Global.h"
 #import "AddRouteResultViewController.h"
 #import <RestKit/RestKit.h>
-#import "Beta.h"
+#import "BetaLogTableViewController.h"
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *beta;
@@ -74,7 +74,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [self loadRouteCompletions];
-    [self loadBeta];
 }
 
 - (void)viewDidLoad
@@ -96,19 +95,7 @@
         [self parseCompletions];
         [self setGeneralInfo];
         [self.resultsTableView reloadData];
-        [self displayAddResultsButton];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-    }];
-}
-
--(void)loadBeta{
-    NSDictionary *params = @{@"route_id": self.theRoute.routeId};
-    [self.objectManager getObjectsAtPath:@"beta" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        self.beta = mappingResult.array;
-        NSLog(@"Loaded beta");
-        [self.resultsTableView reloadData];
+        [self displayButtons];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
@@ -147,7 +134,7 @@
     self.routeCompletionsLabel.text = [NSString stringWithFormat:@"%u",self.routeCompletions.count];
 }
 
--(void)displayAddResultsButton{
+-(void)displayButtons{
     //Don't show the 'Add Results' button if we've already submitted our results for this route.
     int x = 0;
     BOOL alreadySubmitted = FALSE;
@@ -158,15 +145,28 @@
         }
     }
     if (alreadySubmitted == TRUE) {
-        self.navigationItem.rightBarButtonItems=nil;
-    }  
+        [self.postResultsButton setEnabled:NO];
+        self.postResultsButton.hidden = YES;
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"postResult"]){
+        AddRouteResultViewController *resultsVC = segue.destinationViewController;
+        resultsVC.theRoute = self.theRoute;
+    }
+    else if ([segue.identifier isEqualToString:@"betaLog"]){
+        BetaLogTableViewController *betaLogController = segue.destinationViewController;
+        betaLogController.theRoute = self.theRoute;
+        [betaLogController loadBeta];
+    }
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -184,8 +184,6 @@
         case 3: //piecewises
             return self.piecewises.count;
             break;
-        case 4: //beta comments
-            return self.beta.count;
         default:
             return 1;
             break;
@@ -206,8 +204,6 @@
         case 3: //piecewises
             return @"PIECEWISES";
             break;
-        case 4: //beta
-            return @"BETA";
         default:
             return @"Accident";
             break;
@@ -217,79 +213,55 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section >=0 && indexPath.section < 4) { //display route completion in cell
-        //make sure the data is loaded
-        if (self.routeCompletions != nil);{
-            UserRouteCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteCompletionCell"];
-            
-            RouteCompletion *theCompletion;
-            // Configure the cell...
-            if (indexPath.section == 0) { //onsites
-                theCompletion = [self.onsites objectAtIndex:indexPath.row];
-            }
-            else if (indexPath.section == 1){ //flashes
-                theCompletion = [self.flashes objectAtIndex:indexPath.row];
-            }
-            else if (indexPath.section == 2){ //sends
-                theCompletion = [self.sends objectAtIndex:indexPath.row];
-            }
-            else if (indexPath.section == 3){ //piecewises
-                theCompletion = [self.piecewises objectAtIndex:indexPath.row];
-            }
-            
-            //set url for profile pic
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
-            [cell.userProfilePicture setImageWithURL:url];
-            
-            cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
-            cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
-            NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
-            cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
-            //cell.userProfilePicture
-            
-            //color cell backgrounds
-            if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
-                //light red background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
-            }
-            else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
-                //light green background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
-            }
-            else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
-                //light blue background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
-            }
-            else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
-                //light yellow background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
-            }
-            return cell;
+    //make sure the data is loaded
+    if (self.routeCompletions != nil);{
+        UserRouteCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteCompletionCell"];
+        
+        RouteCompletion *theCompletion;
+        // Configure the cell...
+        if (indexPath.section == 0) { //onsites
+            theCompletion = [self.onsites objectAtIndex:indexPath.row];
         }
-    }
-    else{ //display beta in cell
-        //make sure beta has been loaded
-        if (self.beta != nil) {
-            RouteBetaCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteBetaCell"];
-            
-            Beta *theBeta = [self.beta objectAtIndex:indexPath.row];
-            
-            cell.betaTextView.backgroundColor = [UIColor clearColor];
-            cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@ says...", theBeta.user.firstName, theBeta.user.lastName];
-            cell.betaTextView.text = theBeta.comment;
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theBeta.user.profilePicURL]];
-            [cell.profilePicImageView setImageWithURL:url];
-            
-            return cell;
+        else if (indexPath.section == 1){ //flashes
+            theCompletion = [self.flashes objectAtIndex:indexPath.row];
         }
+        else if (indexPath.section == 2){ //sends
+            theCompletion = [self.sends objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == 3){ //piecewises
+            theCompletion = [self.piecewises objectAtIndex:indexPath.row];
+        }
+        
+        //set url for profile pic
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
+        [cell.userProfilePicture setImageWithURL:url];
+        
+        cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
+        cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
+        NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
+        cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
+        //cell.userProfilePicture
+        
+        //color cell backgrounds
+        if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
+            //light red background color
+            cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+        }
+        else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
+            //light green background color
+            cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+        }
+        else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
+            //light blue background color
+            cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+        }
+        else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
+            //light yellow background color
+            cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+        }
+        return cell;
     }
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    AddRouteResultViewController *resultsVC = segue.destinationViewController;
-    resultsVC.theRoute = self.theRoute;
-}
-
 
 #pragma mark - Table view delegate
 

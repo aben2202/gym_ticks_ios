@@ -20,6 +20,7 @@
 		CB21F64A16BB2783007932EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB21F64116BB2736007932EC /* libRestKit.a */; };
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
 		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
+		CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */; };
 		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
@@ -55,6 +56,7 @@
 		CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */; };
 		CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */; };
 		CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B616D2BAEB009E4B86 /* Beta.m */; };
+		CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */; };
 		CBBE979116BDEAF7000556B7 /* AddGymViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979016BDEAF7000556B7 /* AddGymViewController.m */; };
 		CBBE979816BDEC2C000556B7 /* AddRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBE979716BDEC2C000556B7 /* AddRouteViewController.m */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,8 @@
 		CB21F65016BB7E6C007932EC /* MappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingProvider.m; sourceTree = "<group>"; };
 		CB2682CC16C5C082008E4CBE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		CB2682CD16C5C082008E4CBE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		CB3F1B3116D3657E00400EAD /* AddBetaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBetaViewController.h; sourceTree = "<group>"; };
+		CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBetaViewController.m; sourceTree = "<group>"; };
 		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
 		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 		CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetaCell.m; sourceTree = "<group>"; };
 		CBBC91B516D2BAEB009E4B86 /* Beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beta.h; sourceTree = "<group>"; };
 		CBBC91B616D2BAEB009E4B86 /* Beta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beta.m; sourceTree = "<group>"; };
+		CBBC91B816D32FB5009E4B86 /* BetaLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetaLogTableViewController.h; sourceTree = "<group>"; };
+		CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetaLogTableViewController.m; sourceTree = "<group>"; };
 		CBBE978F16BDEAF7000556B7 /* AddGymViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGymViewController.h; sourceTree = "<group>"; };
 		CBBE979016BDEAF7000556B7 /* AddGymViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGymViewController.m; sourceTree = "<group>"; };
 		CBBE979616BDEC2C000556B7 /* AddRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRouteViewController.h; sourceTree = "<group>"; };
@@ -311,6 +317,10 @@
 				CB93082316CB15FD008820B0 /* AddRouteResultViewController.m */,
 				CB93082616CC0662008820B0 /* CreateNewUserViewController.h */,
 				CB93082716CC0663008820B0 /* CreateNewUserViewController.m */,
+				CBBC91B816D32FB5009E4B86 /* BetaLogTableViewController.h */,
+				CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */,
+				CB3F1B3116D3657E00400EAD /* AddBetaViewController.h */,
+				CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -521,6 +531,8 @@
 				CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */,
 				CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */,
 				CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */,
+				CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */,
+				CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

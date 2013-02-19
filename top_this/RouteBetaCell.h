@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *betaTextView;
+@property (weak, nonatomic) IBOutlet UILabel *date;
 
 @end

@@ -93,7 +93,7 @@
     [[self tableView] reloadData];
     
     //Only app admins have the ability to add a gym
-    if ([self.globals.currentUser.adminId integerValue] != -1) {
+    if (![self userIsGeneralAdmin]) {
         self.navigationItem.rightBarButtonItems = nil;
     }
 }
@@ -106,6 +106,10 @@
         self.selectedGym = [self.gyms objectAtIndex:indexPath.row];
         routeTableViewController.gym = self.selectedGym;
     }
+}
+
+-(BOOL)userIsGeneralAdmin{
+    return ([self.globals.currentUser.adminId integerValue] == -1);
 }
 
 
@@ -139,6 +143,25 @@
 
 
 #pragma mark - Table view delegate
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSUInteger row = [indexPath row];
+    
+    //attempt to send delete request to server
+    Gym *gymToDelete = [self.gyms objectAtIndex:row];
+    [self.objectManager deleteObject:gymToDelete path:@"gyms" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"Successfully deleted gym!");
+        [self loadGyms];
+        [self.tableView reloadData];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
