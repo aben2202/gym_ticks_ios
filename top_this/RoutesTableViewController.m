@@ -19,6 +19,8 @@
 @property (strong, nonatomic) Route *selectedRoute;
 @property (strong, nonatomic) Global *globals;
 @property (strong, nonatomic) RKObjectManager *objectManager;
+@property (strong, nonatomic) NSMutableArray *boulderProblems;
+@property (strong, nonatomic) NSMutableArray *verticalRoutes;
 
 @end
 
@@ -27,6 +29,8 @@
 @synthesize gym = _gym;
 @synthesize globals = _globals;
 @synthesize objectManager = _objectManager;
+@synthesize boulderProblems = _boulderProblems;
+@synthesize verticalRoutes = _verticalRoutes;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -78,7 +82,6 @@
     [tempImageView setFrame:self.tableView.frame];
     [tempImageView setAlpha:0.25f];
     self.tableView.backgroundView = tempImageView;
-
     [self loadRoutes];
 }
 
@@ -93,11 +96,28 @@
     NSDictionary *params = @{@"gym_id": self.gym.gymId};
     [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
+        [self sortRoutes];
         [self.tableView reloadData];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
+}
+
+-(void)sortRoutes{
+    self.boulderProblems = [NSMutableArray array];
+    self.verticalRoutes = [NSMutableArray array];
+ 
+    int i = 0;
+    for (i=0; i<self.routes.count; i++) {
+        Route *currentRoute = [self.routes objectAtIndex:i];
+        if ([currentRoute.routeType isEqualToString:@"Boulder"]) {
+            [self.boulderProblems addObject:currentRoute];
+        }
+        else if ([currentRoute.routeType isEqualToString:@"Vertical"]){
+            [self.verticalRoutes addObject:currentRoute];
+        }
+    }
 }
 
 -(BOOL)userIsGymAdmin{
@@ -109,12 +129,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.routes.count;
+    if (section == 0) {
+        return self.boulderProblems.count;
+    }
+    else if (section == 1){
+        return self.verticalRoutes.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,12 +148,34 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    Route *theRoute = [self.routes objectAtIndex:indexPath.row];
+    Route *theRoute;
+    if (indexPath.section == 0){
+        theRoute = [self.boulderProblems objectAtIndex:indexPath.row];
+    }
+    else if (indexPath.section == 1){
+        theRoute = [self.verticalRoutes objectAtIndex:indexPath.row];
+    }
     cell.textLabel.text = [theRoute name];
     cell.detailTextLabel.text = [theRoute rating];
     
     return cell;
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Boulder Problems";
+            break;
+        case 1:
+            return @"Vertical Routes";
+            break;
+        default:
+            return @"Accident";
+            break;
+    }
+    
+}
+
 
 
 #pragma mark - Table view delegate
@@ -143,20 +190,20 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSUInteger row = [indexPath row];
+//    NSUInteger row = [indexPath row];
     
     //attempt to update route retirement date on server
-    Route *routeToRetire = [self.routes objectAtIndex:row];
-    routeToRetire.retirementDate = [NSDate date];
-    NSString *path = [NSString stringWithFormat:@"routes/%d", [routeToRetire.routeId integerValue]];
-    [self.objectManager putObject:routeToRetire path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"Successfully deleted gym!");
-        [self loadRoutes];
-        [self.tableView reloadData];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-    }];
+//    Route *routeToRetire = [self.routes objectAtIndex:row];
+//    routeToRetire.retirementDate = [NSDate date];
+//    NSString *path = [NSString stringWithFormat:@"routes/%d", [routeToRetire.routeId integerValue]];
+//    [self.objectManager putObject:routeToRetire path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+//        NSLog(@"Successfully deleted gym!");
+//        [self loadRoutes];
+//        [self.tableView reloadData];
+//    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+//        NSLog(@"ERROR: %@", error);
+//        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+//    }];
 }
 
 

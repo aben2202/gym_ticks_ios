@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Gym.h"
 
-@interface AddRouteViewController : UIViewController
+@interface AddRouteViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UITextField *routeNameTextField;
@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *routeSetterTextField;
 @property (weak, nonatomic) IBOutlet UIButton *addRouteButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIPickerView *routeType;
+@property (strong, nonatomic) NSMutableArray *routeTypes;
 
 @property (strong, nonatomic) Gym *gym;
 

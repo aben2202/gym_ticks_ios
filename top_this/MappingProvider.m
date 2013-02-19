@@ -37,6 +37,7 @@
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"routeId",
                                                   @"gym_id": @"gymId",
                                                   @"set_date": @"setDate",
+                                                  @"route_type": @"routeType",
                                                   @"retirement_date": @"retirementDate"}];
     
     return mapping;
@@ -45,7 +46,8 @@
 + (RKMapping *)routeRequestMapping {
     RKObjectMapping *mapping = [RKObjectMapping requestMapping];
     [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
-    [mapping addAttributeMappingsFromDictionary:@{@"gymId": @"gym_id"}];
+    [mapping addAttributeMappingsFromDictionary:@{@"gymId": @"gym_id",
+                                                  @"routeType": @"route_type"}];
     
     return mapping;
 }

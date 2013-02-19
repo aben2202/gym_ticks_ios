@@ -23,6 +23,7 @@
 @synthesize theRoute = _theRoute;
 @synthesize objectManager = _objectManager;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,7 +43,8 @@
         [self.pickerOptions addObject:@"FLASH"];
         [self.pickerOptions addObject:@"SEND"];
         [self.pickerOptions addObject:@"PIECEWISE"];
-        
+        [self.completionTypeSelector setFrame:CGRectMake(0, 0, 320, 75)];
+            
         self.globals = [Global getInstance];
         self.objectManager = [RKObjectManager sharedManager];
     }
@@ -53,7 +55,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.view sendSubviewToBack:self.wallImage];
+    [self.completionTypeSelector setFrame:CGRectMake(0, 0, 320, 75)];
 }
 
 - (void)didReceiveMemoryWarning

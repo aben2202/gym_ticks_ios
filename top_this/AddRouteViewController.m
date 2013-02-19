@@ -21,6 +21,7 @@
 
 @synthesize gym = _gym;
 @synthesize objectManager = _objectManager;
+@synthesize routeTypes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,8 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.objectManager = [RKObjectManager sharedManager];
+        
+        self.routeTypes = [[NSMutableArray alloc] initWithObjects:@"Boulder",@"Vertical", nil];
     }
     return self;
 }
@@ -47,6 +50,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self.routeType reloadAllComponents];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,10 +72,6 @@
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
-    
-    
-
-
 }
 
 -(Route *)getRouteFromFields{
@@ -81,8 +81,37 @@
     newRoute.location = self.locationTextField.text;
     newRoute.setter = self.routeSetterTextField.text;
     newRoute.gymId = self.gym.gymId;
+    NSInteger row = [self.routeType selectedRowInComponent:0];
+    newRoute.routeType = [self.routeTypes objectAtIndex:row];
     
     return newRoute;
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.routeNameTextField resignFirstResponder];
+    [self.ratingTextField resignFirstResponder];
+    [self.locationTextField resignFirstResponder];
+    [self.routeSetterTextField resignFirstResponder];
+}
+
+# pragma mark - UIPickerViewDataSource methods
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return self.routeTypes.count;
+}
+
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [self.routeTypes objectAtIndex:row];
+}
+
+# pragma mark - UITextViewDelegate methods
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [textField resignFirstResponder];
+}
 @end
