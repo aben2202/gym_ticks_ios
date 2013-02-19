@@ -21,6 +21,7 @@
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
 		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
 		CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */; };
+		CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */; };
 		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
@@ -122,6 +123,8 @@
 		CB2682CD16C5C082008E4CBE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		CB3F1B3116D3657E00400EAD /* AddBetaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBetaViewController.h; sourceTree = "<group>"; };
 		CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBetaViewController.m; sourceTree = "<group>"; };
+		CB3F1B3A16D415E900400EAD /* OtherUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUserProfileViewController.h; sourceTree = "<group>"; };
+		CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUserProfileViewController.m; sourceTree = "<group>"; };
 		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
 		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */,
 				CB3F1B3116D3657E00400EAD /* AddBetaViewController.h */,
 				CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */,
+				CB3F1B3A16D415E900400EAD /* OtherUserProfileViewController.h */,
+				CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */,
 				CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */,
 				CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */,
+				CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

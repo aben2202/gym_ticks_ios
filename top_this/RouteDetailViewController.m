@@ -15,6 +15,7 @@
 #import "AddRouteResultViewController.h"
 #import <RestKit/RestKit.h>
 #import "BetaLogTableViewController.h"
+#import "OtherUserProfileViewController.h"
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *beta;
@@ -160,6 +161,25 @@
         BetaLogTableViewController *betaLogController = segue.destinationViewController;
         betaLogController.theRoute = self.theRoute;
         [betaLogController loadBeta];
+    }
+    else if ([segue.identifier isEqualToString:@"userProfile"]){
+        OtherUserProfileViewController *profileController = segue.destinationViewController;
+        RouteCompletion *selectedCompletion;
+        NSIndexPath *indexPath = [self.resultsTableView indexPathForSelectedRow];
+        if (indexPath.section == 0 ){
+            selectedCompletion = [self.onsites objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == 1 ){
+            selectedCompletion = [self.flashes objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == 2 ){
+            selectedCompletion = [self.sends objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == 3 ){
+            selectedCompletion = [self.piecewises objectAtIndex:indexPath.row];
+        }
+        
+        profileController.user = selectedCompletion.user;
     }
 }
 

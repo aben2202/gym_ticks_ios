@@ -12,6 +12,7 @@
 #import "Global.h"
 #import "Beta.h"
 #import "AddBetaViewController.h"
+#import "OtherUserProfileViewController.h"
 
 @interface BetaLogTableViewController ()
 
@@ -61,19 +62,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [backgroundView setImage:[UIImage imageNamed:@"wall.jpg"]];
-    [backgroundView setAlpha:0.25];
-    [self.view addSubview:backgroundView];
-    [self.view sendSubviewToBack:backgroundView];
-    [self.tableView setBackgroundColor:[UIColor clearColor]];
- 
-    //put white behind this image
-    UIView *backgroundWhiteView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:backgroundWhiteView];
-    [self.view sendSubviewToBack:backgroundWhiteView];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
-
+    
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
+    [tempImageView setFrame:self.tableView.frame];
+    [tempImageView setAlpha:0.25f];
+    self.tableView.backgroundView = tempImageView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,8 +91,17 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    AddBetaViewController *betaPostController = [segue destinationViewController];
-    betaPostController.theRoute = self.theRoute;
+    if ([segue.identifier isEqualToString:@"betaLog"]) {
+        AddBetaViewController *betaPostController = [segue destinationViewController];
+        betaPostController.theRoute = self.theRoute;
+    }
+    else if ([segue.identifier isEqualToString:@"userProfile"]){
+        OtherUserProfileViewController *profileController = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Beta *selectedBeta = [self.allTheBeta objectAtIndex:indexPath.row];
+        profileController.user = selectedBeta.user;
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -130,6 +132,8 @@
         cell.userNameLabel.backgroundColor = [UIColor clearColor];
         cell.betaTextView.backgroundColor = [UIColor clearColor];
         cell.date.text = [NSDateFormatter localizedStringFromDate:currentBeta.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+        
+        cell.betaTextView.editable = NO;
     }
     
     return cell;
