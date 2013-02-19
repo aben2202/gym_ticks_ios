@@ -113,7 +113,6 @@
 }
 
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -145,7 +144,12 @@
 #pragma mark - Table view delegate
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleDelete;
+    if ([self userIsGeneralAdmin]) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    else{
+        return UITableViewCellEditingStyleNone;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -153,7 +157,8 @@
     
     //attempt to send delete request to server
     Gym *gymToDelete = [self.gyms objectAtIndex:row];
-    [self.objectManager deleteObject:gymToDelete path:@"gyms" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    NSString *path = [NSString stringWithFormat:@"gyms/%d", [gymToDelete.gymId integerValue]];
+    [self.objectManager deleteObject:gymToDelete path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully deleted gym!");
         [self loadGyms];
         [self.tableView reloadData];
