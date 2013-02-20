@@ -13,6 +13,7 @@
 #import "RouteDetailViewController.h"
 #import "Global.h"
 #import "AddRouteViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
@@ -92,14 +93,17 @@
 
 - (void)loadRoutes
 {
+    [SVProgressHUD showWithStatus:@"Loading routes..."];
     NSDictionary *params = @{@"gym_id": self.gym.gymId};
     [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
         [self sortRoutes];
         [self.tableView reloadData];
+        [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to load routes"];
     }];
 }
 

@@ -74,11 +74,7 @@
 
 - (IBAction)uploadNewImage:(id)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary | UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        imagePickerController.sourceType |= UIImagePickerControllerSourceTypeCamera;
-    }
-    
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
 

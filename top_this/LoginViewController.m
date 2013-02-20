@@ -122,15 +122,18 @@
 }
 
 -(void)setCurrentUser{
+    [SVProgressHUD showWithStatus:@"Signing in..."];
     [self.objectManager getObjectsAtPath:@"users" parameters:@{@"auth_token":[self.credentialStore authToken]} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"Successfully retrieved current user!");
         User *newUser = mappingResult.array[0];
         self.globals.currentUser = newUser;
         [self.objectManager.HTTPClient setDefaultHeader:@"Auth_token" value:[self.credentialStore authToken]];
         [self performSegueWithIdentifier:@"toMainApp" sender:self];
+        [SVProgressHUD showSuccessWithStatus:@"Successfully logged in!"];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to auto login."];
     }];
 }
 

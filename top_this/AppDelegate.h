@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import "Global.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) RKObjectManager *objectManager;
+@property (strong, nonatomic) Global *globals;
 
 -(void)setupObjectManager;
 

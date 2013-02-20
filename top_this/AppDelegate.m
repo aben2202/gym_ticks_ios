@@ -55,7 +55,9 @@
 }
 
 -(void)setupObjectManager{
-    NSURL *baseURL = [NSURL URLWithString:@"http://localhost:3000/api/v1"];
+    //NSString *path = @"http://localhost:3000/api/v1";
+    NSString *path = @"http://gym-ticks.herokuapp.com/api/v1";
+    NSURL *baseURL = [NSURL URLWithString:path];
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:baseURL];
     
     //Setup request/response descriptors

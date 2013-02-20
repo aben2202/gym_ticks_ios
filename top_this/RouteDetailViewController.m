@@ -16,6 +16,7 @@
 #import <RestKit/RestKit.h>
 #import "BetaLogTableViewController.h"
 #import "OtherUserProfileViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *beta;
@@ -89,6 +90,7 @@
 }
 
 -(void)loadRouteCompletions{
+    [SVProgressHUD showWithStatus:@"Loading route details..."];
     NSDictionary *params = @{@"route_id": self.theRoute.routeId};
     [self.objectManager getObjectsAtPath:@"route_completions" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routeCompletions = mappingResult.array;
@@ -97,9 +99,11 @@
         [self setGeneralInfo];
         [self.resultsTableView reloadData];
         [self displayButtons];
+        [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to load route details"];
     }];
 }
 

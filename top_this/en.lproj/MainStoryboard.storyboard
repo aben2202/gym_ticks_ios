@@ -527,10 +527,10 @@
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="V8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Md3-fW-gal">
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="65" id="0g5-7e-2bJ"/>
                                                         <constraint firstAttribute="height" constant="30" id="iZQ-Hd-Y1d"/>
-                                                        <constraint firstAttribute="width" constant="31" id="luL-xR-EaU"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -556,11 +556,11 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="jqn-8h-WSV" firstAttribute="leading" secondItem="woh-Xr-f8I" secondAttribute="leading" constant="129" id="FyN-hU-UBF"/>
-                                            <constraint firstAttribute="trailing" secondItem="Md3-fW-gal" secondAttribute="trailing" constant="10" id="Kpz-1y-rxt"/>
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="top" secondItem="jqn-8h-WSV" secondAttribute="top" type="default" id="PXy-3m-Kvr"/>
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="baseline" secondItem="jqn-8h-WSV" secondAttribute="baseline" type="default" id="UB9-I2-x3o"/>
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="top" secondItem="woh-Xr-f8I" secondAttribute="top" constant="22" id="ZMR-aB-Huf"/>
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="leading" secondItem="woh-Xr-f8I" secondAttribute="leading" constant="48" id="d5q-H8-5xN"/>
+                                            <constraint firstAttribute="trailing" secondItem="Md3-fW-gal" secondAttribute="trailing" constant="10" id="eGI-M1-S6W"/>
                                             <constraint firstItem="ZTH-bg-bZ0" firstAttribute="top" secondItem="woh-Xr-f8I" secondAttribute="top" constant="3" id="eua-dO-jUu"/>
                                             <constraint firstItem="ZTH-bg-bZ0" firstAttribute="leading" secondItem="woh-Xr-f8I" secondAttribute="leading" constant="30" id="oN6-CG-Sjm"/>
                                             <constraint firstItem="Md3-fW-gal" firstAttribute="centerY" secondItem="woh-Xr-f8I" secondAttribute="centerY" type="default" id="ug3-hv-dS5"/>
@@ -714,7 +714,7 @@
                     <navigationItem key="navigationItem" title="Beta Log" id="QGn-qo-K4q">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="RBD-HH-p77">
                             <connections>
-                                <segue destination="lIk-FS-5cW" kind="modal" id="Gm0-7D-WtA"/>
+                                <segue destination="lIk-FS-5cW" kind="modal" identifier="betaLog" id="Gm0-7D-WtA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -837,9 +837,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="V8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKA-XQ-d2N">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="6wY-5H-V2F"/>
-                                                        <constraint firstAttribute="width" constant="31" id="BB4-v2-NLo"/>
+                                                        <constraint firstAttribute="width" constant="65" id="z7Y-K0-ykk"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -962,7 +962,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31" y="777"/>
+            <point key="canvasLocation" x="-581" y="630"/>
         </scene>
         <!--Add Gym View Controller - Add Gym-->
         <scene sceneID="q1V-Sl-ecm">
