@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "Global.h"
+#import <NVSlideMenuController/NVSlideMenuController.h>
 
 @interface GymsTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;

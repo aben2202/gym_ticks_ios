@@ -99,7 +99,7 @@
 
 + (RKMapping *)betaMapping{
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Beta class]];
-    [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId", @"comment": @"comment", @"date": @"date"}];
+    [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId", @"comment": @"comment", @"created_at": @"postedAt"}];
     [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
     

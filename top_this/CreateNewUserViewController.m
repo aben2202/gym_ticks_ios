@@ -176,4 +176,12 @@
     return [NSString stringWithFormat:@"user[email]=%@&user[first_name]=%@&user[last_name]=%@&user[password]=%@", email,firstName,lastName,password];
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.emailTextField resignFirstResponder];
+    [self.firstNameTextField resignFirstResponder];
+    [self.lastNameTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    [self.passwordConfirmationTextField resignFirstResponder];
+}
+
 @end

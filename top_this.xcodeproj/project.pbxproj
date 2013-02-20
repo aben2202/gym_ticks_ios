@@ -17,6 +17,9 @@
 		CB167C2C16CF7787007E2C8C /* LoginCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = CB167C2B16CF7787007E2C8C /* LoginCredentials.m */; };
 		CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */; };
 		CB18F90716C594DE007D22D0 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB18F90616C594DE007D22D0 /* login_background.jpg */; };
+		CB1A14CF16D45CB5007A2B7F /* SlideMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1A14CE16D45CB5007A2B7F /* SlideMenuTableViewController.m */; };
+		CB1A14D516D468A8007A2B7F /* RouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1A14D416D468A8007A2B7F /* RouteCell.m */; };
+		CB1A14D716D4924D007A2B7F /* initProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CB1A14D616D4924D007A2B7F /* initProfilePic.jpg */; };
 		CB21F64A16BB2783007932EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB21F64116BB2736007932EC /* libRestKit.a */; };
 		CB21F65116BB7E6C007932EC /* MappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21F65016BB7E6C007932EC /* MappingProvider.m */; };
 		CB2682CE16C5C082008E4CBE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2682CD16C5C082008E4CBE /* Session.m */; };
@@ -116,6 +119,11 @@
 		CB167C2B16CF7787007E2C8C /* LoginCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCredentials.m; sourceTree = "<group>"; };
 		CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 12809070_s.jpg; path = ../../../../Downloads/12809070_s.jpg; sourceTree = "<group>"; };
 		CB18F90616C594DE007D22D0 /* login_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_background.jpg; sourceTree = "<group>"; };
+		CB1A14CD16D45CB5007A2B7F /* SlideMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuTableViewController.h; sourceTree = "<group>"; };
+		CB1A14CE16D45CB5007A2B7F /* SlideMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuTableViewController.m; sourceTree = "<group>"; };
+		CB1A14D316D468A8007A2B7F /* RouteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteCell.h; sourceTree = "<group>"; };
+		CB1A14D416D468A8007A2B7F /* RouteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCell.m; sourceTree = "<group>"; };
+		CB1A14D616D4924D007A2B7F /* initProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = initProfilePic.jpg; path = ../../../../Downloads/initProfilePic.jpg; sourceTree = "<group>"; };
 		CB21F63616BB2736007932EC /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		CB21F64F16BB7E6C007932EC /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
 		CB21F65016BB7E6C007932EC /* MappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingProvider.m; sourceTree = "<group>"; };
@@ -229,6 +237,8 @@
 				CB5128B816CD898A007102DE /* RecentClimbsCell.m */,
 				CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */,
 				CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */,
+				CB1A14D316D468A8007A2B7F /* RouteCell.h */,
+				CB1A14D416D468A8007A2B7F /* RouteCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -326,6 +336,8 @@
 				CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */,
 				CB3F1B3A16D415E900400EAD /* OtherUserProfileViewController.h */,
 				CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */,
+				CB1A14CD16D45CB5007A2B7F /* SlideMenuTableViewController.h */,
+				CB1A14CE16D45CB5007A2B7F /* SlideMenuTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -368,6 +380,7 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CB1A14D616D4924D007A2B7F /* initProfilePic.jpg */,
 				CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */,
 				CB167C2816CF03BF007E2C8C /* 06-magnify.png */,
 				CB167C2316CF0335007E2C8C /* 111-user.png */,
@@ -485,6 +498,7 @@
 				CB167C2416CF0335007E2C8C /* 111-user.png in Resources */,
 				CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */,
 				CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */,
+				CB1A14D716D4924D007A2B7F /* initProfilePic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +553,8 @@
 				CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */,
 				CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */,
 				CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */,
+				CB1A14CF16D45CB5007A2B7F /* SlideMenuTableViewController.m in Sources */,
+				CB1A14D516D468A8007A2B7F /* RouteCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

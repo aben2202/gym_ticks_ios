@@ -14,6 +14,6 @@
 @synthesize user = _user;
 @synthesize route = _route;
 @synthesize comment = _comment;
-@synthesize date = _date;
+@synthesize postedAt = _postedAt;
 
 @end

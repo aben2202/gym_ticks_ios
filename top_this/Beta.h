@@ -16,6 +16,6 @@
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) Route *route;
 @property (strong, nonatomic) NSString *comment;
-@property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSDate *postedAt;
 
 @end

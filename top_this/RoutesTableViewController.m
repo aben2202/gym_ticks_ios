@@ -14,6 +14,7 @@
 #import "Global.h"
 #import "AddRouteViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "RouteCell.h"
 
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
@@ -97,6 +98,7 @@
     NSDictionary *params = @{@"gym_id": self.gym.gymId};
     [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
+        [self correctRouteDates];
         [self sortRoutes];
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
@@ -119,6 +121,20 @@
         }
         else if ([currentRoute.routeType isEqualToString:@"Vertical"]){
             [self.verticalRoutes addObject:currentRoute];
+        }
+    }
+}
+
+-(void)correctRouteDates{
+    NSTimeInterval sixHours = 6*60*60;
+    int i;
+    for (i = 0; i < self.routes.count; i++) {
+        //add 6 hours to the set date
+        Route *currentRoute = [self.routes objectAtIndex:i];
+        currentRoute.setDate = [currentRoute.setDate dateByAddingTimeInterval:sixHours];
+        //add to retirement date if not nil
+        if (currentRoute.retirementDate != nil){
+            currentRoute.retirementDate = [currentRoute.retirementDate dateByAddingTimeInterval:sixHours];
         }
     }
 }
@@ -148,7 +164,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"RouteCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    RouteCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     Route *theRoute;
@@ -158,8 +174,29 @@
     else if (indexPath.section == 1){
         theRoute = [self.verticalRoutes objectAtIndex:indexPath.row];
     }
-    cell.textLabel.text = [theRoute name];
-    cell.detailTextLabel.text = [theRoute rating];
+    cell.routeNameLabel.text = [theRoute name];
+    cell.ratingLabel.text = [theRoute rating];
+
+    //calculate how recently the route was added
+    NSDate *today = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                               fromDate:theRoute.setDate
+                                                 toDate:today
+                                                options:0];
+    NSInteger daysAgo = components.day;
+    if (daysAgo == 0){
+        cell.recentlyAddedLabel.text = @"added today";
+    }
+    else if (daysAgo == 1){
+        cell.recentlyAddedLabel.text = @"added yesterday";
+    }
+    else if (daysAgo > 1 && daysAgo < 7){
+        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", daysAgo];
+    }
+    else{
+        cell.recentlyAddedLabel.hidden = YES;
+    }
     
     return cell;
 }
