@@ -15,6 +15,7 @@
 #import "AddRouteViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "RouteCell.h"
+#import "RouteCompletion.h"
 
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) RKObjectManager *objectManager;
 @property (strong, nonatomic) NSMutableArray *boulderProblems;
 @property (strong, nonatomic) NSMutableArray *verticalRoutes;
+@property (strong, nonatomic) NSArray *userCompletions;
 
 @end
 
@@ -33,6 +35,7 @@
 @synthesize objectManager = _objectManager;
 @synthesize boulderProblems = _boulderProblems;
 @synthesize verticalRoutes = _verticalRoutes;
+@synthesize userCompletions = _userCompletions;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -83,7 +86,6 @@
     [tempImageView setFrame:self.tableView.frame];
     [tempImageView setAlpha:0.25f];
     self.tableView.backgroundView = tempImageView;
-    [self loadRoutes];
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,12 +102,23 @@
         self.routes = mappingResult.array;
         [self correctRouteDates];
         [self sortRoutes];
+        [self loadCurrentUserCompletions];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to load routes"];
+    }];
+}
+
+-(void)loadCurrentUserCompletions{
+    [self.objectManager getObjectsAtPath:@"route_completions" parameters:@{@"user_id":self.globals.currentUser.userId} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.userCompletions = mappingResult.array;
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-        [SVProgressHUD showErrorWithStatus:@"Unable to load routes"];
+         [SVProgressHUD showErrorWithStatus:@"Unable to load user completions"];
     }];
 }
 
@@ -143,6 +156,24 @@
     return ([self.globals.currentUser.adminId integerValue] == -1 || [self.globals.currentUser.adminId integerValue] == [self.gym.gymId integerValue]);
 }
 
+-(BOOL)userHasSentRoute:(Route *)route{
+    //only returns true if the user has SENT the route.  returns false for piecewises.
+    int i;
+    for (i=0; i < self.userCompletions.count; i++) {
+        RouteCompletion *currentCompletion = [self.userCompletions objectAtIndex:i];
+        if ([currentCompletion.route.routeId integerValue] == [route.routeId integerValue]) {
+            if ([currentCompletion.completionType isEqualToString:@"Piecewise"] ||
+              [currentCompletion.completionType isEqualToString:@"PIECEWISE"]){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 
 #pragma mark - Table view data source
 
@@ -158,6 +189,9 @@
     }
     else if (section == 1){
         return self.verticalRoutes.count;
+    }
+    else{
+        return 0;
     }
 }
 
@@ -176,28 +210,36 @@
     }
     cell.routeNameLabel.text = [theRoute name];
     cell.ratingLabel.text = [theRoute rating];
+    
+    ////calculate how recently the route was added
+    //   all the routes have a created time stamp at midnight for the day they were created (the midnight before they were created).  So we just create the timestamp for the previous midnight from now and then take the date components from a calendar to get the time difference between the two times.  this way there is no time during the day when the 'time ago' will be off.
+    NSDate *thePreviousMidnight = [NSDate date];
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+    thePreviousMidnight = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:thePreviousMidnight]];
 
-    //calculate how recently the route was added
-    NSDate *today = [NSDate date];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+    NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSSecondCalendarUnit
                                                fromDate:theRoute.setDate
-                                                 toDate:today
+                                                 toDate:thePreviousMidnight
                                                 options:0];
-    NSInteger daysAgo = components.day;
-    if (daysAgo == 0){
+    NSInteger daysAgoFromPreviousMidnight = components.day;
+    if (daysAgoFromPreviousMidnight < 1){
         cell.recentlyAddedLabel.text = @"added today";
     }
-    else if (daysAgo == 1){
+    else if (daysAgoFromPreviousMidnight == 1){
         cell.recentlyAddedLabel.text = @"added yesterday";
     }
-    else if (daysAgo > 1 && daysAgo < 7){
-        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", daysAgo];
+    else if (daysAgoFromPreviousMidnight > 1 && daysAgoFromPreviousMidnight < 7){
+        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", daysAgoFromPreviousMidnight];
     }
     else{
         cell.recentlyAddedLabel.hidden = YES;
     }
     
+    if (![self userHasSentRoute:theRoute]) {
+        cell.alreadySentLabel.hidden = true;
+    }
+        
     return cell;
 }
 

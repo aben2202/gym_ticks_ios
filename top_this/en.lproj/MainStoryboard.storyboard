@@ -61,16 +61,16 @@
         <scene sceneID="9HD-HQ-HrS">
             <objects>
                 <tableViewController id="fBp-84-kkO" customClass="RoutesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="xA4-9q-xcr">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" id="xA4-9q-xcr">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RouteCell" id="SAd-3z-zu3" customClass="RouteCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RouteCell" rowHeight="33" id="SAd-3z-zu3" customClass="RouteCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Chalupa Ride" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ex-7z-VHB">
@@ -83,8 +83,8 @@
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="added 2 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8US-7U-RqK">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="dU6-KO-zws"/>
                                                 <constraint firstAttribute="width" constant="92" id="qsa-0s-x4a"/>
+                                                <constraint firstAttribute="height" constant="21" id="t7k-c9-f3J"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.0" green="0.58704949817518248" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -98,19 +98,31 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="***" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-v2-BJe">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="Kwf-TK-DkQ"/>
+                                                <constraint firstAttribute="width" constant="20" id="twS-2i-ztI"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.72553604014598538" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="8US-7U-RqK" secondAttribute="bottom" constant="1" id="1TT-ID-hsI"/>
+                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="top" secondItem="R2N-Yh-2T1" secondAttribute="top" type="default" id="9u9-4H-os7"/>
+                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" type="default" id="BZI-bA-bgs"/>
+                                    <constraint firstAttribute="trailing" secondItem="8US-7U-RqK" secondAttribute="trailing" constant="66" id="Hg3-Am-aIr"/>
+                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="5" id="MvC-w2-ywJ"/>
                                     <constraint firstAttribute="trailing" secondItem="R2N-Yh-2T1" secondAttribute="trailing" constant="10" id="PdP-QY-JJZ"/>
-                                    <constraint firstItem="R2N-Yh-2T1" firstAttribute="baseline" secondItem="3ex-7z-VHB" secondAttribute="baseline" type="default" id="erm-mY-mmb"/>
-                                    <constraint firstItem="8US-7U-RqK" firstAttribute="leading" secondItem="3ex-7z-VHB" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="lq3-Ac-csu"/>
-                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="11" id="qu7-it-O7z"/>
-                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="13" id="v3g-tC-tiF"/>
-                                    <constraint firstItem="R2N-Yh-2T1" firstAttribute="top" secondItem="3ex-7z-VHB" secondAttribute="top" type="default" id="yC2-Zw-a6p"/>
+                                    <constraint firstItem="8US-7U-RqK" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="11" id="Q9y-Ke-HSD"/>
+                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="baseline" secondItem="R2N-Yh-2T1" secondAttribute="baseline" type="default" id="aLI-we-Sze"/>
+                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="centerY" secondItem="SAd-3z-zu3" secondAttribute="centerY" type="default" id="gbe-je-Fg5"/>
+                                    <constraint firstItem="3ex-7z-VHB" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="16" id="iZd-w1-kiC"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="alreadySentLabel" destination="iOg-v2-BJe" id="f6h-N5-tPq"/>
                                     <outlet property="ratingLabel" destination="R2N-Yh-2T1" id="cKh-KV-TqT"/>
                                     <outlet property="recentlyAddedLabel" destination="8US-7U-RqK" id="f5J-vk-tpE"/>
                                     <outlet property="routeNameLabel" destination="3ex-7z-VHB" id="V72-aI-Ip2"/>
@@ -674,6 +686,7 @@
                                             </accessibility>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="54" id="J9p-7i-Jeo"/>
+                                                <constraint firstAttribute="width" constant="222" id="hcq-vD-ms4"/>
                                             </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" red="0.084458501719999995" green="0.049453723829999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -692,9 +705,9 @@
                                             </accessibility>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="1Qb-Kp-1K2"/>
-                                                <constraint firstAttribute="width" constant="222" id="Dx4-gA-idV"/>
+                                                <constraint firstAttribute="width" constant="182" id="pcZ-Dv-dNa"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -718,7 +731,6 @@
                                     <constraint firstItem="69g-kz-pkf" firstAttribute="leading" secondItem="RCD-Ch-Oxq" secondAttribute="leading" constant="11" id="0XR-gY-3tq"/>
                                     <constraint firstItem="Cck-RY-nWS" firstAttribute="leading" secondItem="nDK-o0-AW2" secondAttribute="leading" type="default" id="41F-sm-Yma"/>
                                     <constraint firstItem="69g-kz-pkf" firstAttribute="top" secondItem="RCD-Ch-Oxq" secondAttribute="top" constant="9" id="6Xy-op-dNS"/>
-                                    <constraint firstAttribute="trailing" secondItem="Cck-RY-nWS" secondAttribute="trailing" constant="20" type="default" id="AZo-aI-BpX"/>
                                     <constraint firstAttribute="trailing" secondItem="nDK-o0-AW2" secondAttribute="trailing" constant="20" type="default" id="DLS-GL-3gP"/>
                                     <constraint firstAttribute="trailing" secondItem="cuh-RE-wUQ" secondAttribute="trailing" constant="4" id="TFk-21-qCs"/>
                                     <constraint firstItem="nDK-o0-AW2" firstAttribute="top" secondItem="RCD-Ch-Oxq" secondAttribute="top" constant="17" id="Yaa-jK-iB0"/>
@@ -1737,6 +1749,7 @@
         <class className="RouteCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="alreadySentLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="recentlyAddedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>

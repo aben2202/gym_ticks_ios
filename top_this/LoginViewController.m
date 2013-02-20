@@ -96,6 +96,7 @@
 }
 
 - (IBAction)submitCredentials:(id)sender{
+    [SVProgressHUD showWithStatus:@"Signing in..."];
     LoginCredentials *credentials = [[LoginCredentials alloc] init];
     credentials.email = self.emailTextField.text;
     credentials.password = self.passwordTextField.text;
