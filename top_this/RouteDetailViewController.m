@@ -275,6 +275,9 @@
         if (theCompletion.user.userId.integerValue != self.globals.currentUser.userId.integerValue){
             cell.editButton.hidden = true;
         }
+        else{
+            cell.editButton. backgroundColor = [UIColor grayColor];
+        }
 
         
         //set url for profile pic
