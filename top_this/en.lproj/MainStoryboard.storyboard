@@ -244,6 +244,23 @@
                                                     <color key="textColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-B5-wlX">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="55" id="7Vf-vd-TJW"/>
+                                                        <constraint firstAttribute="height" constant="24" id="fsc-mq-f8s"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Edit">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="kde-aN-SFk" kind="modal" identifier="editResult" id="Grm-Vj-Foe"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -254,12 +271,15 @@
                                             <constraint firstItem="1W3-sH-BJ0" firstAttribute="leading" secondItem="VLd-gR-Uk5" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Z75-ig-PRJ"/>
                                             <constraint firstItem="VLd-gR-Uk5" firstAttribute="leading" secondItem="bvN-9K-SGv" secondAttribute="leading" constant="21" id="gIJ-GG-k22"/>
                                             <constraint firstItem="JID-hN-Xvl" firstAttribute="centerY" secondItem="bvN-9K-SGv" secondAttribute="centerY" type="default" id="l0k-5W-lEz"/>
+                                            <constraint firstItem="rpF-B5-wlX" firstAttribute="leading" secondItem="bvN-9K-SGv" secondAttribute="leading" constant="250" id="mxd-XK-jwD"/>
+                                            <constraint firstItem="rpF-B5-wlX" firstAttribute="top" secondItem="bvN-9K-SGv" secondAttribute="top" constant="26" id="soo-RJ-uWc"/>
                                             <constraint firstItem="xJN-Jh-egY" firstAttribute="leading" secondItem="JID-hN-Xvl" secondAttribute="leading" type="default" id="zdM-zb-F5S"/>
                                             <constraint firstItem="JID-hN-Xvl" firstAttribute="leading" secondItem="bvN-9K-SGv" secondAttribute="leading" constant="98" id="zlg-YI-bmP"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="climbViaLabel" destination="JID-hN-Xvl" id="Kx9-sU-PdK"/>
                                             <outlet property="completionDateLabel" destination="xJN-Jh-egY" id="xEC-MG-yR6"/>
+                                            <outlet property="editButton" destination="rpF-B5-wlX" id="GmB-y0-rTF"/>
                                             <outlet property="userNameLabel" destination="1W3-sH-BJ0" id="Ncb-Ss-CgC"/>
                                             <outlet property="userProfilePicture" destination="VLd-gR-Uk5" id="DcH-qf-WaM"/>
                                             <segue destination="zcK-I4-ABy" kind="push" identifier="userProfile" id="ff2-2M-6Ml"/>
@@ -1776,6 +1796,7 @@
             <relationships>
                 <relationship kind="outlet" name="climbViaLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="completionDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userProfilePicture" candidateClass="UIImageView"/>
             </relationships>
@@ -1787,6 +1808,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="TBt-ab-33f"/>
+        <segue reference="ff2-2M-6Ml"/>
+        <segue reference="Grm-Vj-Foe"/>
     </inferredMetricsTieBreakers>
 </document>

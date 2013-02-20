@@ -161,6 +161,20 @@
         AddRouteResultViewController *resultsVC = segue.destinationViewController;
         resultsVC.theRoute = self.theRoute;
     }
+    else if ([segue.identifier isEqualToString:@"editResult"]){
+        AddRouteResultViewController *resultsVC = segue.destinationViewController;
+        resultsVC.theRoute = self.theRoute;
+        resultsVC.requestType = @"PUT";
+        //get current user completion
+        int i;
+        for (i=0; i < self.routeCompletions.count; i++) {
+            RouteCompletion *currentIterCompletion = [self.routeCompletions objectAtIndex:i];
+            if (currentIterCompletion.user.userId.integerValue == self.globals.currentUser.userId.integerValue) {
+                resultsVC.completionToUpdate = currentIterCompletion;
+                break;
+            }
+        }
+    }
     else if ([segue.identifier isEqualToString:@"betaLog"]){
         BetaLogTableViewController *betaLogController = segue.destinationViewController;
         betaLogController.theRoute = self.theRoute;
@@ -257,6 +271,12 @@
             theCompletion = [self.piecewises objectAtIndex:indexPath.row];
         }
         
+        //hide editing button if not completion for current user
+        if (theCompletion.user.userId.integerValue != self.globals.currentUser.userId.integerValue){
+            cell.editButton.hidden = true;
+        }
+
+        
         //set url for profile pic
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
         [cell.userProfilePicture setImageWithURL:url];
@@ -284,12 +304,12 @@
             //light yellow background color
             cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
         }
+        
         return cell;
     }
 }
 
 #pragma mark - Table view delegate
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

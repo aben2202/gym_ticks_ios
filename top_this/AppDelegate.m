@@ -55,8 +55,8 @@
 }
 
 -(void)setupObjectManager{
-    //NSString *path = @"http://localhost:3000/api/v1";
-    NSString *path = @"http://gym-ticks.herokuapp.com/api/v1";
+    NSString *path = @"http://localhost:3000/api/v1";
+    //NSString *path = @"http://gym-ticks.herokuapp.com/api/v1";
     NSURL *baseURL = [NSURL URLWithString:path];
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:baseURL];
     
@@ -105,6 +105,10 @@
     RKMapping *routeCompletionMapping = [MappingProvider routeCompletionMapping];
     RKResponseDescriptor *routeCompletionsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:routeCompletionMapping pathPattern:@"route_completions" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:routeCompletionsResponseDescriptor];
+    RKMapping *singleRouteCompletionMapping = [MappingProvider routeCompletionMapping];
+    RKResponseDescriptor *singleRouteCompletionsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:singleRouteCompletionMapping pathPattern:@"route_completions/:routeCompletionId" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:singleRouteCompletionsResponseDescriptor];
+
     
     // betas ////////////////
     // requests

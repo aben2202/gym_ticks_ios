@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Global.h"
 #import "Route.h"
+#import "RouteCompletion.h"
 
 @interface AddRouteResultViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (retain, nonatomic) IBOutlet UIPickerView *completionTypeSelector;
@@ -16,6 +17,8 @@
 @property (strong, nonatomic) Route *theRoute;
 @property (strong, nonatomic) Global *globals;
 @property (strong, nonatomic) NSMutableArray *climbTypes;
+@property (strong, nonatomic) NSString *requestType;
+@property (strong, nonatomic) RouteCompletion *completionToUpdate;
 
 - (IBAction)submitRouteCompletion:(id)sender;
 - (IBAction)cancel:(id)sender;

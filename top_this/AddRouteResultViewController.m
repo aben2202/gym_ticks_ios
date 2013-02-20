@@ -23,6 +23,7 @@
 @synthesize climbTypes = _climbTypes;
 @synthesize theRoute = _theRoute;
 @synthesize objectManager = _objectManager;
+@synthesize requestType = _requestType;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,7 +56,23 @@
     return self;
 }
 -(void)viewWillAppear:(BOOL)animated{
-    [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
+    if ([self.requestType isEqualToString:@"PUT"]) {// we are updating a result so set dial to old result
+        if ([self.completionToUpdate.completionType isEqualToString:@"ONSITE"]) {
+            [self.completionTypeSelector selectRow:0 inComponent:0 animated:NO];
+        }
+        else if ([self.completionToUpdate.completionType isEqualToString:@"FLASH"]) {
+            [self.completionTypeSelector selectRow:1 inComponent:0 animated:NO];
+        }
+        else if ([self.completionToUpdate.completionType isEqualToString:@"SEND"]) {
+            [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
+        }
+        else if ([self.completionToUpdate.completionType isEqualToString:@"PIECEWISE"]) {
+            [self.completionTypeSelector selectRow:3 inComponent:0 animated:NO];
+        }
+    }
+    else{
+        [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
+    }
 }
 
 - (void)viewDidLoad
@@ -72,13 +89,25 @@
 
 - (IBAction)submitRouteCompletion:(id)sender {
     RouteCompletion *theCompletion = [self getRouteCompletionFromFields];
-    [self.objectManager postObject:theCompletion path:@"route_completions" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"Successfully submitted result!");
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-    }];
+    if ([self.requestType isEqualToString:@"PUT"]) { //update the current completion
+        NSString *path = [NSString stringWithFormat:@"route_completions/%d", self.completionToUpdate.routeCompletionId.integerValue];
+        [self.objectManager putObject:theCompletion path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            NSLog(@"Successfully submitted result!");
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"ERROR: %@", error);
+            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        }];
+    }
+    else{ //add a new completion
+        [self.objectManager postObject:theCompletion path:@"route_completions" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            NSLog(@"Successfully submitted result!");
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"ERROR: %@", error);
+            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        }];
+    }
 }
 
 - (IBAction)cancel:(id)sender {
