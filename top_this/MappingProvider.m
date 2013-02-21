@@ -47,7 +47,8 @@
     RKObjectMapping *mapping = [RKObjectMapping requestMapping];
     [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
     [mapping addAttributeMappingsFromDictionary:@{@"gymId": @"gym_id",
-                                                  @"routeType": @"route_type"}];
+                                                  @"routeType": @"route_type",
+                                                  @"retirementDate": @"retirement_date"}];
     
     return mapping;
 }

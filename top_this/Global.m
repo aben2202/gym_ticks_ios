@@ -19,8 +19,8 @@
 }
 
 -(NSMutableString *)serverBaseURL{
-    //return [NSMutableString stringWithFormat:@"http://localhost:3000"];
-    return [NSMutableString stringWithFormat:@"http://gym-ticks.herokuapp.com"];
+    return [NSMutableString stringWithFormat:@"http://localhost:3000"];
+    //return [NSMutableString stringWithFormat:@"http://gym-ticks.herokuapp.com"];
 }
 
 -(NSString *)getURLStringWithPath:(NSString *)path{

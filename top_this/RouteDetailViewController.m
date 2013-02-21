@@ -83,10 +83,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //both types of admin can edit a route
     if (!(([self.globals.currentUser.adminId integerValue] == [self.theRoute.gymId integerValue]) ||
         ([self.globals.currentUser.adminId integerValue] == -1))) {
         self.editRouteButton.hidden = true;
+        self.retireRouteButton.hidden = true;
     }
+    //only app admins can delete a route
+    if(!([self.globals.currentUser.adminId integerValue] == -1)){
+        self.deleteRouteButton.hidden = true;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -191,6 +198,23 @@
 
     }];
 
+}
+
+- (IBAction)retireRoute:(id)sender {
+    [SVProgressHUD showWithStatus:@"Retiring route..."];
+    NSString *path = [NSString stringWithFormat:@"routes/%d", [self.theRoute.routeId integerValue]];
+    NSDate *now = [NSDate date];
+    self.theRoute.retirementDate = now;
+    
+    //update the route with the retirement date of today
+    [self.objectManager putObject:self.theRoute path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"Successfully retired route!"];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to retire route"];
+    }];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
