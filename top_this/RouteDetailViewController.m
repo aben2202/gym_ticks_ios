@@ -177,6 +177,22 @@
     }
 }
 
+-(IBAction)deleteRoute:(id)sender {
+    //TODO - add "are you sure you want to delete this route" popup.  then make available to gym admin
+    [SVProgressHUD show];
+    NSString *path = [NSString stringWithFormat:@"routes/%d", [self.theRoute.routeId integerValue]];
+    [self.objectManager deleteObject:self.theRoute path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"Successfully deleted route!"];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to delete route"];
+
+    }];
+
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"postResult"]){
         AddRouteResultViewController *resultsVC = segue.destinationViewController;

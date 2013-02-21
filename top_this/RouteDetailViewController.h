@@ -20,8 +20,11 @@
 @property (retain, nonatomic) IBOutlet UILabel *routeCompletionsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *postResultsButton;
 @property (weak, nonatomic) IBOutlet UIButton *editRouteButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteRouteButton;
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;
+
+- (IBAction)deleteRoute:(id)sender;
 
 @end

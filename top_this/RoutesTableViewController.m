@@ -142,9 +142,10 @@
     NSSortDescriptor *ratingNumberSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingNumber" ascending:YES];
     NSSortDescriptor *ratingLetterSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingLetter" ascending:YES];
     NSSortDescriptor *ratingArrowSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingArrow" ascending:NO];
+    NSSortDescriptor *nameSorter = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     
-    NSArray *verticalDescriptors = @[ratingNumberSorter, ratingLetterSorter, ratingArrowSorter];
-    NSArray *boulderingDescriptors = @[ratingNumberSorter, ratingArrowSorter];
+    NSArray *verticalDescriptors = @[ratingNumberSorter, ratingLetterSorter, ratingArrowSorter, nameSorter];
+    NSArray *boulderingDescriptors = @[ratingNumberSorter, ratingArrowSorter, nameSorter];
     self.verticalRoutes = [[NSMutableArray alloc] initWithArray:[self.verticalRoutes sortedArrayUsingDescriptors:verticalDescriptors]];
     self.boulderProblems = [[NSMutableArray alloc] initWithArray:[self.boulderProblems sortedArrayUsingDescriptors:boulderingDescriptors]];
 }
@@ -236,19 +237,25 @@
     NSInteger daysAgoFromPreviousMidnight = components.day;
     if (daysAgoFromPreviousMidnight < 1){
         cell.recentlyAddedLabel.text = @"added today";
+        cell.recentlyAddedLabel.hidden = NO;
     }
     else if (daysAgoFromPreviousMidnight == 1){
         cell.recentlyAddedLabel.text = @"added yesterday";
+        cell.recentlyAddedLabel.hidden = NO;
     }
     else if (daysAgoFromPreviousMidnight > 1 && daysAgoFromPreviousMidnight < 7){
         cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", daysAgoFromPreviousMidnight];
+        cell.recentlyAddedLabel.hidden = NO;
     }
-    else{
+    else if (daysAgoFromPreviousMidnight > 7){
         cell.recentlyAddedLabel.hidden = YES;
     }
     
     if (![self userHasSentRoute:theRoute]) {
         cell.alreadySentLabel.hidden = true;
+    }
+    else{
+        cell.alreadySentLabel.hidden = false;
     }
         
     return cell;
