@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIPickerView *routeType;
 @property (strong, nonatomic) NSMutableArray *routeTypes;
+@property BOOL okToAddRoute;
 
 @property (strong, nonatomic) Gym *gym;
 

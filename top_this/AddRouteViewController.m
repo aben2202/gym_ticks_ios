@@ -10,6 +10,7 @@
 #import <RestKit/RestKit.h>
 #import "MappingProvider.h"
 #import "Route.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface AddRouteViewController ()
 
@@ -22,6 +23,7 @@
 @synthesize gym = _gym;
 @synthesize objectManager = _objectManager;
 @synthesize routeTypes;
+@synthesize okToAddRoute = _okToAddRoute;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +40,7 @@
         self.objectManager = [RKObjectManager sharedManager];
         
         self.routeTypes = [[NSMutableArray alloc] initWithObjects:@"Boulder",@"Vertical", nil];
+        self.okToAddRoute = true;
     }
     return self;
 }
@@ -64,14 +67,23 @@
 }
 
 - (IBAction)addRoute:(id)sender {
-    Route *theNewRoute = [self getRouteFromFields];
-    [self.objectManager postObject:theNewRoute path:@"routes" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"Successfully added route to gym!");
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-    }];
+    if(self.okToAddRoute){
+        self.okToAddRoute = false;
+        [SVProgressHUD showWithStatus:@"Adding route..."];
+        
+        Route *theNewRoute = [self getRouteFromFields];
+        [self.objectManager postObject:theNewRoute path:@"routes" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            NSLog(@"Successfully added route to gym!");
+            [self dismissViewControllerAnimated:YES completion:NULL];
+            [SVProgressHUD showSuccessWithStatus:@"Success!"];
+            self.okToAddRoute = true;
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"ERROR: %@", error);
+            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+            [SVProgressHUD showErrorWithStatus:@"Unable to add route"];
+            self.okToAddRoute = true;
+        }];
+    }
 }
 
 -(Route *)getRouteFromFields{

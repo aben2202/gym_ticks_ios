@@ -136,6 +136,17 @@
             [self.verticalRoutes addObject:currentRoute];
         }
     }
+        
+    //sort ratings using nsdescriptors
+    // first the vertical
+    NSSortDescriptor *ratingNumberSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingNumber" ascending:YES];
+    NSSortDescriptor *ratingLetterSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingLetter" ascending:YES];
+    NSSortDescriptor *ratingArrowSorter = [[NSSortDescriptor alloc] initWithKey:@"ratingArrow" ascending:NO];
+    
+    NSArray *verticalDescriptors = @[ratingNumberSorter, ratingLetterSorter, ratingArrowSorter];
+    NSArray *boulderingDescriptors = @[ratingNumberSorter, ratingArrowSorter];
+    self.verticalRoutes = [[NSMutableArray alloc] initWithArray:[self.verticalRoutes sortedArrayUsingDescriptors:verticalDescriptors]];
+    self.boulderProblems = [[NSMutableArray alloc] initWithArray:[self.boulderProblems sortedArrayUsingDescriptors:boulderingDescriptors]];
 }
 
 -(void)correctRouteDates{
