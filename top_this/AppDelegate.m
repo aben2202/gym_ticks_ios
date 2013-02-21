@@ -86,6 +86,7 @@
     RKResponseDescriptor *gymsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:gymMapping pathPattern:@"gyms" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:gymsResponseDescriptor];
     
+    
     // routes //////////////
     // requests
     RKMapping *routeRequestMapping = [MappingProvider routeRequestMapping];
@@ -95,6 +96,10 @@
     RKMapping *routeMapping = [MappingProvider routeMapping];
     RKResponseDescriptor *routesResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:routeMapping pathPattern:@"routes" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:routesResponseDescriptor];
+    RKMapping *singleRouteMapping = [MappingProvider routeMapping];
+    RKResponseDescriptor *singleRouteResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:singleRouteMapping pathPattern:@"routes/:routeId" keyPath:nil statusCodes:statusCodeSet];
+    [objectManager addResponseDescriptor:singleRouteResponseDescriptor];
+
     
     // route completions ////
     // requests
@@ -119,6 +124,7 @@
     RKMapping *betaMapping = [MappingProvider betaMapping];
     RKResponseDescriptor *betaResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:betaMapping pathPattern:@"beta" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:betaResponseDescriptor];
+    
     
     // sessions /////////////
     // requests

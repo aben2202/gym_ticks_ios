@@ -53,7 +53,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.routeType reloadAllComponents];
+    if ([self.requestType isEqualToString:@"PUT"]) {
+        self.navBar.topItem.title = @"Update Route";
+        self.routeNameTextField.text = self.routeToUpdate.name;
+        self.ratingTextField.text = self.routeToUpdate.rating;
+        self.locationTextField.text = self.routeToUpdate.location;
+        self.routeSetterTextField.text = self.routeToUpdate.setter;
+        if ([self.routeToUpdate.routeType isEqualToString:@"Boulder"]) {
+            [self.routeType selectRow:0 inComponent:0 animated:NO];
+        }
+        else{
+            [self.routeType selectRow:1 inComponent:0 animated:NO];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,20 +81,41 @@
 - (IBAction)addRoute:(id)sender {
     if(self.okToAddRoute){
         self.okToAddRoute = false;
-        [SVProgressHUD showWithStatus:@"Adding route..."];
-        
-        Route *theNewRoute = [self getRouteFromFields];
-        [self.objectManager postObject:theNewRoute path:@"routes" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            NSLog(@"Successfully added route to gym!");
-            [self dismissViewControllerAnimated:YES completion:NULL];
-            [SVProgressHUD showSuccessWithStatus:@"Success!"];
-            self.okToAddRoute = true;
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            NSLog(@"ERROR: %@", error);
-            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-            [SVProgressHUD showErrorWithStatus:@"Unable to add route"];
-            self.okToAddRoute = true;
-        }];
+        if ([self.requestType isEqualToString:@"PUT"]) {
+            //update request here
+            [SVProgressHUD showWithStatus:@"Updating route..."];
+            
+            Route *theUpdatedRoute = [self getRouteFromFields];
+            NSString *path = [NSString stringWithFormat:@"routes/%d", [self.routeToUpdate.routeId integerValue]];
+            [self.objectManager putObject:theUpdatedRoute path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                NSLog(@"Successfully updated route!");
+                [self dismissViewControllerAnimated:YES completion:NULL];
+                [SVProgressHUD showSuccessWithStatus:@"Success!"];
+                self.okToAddRoute = true;
+            } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                NSLog(@"ERROR: %@", error);
+                NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+                [SVProgressHUD showErrorWithStatus:@"Unable to update route"];
+                self.okToAddRoute = true;
+            }];
+
+        }
+        else{
+            [SVProgressHUD showWithStatus:@"Adding route..."];
+            
+            Route *theNewRoute = [self getRouteFromFields];
+            [self.objectManager postObject:theNewRoute path:@"routes" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                NSLog(@"Successfully added route to gym!");
+                [self dismissViewControllerAnimated:YES completion:NULL];
+                [SVProgressHUD showSuccessWithStatus:@"Success!"];
+                self.okToAddRoute = true;
+            } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                NSLog(@"ERROR: %@", error);
+                NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+                [SVProgressHUD showErrorWithStatus:@"Unable to add route"];
+                self.okToAddRoute = true;
+            }];
+        }
     }
 }
 

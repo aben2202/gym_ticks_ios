@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Gym.h"
+#import "Route.h"
 
 @interface AddRouteViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
@@ -21,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *routeType;
 @property (strong, nonatomic) NSMutableArray *routeTypes;
 @property BOOL okToAddRoute;
+@property (strong, nonatomic) NSString *requestType;
+@property (strong, nonatomic) Route *routeToUpdate;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @property (strong, nonatomic) Gym *gym;
 

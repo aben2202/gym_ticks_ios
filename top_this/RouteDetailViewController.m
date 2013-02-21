@@ -13,6 +13,7 @@
 #import "MappingProvider.h"
 #import "Global.h"
 #import "AddRouteResultViewController.h"
+#import "AddRouteViewController.h"
 #import <RestKit/RestKit.h>
 #import "BetaLogTableViewController.h"
 #import "OtherUserProfileViewController.h"
@@ -75,12 +76,17 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [self loadRouteInfo];
     [self loadRouteCompletions];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (!(([self.globals.currentUser.adminId integerValue] == [self.theRoute.gymId integerValue]) ||
+        ([self.globals.currentUser.adminId integerValue] == -1))) {
+        self.editRouteButton.hidden = true;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,7 +102,6 @@
         self.routeCompletions = mappingResult.array;
         NSLog(@"Loaded route completions");
         [self parseCompletions];
-        [self setGeneralInfo];
         [self.resultsTableView reloadData];
         [self displayButtons];
         [SVProgressHUD dismiss];
@@ -105,6 +110,22 @@
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
         [SVProgressHUD showErrorWithStatus:@"Unable to load route details"];
     }];
+}
+
+-(void)loadRouteInfo{
+    [SVProgressHUD showWithStatus:@"Loading route info..."];
+    NSString *path = [NSString stringWithFormat:@"routes/%d", [self.theRoute.routeId integerValue]];
+    [self.objectManager getObject:self.theRoute path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.theRoute = mappingResult.array[0];
+        NSLog(@"Loaded route");
+        [self setGeneralInfo];
+        [SVProgressHUD dismiss];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to load route details"];
+    }];
+
 }
 
 -(void)parseCompletions{
@@ -198,6 +219,11 @@
         }
         
         profileController.user = selectedCompletion.user;
+    }
+    else if ([segue.identifier isEqualToString:@"updateRoute"]){
+        AddRouteViewController *addRouteVC = segue.destinationViewController;
+        addRouteVC.requestType = @"PUT";
+        addRouteVC.routeToUpdate = self.theRoute;
     }
 }
 

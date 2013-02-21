@@ -17,7 +17,8 @@
 
 -(NSInteger)ratingNumber{
     if ([self.routeType isEqualToString:@"Boulder"]){
-        NSRange theRange = NSMakeRange(1, self.rating.length-1);
+        
+        NSRange theRange = NSMakeRange(1, [self ratingWithoutPlusMinus].length-1);
         NSString *numberAsString = [[self ratingWithoutPlusMinus] substringWithRange:theRange];
         return [numberAsString intValue];
     }

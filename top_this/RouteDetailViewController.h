@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *routeSetterLabel;
 @property (retain, nonatomic) IBOutlet UILabel *routeCompletionsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *postResultsButton;
+@property (weak, nonatomic) IBOutlet UIButton *editRouteButton;
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;
