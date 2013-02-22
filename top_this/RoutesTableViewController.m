@@ -247,8 +247,8 @@
         cell.recentlyAddedLabel.text = @"added yesterday";
         cell.recentlyAddedLabel.hidden = NO;
     }
-    else if (components.day > 1 && components.day < 7){
-        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", components.day];
+    else if (components.day >= 1 && components.day < 7){
+        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", (components.day + 1)];
         cell.recentlyAddedLabel.hidden = NO;
     }
     else if (components.day >= 7){

@@ -398,7 +398,7 @@
                                     <constraint firstAttribute="height" constant="44" id="QH7-KV-qJ0"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Add Results" id="LKH-8H-hCd">
+                                    <navigationItem title="Add Status" id="LKH-8H-hCd">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="hzb-1G-C5D">
                                             <connections>
                                                 <action selector="cancel:" destination="kde-aN-SFk" id="eI3-ft-hG2"/>
@@ -421,10 +421,10 @@
                                     <outlet property="delegate" destination="kde-aN-SFk" id="yp8-nZ-vc5"/>
                                 </connections>
                             </pickerView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Congratulations on finishing this route!              Select your finish type." translatesAutoresizingMaskIntoConstraints="NO" id="JpQ-0q-ICX">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpQ-0q-ICX">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="nqj-Pt-ecU"/>
+                                    <constraint firstAttribute="height" constant="34" id="Ye6-Pm-Fgj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -445,7 +445,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="SEND: The climber made it to the top of the route without ever weighting the rope." translatesAutoresizingMaskIntoConstraints="NO" id="Zhn-rX-YZA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="SEND: The climber finished the route without ever falling or weighting the rope." translatesAutoresizingMaskIntoConstraints="NO" id="Zhn-rX-YZA">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="Ak2-HQ-gA1"/>
@@ -453,7 +453,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="PIECEWISE: The climber made it to the top of the route, but weighted the rope while doing so at least once." translatesAutoresizingMaskIntoConstraints="NO" id="d2J-mt-trr">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="PROJECT: The climber is working on this route, but has yet to send it." translatesAutoresizingMaskIntoConstraints="NO" id="d2J-mt-trr">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="QdU-ky-piV"/>
