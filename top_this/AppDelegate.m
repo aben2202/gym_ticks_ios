@@ -135,6 +135,12 @@
     RKMapping *loginResponseMapping = [MappingProvider sessionMapping];
     RKResponseDescriptor *session = [RKResponseDescriptor responseDescriptorWithMapping:loginResponseMapping pathPattern:@"users/sign_in" keyPath:nil statusCodes:statusCodeSet];
     [objectManager addResponseDescriptor:session];
+    
+    
+    // error mappings
+    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
+    [errorMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:@"error" toKeyPath:@"errorMessage"]];
+    [objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:@"error" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)]];
 }
 
 @end

@@ -122,7 +122,8 @@
 -(Route *)getRouteFromFields{
     Route *newRoute = [[Route alloc] init];
     newRoute.name = self.routeNameTextField.text;
-    newRoute.rating = self.ratingTextField.text;
+    //don't allow spaces in the rating property.  should only be numbers, a, b, c, d, v, +, or -
+    newRoute.rating = [self.ratingTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     newRoute.location = self.locationTextField.text;
     newRoute.setter = self.routeSetterTextField.text;
     newRoute.gymId = self.gym.gymId;

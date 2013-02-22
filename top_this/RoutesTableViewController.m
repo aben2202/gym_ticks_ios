@@ -100,7 +100,7 @@
     NSDictionary *params = @{@"gym_id": self.gym.gymId};
     [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
-        [self correctRouteDates];
+        //[self correctRouteDates];
         [self sortRoutes];
         [self loadCurrentUserCompletions];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -148,20 +148,6 @@
     NSArray *boulderingDescriptors = @[ratingNumberSorter, ratingArrowSorter, nameSorter];
     self.verticalRoutes = [[NSMutableArray alloc] initWithArray:[self.verticalRoutes sortedArrayUsingDescriptors:verticalDescriptors]];
     self.boulderProblems = [[NSMutableArray alloc] initWithArray:[self.boulderProblems sortedArrayUsingDescriptors:boulderingDescriptors]];
-}
-
--(void)correctRouteDates{
-    NSTimeInterval sixHours = 6*60*60;
-    int i;
-    for (i = 0; i < self.routes.count; i++) {
-        //add 6 hours to the set date
-        Route *currentRoute = [self.routes objectAtIndex:i];
-        currentRoute.setDate = [currentRoute.setDate dateByAddingTimeInterval:sixHours];
-        //add to retirement date if not nil
-        if (currentRoute.retirementDate != nil){
-            currentRoute.retirementDate = [currentRoute.retirementDate dateByAddingTimeInterval:sixHours];
-        }
-    }
 }
 
 -(BOOL)userIsGymAdmin{
@@ -224,30 +210,31 @@
     cell.ratingLabel.text = [theRoute rating];
     
     ////calculate how recently the route was added
-    //   all the routes have a created time stamp at midnight for the day they were created (the midnight before they were created).  So we just create the timestamp for the previous midnight from now and then take the date components from a calendar to get the time difference between the two times.  this way there is no time during the day when the 'time ago' will be off.
-    NSDate *thePreviousMidnight = [NSDate date];
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
     NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
-    thePreviousMidnight = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:thePreviousMidnight]];
+    NSDate *thePreviousMidnight = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:[NSDate date]]];
 
     NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSSecondCalendarUnit
-                                               fromDate:theRoute.setDate
+                                               fromDate:theRoute.createdAt
                                                  toDate:thePreviousMidnight
                                                 options:0];
-    NSInteger daysAgoFromPreviousMidnight = components.day;
-    if (daysAgoFromPreviousMidnight < 1){
+    
+    //components.day = the number of full days ago from the previous midnight
+    //components.second = the seconds leftover after components.day have been removed
+
+    if (components.day == 0 && components.second < 0){
         cell.recentlyAddedLabel.text = @"added today";
         cell.recentlyAddedLabel.hidden = NO;
     }
-    else if (daysAgoFromPreviousMidnight == 1){
+    else if (components.day == 0 && components.second > 0){
         cell.recentlyAddedLabel.text = @"added yesterday";
         cell.recentlyAddedLabel.hidden = NO;
     }
-    else if (daysAgoFromPreviousMidnight > 1 && daysAgoFromPreviousMidnight < 7){
-        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", daysAgoFromPreviousMidnight];
+    else if (components.day > 1 && components.day < 7){
+        cell.recentlyAddedLabel.text = [NSString stringWithFormat:@"added %d days ago", components.day];
         cell.recentlyAddedLabel.hidden = NO;
     }
-    else if (daysAgoFromPreviousMidnight > 7){
+    else if (components.day >= 7){
         cell.recentlyAddedLabel.hidden = YES;
     }
     
@@ -257,7 +244,8 @@
     else{
         cell.alreadySentLabel.hidden = false;
     }
-        
+
+    
     return cell;
 }
 
@@ -287,35 +275,6 @@
     else{
         return UITableViewCellEditingStyleNone;
     }
-}
-
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSUInteger row = [indexPath row];
-    
-    //attempt to update route retirement date on server
-//    Route *routeToRetire = [self.routes objectAtIndex:row];
-//    routeToRetire.retirementDate = [NSDate date];
-//    NSString *path = [NSString stringWithFormat:@"routes/%d", [routeToRetire.routeId integerValue]];
-//    [self.objectManager putObject:routeToRetire path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-//        NSLog(@"Successfully deleted gym!");
-//        [self loadRoutes];
-//        [self.tableView reloadData];
-//    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-//        NSLog(@"ERROR: %@", error);
-//        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-//    }];
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -13,15 +13,12 @@
 
 @property (strong, nonatomic) Route *theRoute;
 
-@property (retain, nonatomic) IBOutlet UILabel *routeNameLabel;
-@property (retain, nonatomic) IBOutlet UILabel *routeRatingLabel;
-@property (retain, nonatomic) IBOutlet UILabel *routeLocationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *routeSetterLabel;
-@property (retain, nonatomic) IBOutlet UILabel *routeCompletionsLabel;
-@property (weak, nonatomic) IBOutlet UIButton *postResultsButton;
-@property (weak, nonatomic) IBOutlet UIButton *editRouteButton;
-@property (weak, nonatomic) IBOutlet UIButton *deleteRouteButton;
-@property (weak, nonatomic) IBOutlet UIButton *retireRouteButton;
+
+@property (weak, nonatomic) IBOutlet UIToolbar *barButtonToolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *postResultBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editRouteBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *retireRouteBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteRouteBarButton;
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;

@@ -36,7 +36,7 @@
     [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"routeId",
                                                   @"gym_id": @"gymId",
-                                                  @"set_date": @"setDate",
+                                                  @"created_at": @"createdAt",
                                                   @"route_type": @"routeType",
                                                   @"retirement_date": @"retirementDate"}];
     

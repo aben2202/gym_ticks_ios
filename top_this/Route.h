@@ -23,7 +23,7 @@
 @property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSString *setter;
 @property (strong, nonatomic) NSString *routeType;
-@property (strong, nonatomic) NSDate *setDate;
+@property (strong, nonatomic) NSDate *createdAt;
 @property (strong, nonatomic) NSDate *retirementDate;
 
 @end

@@ -58,6 +58,7 @@
 		CB93082816CC0663008820B0 /* CreateNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB93082716CC0663008820B0 /* CreateNewUserViewController.m */; };
 		CB96BAA516C585AF00D3A832 /* CredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAA416C585AF00D3A832 /* CredentialStore.m */; };
 		CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */; };
+		CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */; };
 		CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */; };
 		CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B616D2BAEB009E4B86 /* Beta.m */; };
 		CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */; };
@@ -181,6 +182,8 @@
 		CB96BAA416C585AF00D3A832 /* CredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialStore.m; sourceTree = "<group>"; };
 		CB96BAAA16C58FAC00D3A832 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		CBB856FB16D6F4CA005D79FB /* RouteGeneralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteGeneralInfo.h; sourceTree = "<group>"; };
+		CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteGeneralInfo.m; sourceTree = "<group>"; };
 		CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteBetaCell.h; sourceTree = "<group>"; };
 		CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetaCell.m; sourceTree = "<group>"; };
 		CBBC91B516D2BAEB009E4B86 /* Beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beta.h; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */,
 				CB1A14D316D468A8007A2B7F /* RouteCell.h */,
 				CB1A14D416D468A8007A2B7F /* RouteCell.m */,
+				CBB856FB16D6F4CA005D79FB /* RouteGeneralInfo.h */,
+				CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 				CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */,
 				CB1A14CF16D45CB5007A2B7F /* SlideMenuTableViewController.m in Sources */,
 				CB1A14D516D468A8007A2B7F /* RouteCell.m in Sources */,
+				CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

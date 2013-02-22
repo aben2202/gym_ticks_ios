@@ -18,6 +18,7 @@
 #import "BetaLogTableViewController.h"
 #import "OtherUserProfileViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "RouteGeneralInfo.h"
 
 @interface RouteDetailViewController ()
 @property (strong, nonatomic) NSArray *beta;
@@ -46,10 +47,6 @@
 @synthesize objectManager = _objectManager;
 
 //synthesize iboutlets
-@synthesize routeNameLabel = _routeNameLabel;
-@synthesize routeRatingLabel = _routeRatingLabel;
-@synthesize routeLocationLabel = _routeLocationLabel;
-@synthesize routeCompletionsLabel = _routeCompletionsLabel;
 @synthesize personalResultsLabel = _personalResultsLabel;
 @synthesize resultsTableView = _resultsTableView;
 
@@ -76,24 +73,28 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self loadRouteInfo];
     [self loadRouteCompletions];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //both types of admin can edit a route
-    if (!(([self.globals.currentUser.adminId integerValue] == [self.theRoute.gymId integerValue]) ||
-        ([self.globals.currentUser.adminId integerValue] == -1))) {
-        self.editRouteButton.hidden = true;
-        self.retireRouteButton.hidden = true;
+    
+    NSArray *barButtonsToDisplay;
+    //gym admins cannot delete
+    if ([self.globals.currentUser.adminId integerValue] == [self.theRoute.gymId integerValue]) {
+        barButtonsToDisplay = @[self.postResultBarButton, self.editRouteBarButton, self.retireRouteBarButton];
     }
-    //only app admins can delete a route
-    if(!([self.globals.currentUser.adminId integerValue] == -1)){
-        self.deleteRouteButton.hidden = true;
+    //app admins can do it all
+    else if([self.globals.currentUser.adminId integerValue] == -1){
+        barButtonsToDisplay = @[self.postResultBarButton, self.editRouteBarButton, self.retireRouteBarButton, self.deleteRouteBarButton];
+    }
+    //regular users can only post a result
+    else{
+        barButtonsToDisplay = @[self.postResultBarButton];
     }
     
+    [self.barButtonToolbar setItems:barButtonsToDisplay];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +110,7 @@
         self.routeCompletions = mappingResult.array;
         NSLog(@"Loaded route completions");
         [self parseCompletions];
-        [self.resultsTableView reloadData];
+        [self loadRouteInfo];
         [self displayButtons];
         [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -124,8 +125,8 @@
     NSString *path = [NSString stringWithFormat:@"routes/%d", [self.theRoute.routeId integerValue]];
     [self.objectManager getObject:self.theRoute path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.theRoute = mappingResult.array[0];
+        [self.resultsTableView reloadData];
         NSLog(@"Loaded route");
-        [self setGeneralInfo];
         [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
@@ -160,14 +161,6 @@
     }
 }
 
--(void)setGeneralInfo{
-    self.routeNameLabel.text = self.theRoute.name;
-    self.routeRatingLabel.text = self.theRoute.rating;
-    self.routeSetterLabel.text = self.theRoute.setter;
-    self.routeLocationLabel.text = self.theRoute.location;            
-    self.routeCompletionsLabel.text = [NSString stringWithFormat:@"%u",self.routeCompletions.count];
-}
-
 -(void)displayButtons{
     //Don't show the 'Add Results' button if we've already submitted our results for this route.
     int x = 0;
@@ -179,8 +172,7 @@
         }
     }
     if (alreadySubmitted == TRUE) {
-        [self.postResultsButton setEnabled:NO];
-        self.postResultsButton.hidden = YES;
+        [self.postResultBarButton setEnabled:NO];
     }
 }
 
@@ -271,22 +263,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
-        case 0: //onsites
+        case 0: // general route info
+            return 1;
+            break;
+        case 1: //onsites
             return self.onsites.count;
             break;
-        case 1: //flashes
+        case 2: //flashes
             return self.flashes.count;
             break;
-        case 2: //sends
+        case 3: //sends
             return self.sends.count;
             break;
-        case 3: //piecewises
+        case 4: //piecewises
             return self.piecewises.count;
             break;
         default:
@@ -297,17 +292,20 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0: //onsites
-            return @"ONSITES";
+        case 0: //route info
+            return @"Route Info";
             break;
-        case 1: //flashes
-            return @"FLASHES";
+        case 1: //onsites
+            return @"Onsites";
             break;
-        case 2: //sends
-            return @"SENDS";
+        case 2: //flashes
+            return @"Flashes";
             break;
-        case 3: //piecewises
-            return @"PIECEWISES";
+        case 3: //sends
+            return @"Sends";
+            break;
+        case 4: //piecewises
+            return @"Piecewises";
             break;
         default:
             return @"Accident";
@@ -316,62 +314,82 @@
 
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        return 83;
+    }
+    else{
+        return 56;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //make sure the data is loaded
     if (self.routeCompletions != nil);{
-        UserRouteCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteCompletionCell"];
-        
-        RouteCompletion *theCompletion;
-        // Configure the cell...
-        if (indexPath.section == 0) { //onsites
-            theCompletion = [self.onsites objectAtIndex:indexPath.row];
+        if (indexPath.section == 0) { //set the general route info
+            //set general route info here
+            RouteGeneralInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteGeneralInfoCell"];
+            cell.routeNameLabel.text = self.theRoute.name;
+            cell.ratingLabel.text = self.theRoute.rating;
+            NSDateComponents *routeDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.theRoute.createdAt];
+            cell.setDateLabel.text = [NSString stringWithFormat:@"set on %u-%u-%u",routeDateComps.month, routeDateComps.day, routeDateComps.year];
+            cell.setByLabel.text = [NSString stringWithFormat:@"set by %@", self.theRoute.setter];
+            cell.locationLabel.text = [NSString stringWithFormat:@"location: %@", self.theRoute.location];
+            
+            return cell;
         }
-        else if (indexPath.section == 1){ //flashes
-            theCompletion = [self.flashes objectAtIndex:indexPath.row];
-        }
-        else if (indexPath.section == 2){ //sends
-            theCompletion = [self.sends objectAtIndex:indexPath.row];
-        }
-        else if (indexPath.section == 3){ //piecewises
-            theCompletion = [self.piecewises objectAtIndex:indexPath.row];
-        }
-        
-        //hide editing button if not completion for current user
-        if (theCompletion.user.userId.integerValue != self.globals.currentUser.userId.integerValue){
-            cell.editButton.hidden = true;
-        }
+        else{
+            UserRouteCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RouteCompletionCell"];
+            RouteCompletion *theCompletion;
+            // Configure the cell...
+            if (indexPath.section == 1) { //onsites
+                theCompletion = [self.onsites objectAtIndex:indexPath.row];
+            }
+            else if (indexPath.section == 2){ //flashes
+                theCompletion = [self.flashes objectAtIndex:indexPath.row];
+            }
+            else if (indexPath.section == 3){ //sends
+                theCompletion = [self.sends objectAtIndex:indexPath.row];
+            }
+            else if (indexPath.section == 4){ //piecewises
+                theCompletion = [self.piecewises objectAtIndex:indexPath.row];
+            }
+            
+            //hide editing button if not completion for current user
+            if (theCompletion.user.userId.integerValue != self.globals.currentUser.userId.integerValue){
+                cell.editButton.hidden = true;
+            }
 
-        
-        //set url for profile pic
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
-        [cell.userProfilePicture setImageWithURL:url];
-        
-        cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
-        cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
-        NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
-        cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
-        //cell.userProfilePicture
-        
-        //color cell backgrounds
-        if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
-            //light red background color
-            cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+            //set url for profile pic
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
+            [cell.userProfilePicture setImageWithURL:url];
+            
+            cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
+            cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
+            NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
+            cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
+            //cell.userProfilePicture
+            
+            //color cell backgrounds
+            if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
+                //light red background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+            }
+            else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
+                //light green background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+            }
+            else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
+                //light blue background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+            }
+            else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
+                //light yellow background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+            }
+            return cell;
         }
-        else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
-            //light green background color
-            cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
-        }
-        else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
-            //light blue background color
-            cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
-        }
-        else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
-            //light yellow background color
-            cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
-        }
-        
-        return cell;
     }
 }
 
