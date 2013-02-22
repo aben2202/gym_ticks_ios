@@ -44,7 +44,7 @@
         [self.completionTypes addObject:@"ONSITE"];
         [self.completionTypes addObject:@"FLASH"];
         [self.completionTypes addObject:@"SEND"];
-        [self.completionTypes addObject:@"PIECEWISE"];
+        [self.completionTypes addObject:@"PROJECT"];
         
         self.climbTypes = [NSMutableArray array];
         [self.climbTypes addObject:@"Toprope"];
@@ -66,7 +66,7 @@
         else if ([self.completionToUpdate.completionType isEqualToString:@"SEND"]) {
             [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
         }
-        else if ([self.completionToUpdate.completionType isEqualToString:@"PIECEWISE"]) {
+        else if ([self.completionToUpdate.completionType isEqualToString:@"PROJECT"]) {
             [self.completionTypeSelector selectRow:3 inComponent:0 animated:NO];
         }
     }

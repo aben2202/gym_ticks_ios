@@ -87,7 +87,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="t7k-c9-f3J"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                            <color key="textColor" red="0.0" green="0.58704949817518248" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.82561587589999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5.12D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2N-Yh-2T1">
@@ -100,11 +100,10 @@
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="***" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-v2-BJe">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="Kwf-TK-DkQ"/>
-                                                <constraint firstAttribute="width" constant="20" id="twS-2i-ztI"/>
+                                                <constraint firstAttribute="height" constant="20" id="f6N-AS-bbZ"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.72553604014598538" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.72553604009999995" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
@@ -112,20 +111,20 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="top" secondItem="R2N-Yh-2T1" secondAttribute="top" type="default" id="9u9-4H-os7"/>
-                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" type="default" id="BZI-bA-bgs"/>
                                     <constraint firstAttribute="trailing" secondItem="8US-7U-RqK" secondAttribute="trailing" constant="66" id="Hg3-Am-aIr"/>
-                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="5" id="MvC-w2-ywJ"/>
+                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" type="default" id="Nus-Hj-KeI"/>
                                     <constraint firstAttribute="trailing" secondItem="R2N-Yh-2T1" secondAttribute="trailing" constant="10" id="PdP-QY-JJZ"/>
                                     <constraint firstItem="8US-7U-RqK" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="11" id="Q9y-Ke-HSD"/>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="baseline" secondItem="R2N-Yh-2T1" secondAttribute="baseline" type="default" id="aLI-we-Sze"/>
+                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="4" id="fdv-Lx-tPB"/>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="centerY" secondItem="SAd-3z-zu3" secondAttribute="centerY" type="default" id="gbe-je-Fg5"/>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="16" id="iZd-w1-kiC"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="alreadySentLabel" destination="iOg-v2-BJe" id="f6h-N5-tPq"/>
                                     <outlet property="ratingLabel" destination="R2N-Yh-2T1" id="cKh-KV-TqT"/>
                                     <outlet property="recentlyAddedLabel" destination="8US-7U-RqK" id="f5J-vk-tpE"/>
                                     <outlet property="routeNameLabel" destination="3ex-7z-VHB" id="V72-aI-Ip2"/>
+                                    <outlet property="userProgressLabel" destination="iOg-v2-BJe" id="fOg-84-zcM"/>
                                     <segue destination="B2g-MT-Sd8" kind="push" identifier="showRouteDetails" id="IlE-Ya-khc"/>
                                 </connections>
                             </tableViewCell>
@@ -208,20 +207,13 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVK-eu-w7J">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="JLZ-3t-KXI"/>
-                                                        <constraint firstAttribute="height" constant="50" id="nmo-gS-F6s"/>
-                                                    </constraints>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="aVK-eu-w7J" firstAttribute="top" secondItem="bvN-9K-SGv" secondAttribute="top" constant="29" id="2gT-PE-Hy0"/>
                                             <constraint firstItem="94y-G9-Skf" firstAttribute="leading" secondItem="dNI-sj-F9m" secondAttribute="leading" type="default" id="94V-Wm-xUp"/>
                                             <constraint firstItem="b9a-6p-BSD" firstAttribute="leading" secondItem="bvN-9K-SGv" secondAttribute="leading" constant="30" id="9uX-jV-sNA"/>
-                                            <constraint firstItem="aVK-eu-w7J" firstAttribute="trailing" secondItem="deL-0C-2aQ" secondAttribute="trailing" type="default" id="D2e-YP-FSN"/>
+                                            <constraint firstAttribute="trailing" secondItem="deL-0C-2aQ" secondAttribute="trailing" constant="30" id="G5i-eP-rsR"/>
                                             <constraint firstItem="deL-0C-2aQ" firstAttribute="top" secondItem="b9a-6p-BSD" secondAttribute="top" type="default" id="Gxm-b9-vKV"/>
                                             <constraint firstItem="b9a-6p-BSD" firstAttribute="top" secondItem="bvN-9K-SGv" secondAttribute="top" constant="7" id="ITH-VU-4jE"/>
                                             <constraint firstAttribute="bottom" secondItem="h5N-xz-beB" secondAttribute="bottom" constant="5" id="LP2-vj-0mn"/>
@@ -230,7 +222,6 @@
                                             <constraint firstItem="h5N-xz-beB" firstAttribute="leading" secondItem="dNI-sj-F9m" secondAttribute="leading" type="default" id="k41-8x-rKa"/>
                                             <constraint firstItem="94y-G9-Skf" firstAttribute="leading" secondItem="bvN-9K-SGv" secondAttribute="leading" constant="47" id="rB8-NF-3Ju"/>
                                             <constraint firstItem="deL-0C-2aQ" firstAttribute="baseline" secondItem="b9a-6p-BSD" secondAttribute="baseline" type="default" id="sUz-hi-oDr"/>
-                                            <constraint firstAttribute="trailing" secondItem="aVK-eu-w7J" secondAttribute="trailing" constant="30" id="sXD-KX-03u"/>
                                             <constraint firstItem="94y-G9-Skf" firstAttribute="top" secondItem="bvN-9K-SGv" secondAttribute="top" constant="25" id="xzU-CJ-G43"/>
                                             <constraint firstItem="94y-G9-Skf" firstAttribute="trailing" secondItem="dNI-sj-F9m" secondAttribute="trailing" type="default" id="ydn-Do-ejG"/>
                                         </constraints>
@@ -238,7 +229,6 @@
                                             <outlet property="locationLabel" destination="h5N-xz-beB" id="tea-Q7-gCe"/>
                                             <outlet property="ratingLabel" destination="deL-0C-2aQ" id="BUm-NI-oI1"/>
                                             <outlet property="routeNameLabel" destination="b9a-6p-BSD" id="qHr-6w-gQO"/>
-                                            <outlet property="routePhotoImageView" destination="aVK-eu-w7J" id="f06-wc-NYq"/>
                                             <outlet property="setByLabel" destination="dNI-sj-F9m" id="HhL-t2-3Oc"/>
                                             <outlet property="setDateLabel" destination="94y-G9-Skf" id="KHx-0x-bjF"/>
                                             <segue destination="zcK-I4-ABy" kind="push" identifier="userProfile" id="ff2-2M-6Ml"/>
@@ -330,7 +320,7 @@
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y2m-ug-2dR">
                                 <items>
-                                    <barButtonItem title="Post Result" id="lVf-eA-Td2">
+                                    <barButtonItem title="Post Status" id="lVf-eA-Td2">
                                         <connections>
                                             <segue destination="kde-aN-SFk" kind="modal" identifier="postResult" id="OLu-AX-30p"/>
                                         </connections>
@@ -922,7 +912,7 @@
                                     <outlet property="delegate" destination="3" id="giR-Dw-PGX"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Recent completions..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVz-Jk-dCc">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Recent routes..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVz-Jk-dCc">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -1742,10 +1732,10 @@
         <class className="RouteCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="alreadySentLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="recentlyAddedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userProgressLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="RouteDetailViewController" superclassName="UIViewController">

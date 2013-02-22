@@ -26,7 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *onsites;
 @property (strong, nonatomic) NSMutableArray *flashes;
 @property (strong, nonatomic) NSMutableArray *sends;
-@property (strong, nonatomic) NSMutableArray *piecewises;
+@property (strong, nonatomic) NSMutableArray *projects;
 @property (strong, nonatomic) NSString *personalResults;
 @property (strong, nonatomic) Global *globals;
 @property (strong, nonatomic) RKObjectManager *objectManager;
@@ -41,7 +41,7 @@
 @synthesize onsites = _onsites;
 @synthesize flashes = _flashes;
 @synthesize sends = _sends;
-@synthesize piecewises = _piecewises;
+@synthesize projects = _projects;
 @synthesize personalResults = _personalResults;
 @synthesize globals = _globals;
 @synthesize objectManager = _objectManager;
@@ -140,7 +140,7 @@
     self.onsites = [NSMutableArray array];
     self.flashes = [NSMutableArray array];
     self.sends = [NSMutableArray array];
-    self.piecewises = [NSMutableArray array];
+    self.projects = [NSMutableArray array];
     
     
     int i = 0;
@@ -155,8 +155,8 @@
         else if ([currentCompletion.completionType isEqualToString:@"Send"] || [currentCompletion.completionType isEqualToString:@"SEND"]) {
             [self.sends addObject:currentCompletion];
         }
-        else if ([currentCompletion.completionType isEqualToString:@"Piecewise"] || [currentCompletion.completionType isEqualToString:@"PIECEWISE"]) {
-            [self.piecewises addObject:currentCompletion];
+        else if ([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) {
+            [self.projects addObject:currentCompletion];
         }
     }
 }
@@ -247,7 +247,7 @@
             selectedCompletion = [self.sends objectAtIndex:indexPath.row];
         }
         else if (indexPath.section == 3 ){
-            selectedCompletion = [self.piecewises objectAtIndex:indexPath.row];
+            selectedCompletion = [self.projects objectAtIndex:indexPath.row];
         }
         
         profileController.user = selectedCompletion.user;
@@ -281,8 +281,8 @@
         case 3: //sends
             return self.sends.count;
             break;
-        case 4: //piecewises
-            return self.piecewises.count;
+        case 4: //projects
+            return self.projects.count;
             break;
         default:
             return 1;
@@ -304,8 +304,8 @@
         case 3: //sends
             return @"Sends";
             break;
-        case 4: //piecewises
-            return @"Piecewises";
+        case 4: //projects
+            return @"Projects";
             break;
         default:
             return @"Accident";
@@ -352,8 +352,8 @@
             else if (indexPath.section == 3){ //sends
                 theCompletion = [self.sends objectAtIndex:indexPath.row];
             }
-            else if (indexPath.section == 4){ //piecewises
-                theCompletion = [self.piecewises objectAtIndex:indexPath.row];
+            else if (indexPath.section == 4){ //projects
+                theCompletion = [self.projects objectAtIndex:indexPath.row];
             }
             
             //hide editing button if not completion for current user
@@ -373,20 +373,20 @@
             
             //color cell backgrounds
             if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
-                //light red background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+                //light green background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];                
             }
             else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
-                //light green background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+                //light yellow background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
             }
             else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
                 //light blue background color
                 cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
             }
-            else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
-                //light yellow background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+            else if ([theCompletion.completionType isEqualToString:@"PROJECT"]) {
+                //light red background color
+                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
             }
             return cell;
         }

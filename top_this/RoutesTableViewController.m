@@ -155,17 +155,34 @@
 }
 
 -(BOOL)userHasSentRoute:(Route *)route{
-    //only returns true if the user has SENT the route.  returns false for piecewises.
+    //only returns true if the user has SENT the route.  returns false for projects.
     int i;
     for (i=0; i < self.userCompletions.count; i++) {
         RouteCompletion *currentCompletion = [self.userCompletions objectAtIndex:i];
         if ([currentCompletion.route.routeId integerValue] == [route.routeId integerValue]) {
-            if ([currentCompletion.completionType isEqualToString:@"Piecewise"] ||
-              [currentCompletion.completionType isEqualToString:@"PIECEWISE"]){
+            if ([currentCompletion.completionType isEqualToString:@"Project"] ||
+              [currentCompletion.completionType isEqualToString:@"PROJECT"]){
                 return false;
             }
             else{
                 return true;
+            }
+        }
+    }
+    return false;
+}
+
+-(BOOL)userIsProjectingRoute:(Route *)route{
+    int i;
+    for (i=0; i < self.userCompletions.count; i++) {
+        RouteCompletion *currentCompletion = [self.userCompletions objectAtIndex:i];
+        if ([currentCompletion.route.routeId integerValue] == [route.routeId integerValue]) {
+            if ([currentCompletion.completionType isEqualToString:@"Project"] ||
+                [currentCompletion.completionType isEqualToString:@"PROJECT"]){
+                return true;
+            }
+            else{
+                return false;
             }
         }
     }
@@ -238,11 +255,18 @@
         cell.recentlyAddedLabel.hidden = YES;
     }
     
-    if (![self userHasSentRoute:theRoute]) {
-        cell.alreadySentLabel.hidden = true;
+    //configure progress dots
+    if ([self userHasSentRoute:theRoute]) {
+        //make the dots purple
+        cell.userProgressLabel.hidden = false;
+        [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(185/255) green:(0/255) blue:(255/255) alpha:1]];    }
+    else if ([self userIsProjectingRoute:theRoute]){
+        //make the dots red/orange
+        cell.userProgressLabel.hidden = false;
+        [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(255/255) green:(100/255) blue:(0/255) alpha:1]];
     }
     else{
-        cell.alreadySentLabel.hidden = false;
+        cell.userProgressLabel.hidden = true;
     }
 
     

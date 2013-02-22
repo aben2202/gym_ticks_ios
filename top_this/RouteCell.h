@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recentlyAddedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *alreadySentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userProgressLabel;
 
 @end

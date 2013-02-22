@@ -114,7 +114,7 @@
         //light blue background color
         cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
     }
-    else if ([theCompletion.completionType isEqualToString:@"PIECEWISE"]) {
+    else if ([theCompletion.completionType isEqualToString:@"PROJECT"]) {
         //light yellow background color
         cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
     }
