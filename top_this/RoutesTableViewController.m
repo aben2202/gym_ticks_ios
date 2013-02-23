@@ -16,6 +16,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "RouteCell.h"
 #import "RouteCompletion.h"
+#import "Beta.h"
 
 @interface RoutesTableViewController ()
 @property (strong, nonatomic) NSArray *routes;
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *boulderProblems;
 @property (strong, nonatomic) NSMutableArray *verticalRoutes;
 @property (strong, nonatomic) NSArray *userCompletions;
+@property (strong, nonatomic) NSArray *allPendingBetaRequests;
 
 @end
 
@@ -36,6 +38,7 @@
 @synthesize boulderProblems = _boulderProblems;
 @synthesize verticalRoutes = _verticalRoutes;
 @synthesize userCompletions = _userCompletions;
+@synthesize allPendingBetaRequests = _allPendingBetaRequests;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -100,7 +103,6 @@
     NSDictionary *params = @{@"gym_id": self.gym.gymId};
     [self.objectManager getObjectsAtPath:@"routes" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routes = mappingResult.array;
-        //[self correctRouteDates];
         [self sortRoutes];
         [self loadCurrentUserCompletions];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -113,12 +115,23 @@
 -(void)loadCurrentUserCompletions{
     [self.objectManager getObjectsAtPath:@"route_completions" parameters:@{@"user_id":self.globals.currentUser.userId} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.userCompletions = mappingResult.array;
+        [self loadAllRequestedBeta];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to fully load data"];
+    }];
+}
+
+-(void)loadAllRequestedBeta{
+    [self.objectManager getObjectsAtPath:@"beta" parameters:@{@"only_pending_beta_requests": @true} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.allPendingBetaRequests = mappingResult.array;
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-         [SVProgressHUD showErrorWithStatus:@"Unable to load user completions"];
+        [SVProgressHUD showErrorWithStatus:@"Unable to fully load data"];
     }];
 }
 
@@ -184,6 +197,18 @@
             else{
                 return false;
             }
+        }
+    }
+    return false;
+}
+
+-(BOOL)routeHasPendingBetaRequest:(Route *)route{
+    int i;
+    for (i=0; i<self.allPendingBetaRequests.count; i++) {
+        Beta *currentBeta = [self.allPendingBetaRequests objectAtIndex:i];
+        if ([currentBeta.route.routeId integerValue] == [route.routeId integerValue]) {
+            return true;
+            break;
         }
     }
     return false;
@@ -267,6 +292,14 @@
     }
     else{
         cell.userProgressLabel.hidden = true;
+    }
+    
+    //configure label for beta requests...
+    if([self routeHasPendingBetaRequest:theRoute]){
+        cell.betaRequestedLabel.hidden = false;
+    }
+    else{
+        cell.betaRequestedLabel.hidden = true;
     }
 
     

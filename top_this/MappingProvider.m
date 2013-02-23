@@ -100,7 +100,11 @@
 
 + (RKMapping *)betaMapping{
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Beta class]];
-    [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId", @"comment": @"comment", @"created_at": @"postedAt"}];
+    [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId",
+                                                  @"comment": @"comment",
+                                                  @"beta_type": @"betaType",
+                                                  @"beta_answered": @"betaAnswered",
+                                                  @"created_at": @"postedAt"}];
     [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
     
@@ -110,6 +114,8 @@
 + (RKMapping *)betaRequestMapping{
     RKObjectMapping *mapping = [RKObjectMapping requestMapping];
     [mapping addAttributeMappingsFromDictionary:@{@"comment": @"comment",
+                                                  @"betaType": @"beta_type",
+                                                  @"betaAnswered": @"beta_answered",
                                                   @"user.userId": @"user_id",
                                                   @"route.routeId": @"route_id"}];
     

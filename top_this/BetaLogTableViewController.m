@@ -13,6 +13,7 @@
 #import "Beta.h"
 #import "AddBetaViewController.h"
 #import "OtherUserProfileViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface BetaLogTableViewController ()
 
@@ -75,6 +76,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)betaHasBeenAnswered:(UIButton *)sender {
+    [SVProgressHUD showWithStatus:@"Updating beta..."];
+    Beta *betaToUpdate = [self.allTheBeta objectAtIndex:sender.tag];
+    betaToUpdate.betaAnswered = @1;
+    NSString *path = [NSString stringWithFormat:@"beta/%d", [betaToUpdate.betaId integerValue]];
+    [self.objectManager putObject:betaToUpdate path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [self.tableView reloadData];
+        [SVProgressHUD showSuccessWithStatus:@"Success"];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+        [SVProgressHUD showErrorWithStatus:@"Unable to update the beta"];
+    }];
+}
+
 -(void)loadBeta{
     //for some reason this controller is loading before the prepareForSegue is called in the previous controller so theRoute is not set when this happens.  i fixed this issue by calling this function again in the prepareForSegue from the previous view controller, which also sets 'self.theRoute'
     if(self.theRoute != nil){
@@ -134,6 +150,25 @@
         cell.date.text = [self getTimeAgoInHumanReadable:currentBeta.postedAt];
         
         cell.betaTextView.editable = NO;
+        
+        //if the beta is a request and has not been answered, make the background light red
+        if ([currentBeta.betaType isEqualToString:@"beta request"] && (currentBeta.betaAnswered == 0)) {
+            //light red background color
+            cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+            
+            //if it's the current user's beta request then add the beta answered button
+            if([currentBeta.user.userId integerValue] == [self.globals.currentUser.userId integerValue]){
+                cell.betaAnsweredButton.hidden = false;
+                cell.betaAnsweredButton.tag = indexPath.row;
+            }
+            else{
+                cell.betaAnsweredButton.hidden = true;
+            }
+        }
+        else{
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            cell.betaAnsweredButton.hidden = true;
+        }
     }
     
     return cell;
@@ -166,7 +201,7 @@
         return [NSString stringWithFormat:@"%d hour ago", [components hour]];
     }
     else if ([components minute] > 1){
-        return [NSString stringWithFormat:@"%d minutes ago", [components hour]];
+        return [NSString stringWithFormat:@"%d minutes ago", [components minute]];
     }
     else{
         return @"1 minute ago";

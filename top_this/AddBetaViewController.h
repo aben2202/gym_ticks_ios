@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Route.h"
 
-@interface AddBetaViewController : UIViewController
+@interface AddBetaViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate>
 
 @property (strong, nonatomic) Route *theRoute;
 @property (weak, nonatomic) IBOutlet UITextView *theCommentTextField;
+@property (weak, nonatomic) IBOutlet UIPickerView *betaTypePicker;
+@property (strong, nonatomic) NSArray *betaTypes;
 
 - (IBAction)postBeta:(id)sender;
 - (IBAction)cancel:(id)sender;

@@ -13,6 +13,7 @@
 
 @property NSArray *allTheBeta;
 @property Route *theRoute;
+- (IBAction)betaHasBeenAnswered:(UIButton *)sender;
 
 -(void)loadBeta;
 

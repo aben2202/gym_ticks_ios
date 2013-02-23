@@ -15,5 +15,7 @@
 @synthesize route = _route;
 @synthesize comment = _comment;
 @synthesize postedAt = _postedAt;
+@synthesize betaType = _betaType;
+@synthesize betaAnswered = _betaAnswered;
 
 @end

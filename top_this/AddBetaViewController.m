@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) Global *globals;
 @property (strong, nonatomic) RKObjectManager *objectManager;
+@property CGPoint viewOriginalCenter;
 
 @end
 
@@ -45,6 +46,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.betaTypes = @[@"beta request", @"beta response", @"general comment"];
+    self.viewOriginalCenter = self.view.center;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +64,7 @@
         theBeta.user = self.globals.currentUser;
         theBeta.route = self.theRoute;
         theBeta.comment = self.theCommentTextField.text;
+        theBeta.betaType = [self.betaTypes objectAtIndex:[self.betaTypePicker selectedRowInComponent:0]];
         
         [self.objectManager postObject:theBeta path:@"beta" parameters:@{@"route_id": self.theRoute.routeId} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
             NSLog(@"Successfully added beta!");
@@ -70,7 +75,44 @@
         }];
     }
 }
+
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+# pragma mark - UIPickerViewDataSource methods
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return self.betaTypes.count;
+}
+
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [self.betaTypes objectAtIndex:row];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.theCommentTextField resignFirstResponder];
+}
+
+# pragma mark - UITextViewDelegate methods
+-(BOOL)textViewShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextField *)textView{
+    self.view.center = CGPointMake(self.viewOriginalCenter.x, self.viewOriginalCenter.y - 130);
+}
+
+-(void)textViewDidEndEditing:(UITextField *)textView{
+    self.view.center = self.viewOriginalCenter;
+    [textView resignFirstResponder];
+}
+
 @end

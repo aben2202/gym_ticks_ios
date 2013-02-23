@@ -237,16 +237,16 @@
         OtherUserProfileViewController *profileController = segue.destinationViewController;
         RouteCompletion *selectedCompletion;
         NSIndexPath *indexPath = [self.resultsTableView indexPathForSelectedRow];
-        if (indexPath.section == 0 ){
+        if (indexPath.section == 1 ){
             selectedCompletion = [self.onsites objectAtIndex:indexPath.row];
         }
-        else if (indexPath.section == 1 ){
+        else if (indexPath.section == 2 ){
             selectedCompletion = [self.flashes objectAtIndex:indexPath.row];
         }
-        else if (indexPath.section == 2 ){
+        else if (indexPath.section == 3 ){
             selectedCompletion = [self.sends objectAtIndex:indexPath.row];
         }
-        else if (indexPath.section == 3 ){
+        else if (indexPath.section == 4 ){
             selectedCompletion = [self.projects objectAtIndex:indexPath.row];
         }
         
@@ -397,13 +397,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self performSegueWithIdentifier:@"userProfile" sender:self];
 }
 
 @end

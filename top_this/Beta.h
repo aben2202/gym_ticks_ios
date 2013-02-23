@@ -17,5 +17,7 @@
 @property (strong, nonatomic) Route *route;
 @property (strong, nonatomic) NSString *comment;
 @property (strong, nonatomic) NSDate *postedAt;
+@property (strong, nonatomic) NSString *betaType;
+@property (strong, nonatomic) NSNumber *betaAnswered;
 
 @end

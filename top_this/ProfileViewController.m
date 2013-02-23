@@ -62,7 +62,7 @@
 }
 
 -(void)loadUserCompletions{
-    [self.objectManager getObjectsAtPath:@"route_completions" parameters:@{@"user_id":self.globals.currentUser.userId} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [self.objectManager getObjectsAtPath:@"route_completions" parameters:@{@"user_id":self.globals.currentUser.userId, } success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         self.routeCompletions = mappingResult.array;
         [self.recentClimbsTable reloadData];
         self.climbsCompletedLabel.text = [NSString stringWithFormat:@"Climbs Completed: %d", self.routeCompletions.count];
