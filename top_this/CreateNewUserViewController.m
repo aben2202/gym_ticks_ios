@@ -160,6 +160,7 @@
      newUser.firstName = self.firstNameTextField.text;
      newUser.lastName = self.lastNameTextField.text;
      newUser.password = self.passwordTextField.text;
+     newUser.adminId = 0;
      
      return newUser;
  }

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Route.h"
+#import "RouteCompletion.h"
 
 @interface RouteDetailViewController : UIViewController
 
 @property (strong, nonatomic) Route *theRoute;
+@property (strong, nonatomic) RouteCompletion *firstAscent;
 
 
 @property (weak, nonatomic) IBOutlet UIToolbar *barButtonToolbar;
@@ -22,6 +24,7 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;
+
 
 - (IBAction)deleteRoute:(id)sender;
 - (IBAction)retireRoute:(id)sender;

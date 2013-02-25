@@ -15,5 +15,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *climbViaLabel;
 @property (retain, nonatomic) IBOutlet UILabel *completionDateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIImageView *firstAscentImageView;
 
 @end

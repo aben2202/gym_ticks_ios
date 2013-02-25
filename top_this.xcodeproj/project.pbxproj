@@ -59,6 +59,8 @@
 		CB96BAA516C585AF00D3A832 /* CredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAA416C585AF00D3A832 /* CredentialStore.m */; };
 		CB96BAAC16C58FAC00D3A832 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */; };
 		CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */; };
+		CBB8570116DAFB5F005D79FB /* first_ascent_medal.png in Resources */ = {isa = PBXBuildFile; fileRef = CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */; };
+		CBB8570416DB0076005D79FB /* makeAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */; };
 		CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */; };
 		CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B616D2BAEB009E4B86 /* Beta.m */; };
 		CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */; };
@@ -184,6 +186,9 @@
 		CB96BAAB16C58FAC00D3A832 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CBB856FB16D6F4CA005D79FB /* RouteGeneralInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteGeneralInfo.h; sourceTree = "<group>"; };
 		CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteGeneralInfo.m; sourceTree = "<group>"; };
+		CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = first_ascent_medal.png; path = "../../../../Graphics/award medals/first_ascent_medal.png"; sourceTree = "<group>"; };
+		CBB8570216DB0075005D79FB /* makeAdminTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = makeAdminTableViewController.h; sourceTree = "<group>"; };
+		CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = makeAdminTableViewController.m; sourceTree = "<group>"; };
 		CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteBetaCell.h; sourceTree = "<group>"; };
 		CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetaCell.m; sourceTree = "<group>"; };
 		CBBC91B516D2BAEB009E4B86 /* Beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beta.h; sourceTree = "<group>"; };
@@ -343,6 +348,8 @@
 				CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */,
 				CB1A14CD16D45CB5007A2B7F /* SlideMenuTableViewController.h */,
 				CB1A14CE16D45CB5007A2B7F /* SlideMenuTableViewController.m */,
+				CBB8570216DB0075005D79FB /* makeAdminTableViewController.h */,
+				CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -385,6 +392,7 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */,
 				CB1A14D616D4924D007A2B7F /* initProfilePic.jpg */,
 				CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */,
 				CB167C2816CF03BF007E2C8C /* 06-magnify.png */,
@@ -504,6 +512,7 @@
 				CB167C2916CF03BF007E2C8C /* 06-magnify.png in Resources */,
 				CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */,
 				CB1A14D716D4924D007A2B7F /* initProfilePic.jpg in Resources */,
+				CBB8570116DAFB5F005D79FB /* first_ascent_medal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +570,7 @@
 				CB1A14CF16D45CB5007A2B7F /* SlideMenuTableViewController.m in Sources */,
 				CB1A14D516D468A8007A2B7F /* RouteCell.m in Sources */,
 				CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */,
+				CBB8570416DB0076005D79FB /* makeAdminTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

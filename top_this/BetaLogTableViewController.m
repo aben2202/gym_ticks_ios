@@ -79,7 +79,7 @@
 - (IBAction)betaHasBeenAnswered:(UIButton *)sender {
     [SVProgressHUD showWithStatus:@"Updating beta..."];
     Beta *betaToUpdate = [self.allTheBeta objectAtIndex:sender.tag];
-    betaToUpdate.betaAnswered = @1;
+    betaToUpdate.betaAnswered = YES;
     NSString *path = [NSString stringWithFormat:@"beta/%d", [betaToUpdate.betaId integerValue]];
     [self.objectManager putObject:betaToUpdate path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         [self.tableView reloadData];
@@ -152,7 +152,7 @@
         cell.betaTextView.editable = NO;
         
         //if the beta is a request and has not been answered, make the background light red
-        if ([currentBeta.betaType isEqualToString:@"beta request"] && (currentBeta.betaAnswered == 0)) {
+        if ([currentBeta.betaType isEqualToString:@"beta request"] && (currentBeta.betaAnswered == NO)) {
             //light red background color
             cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
             

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *climbsCompletedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *climbersNameLabel;
 @property (strong, nonatomic) User *user;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *makeAdminButton;
 
 
 @end

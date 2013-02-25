@@ -36,6 +36,7 @@
 
 //synthesize properties
 @synthesize theRoute = _theRoute;
+@synthesize firstAscent = _firstAscent;
 @synthesize beta = _beta;
 @synthesize routeCompletions = _routeCompletions;
 @synthesize onsites = _onsites;
@@ -142,7 +143,6 @@
     self.sends = [NSMutableArray array];
     self.projects = [NSMutableArray array];
     
-    
     int i = 0;
     for(i = 0; i < [self.routeCompletions count]; i++){
         RouteCompletion *currentCompletion = self.routeCompletions[i];
@@ -157,6 +157,13 @@
         }
         else if ([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) {
             [self.projects addObject:currentCompletion];
+        }
+        
+        if (self.firstAscent == nil){
+            self.firstAscent = currentCompletion;
+        }
+        else if (currentCompletion.completionDate < self.firstAscent.completionDate){
+            self.firstAscent = currentCompletion;
         }
     }
 }
@@ -387,6 +394,14 @@
             else if ([theCompletion.completionType isEqualToString:@"PROJECT"]) {
                 //light red background color
                 cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+            }
+            
+            //if route is first ascent put gold border around cell
+            if ([theCompletion.routeCompletionId integerValue] == [self.firstAscent.routeCompletionId integerValue]){
+                cell.firstAscentImageView.hidden = false;
+            }
+            else{
+                cell.firstAscentImageView.hidden = true;
             }
             return cell;
         }

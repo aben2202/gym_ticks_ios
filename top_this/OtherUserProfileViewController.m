@@ -9,6 +9,7 @@
 #import "OtherUserProfileViewController.h"
 #import "RouteCompletion.h"
 #import "RecentClimbsCell.h"
+#import "makeAdminTableViewController.h"
 
 @interface OtherUserProfileViewController ()
 
@@ -50,6 +51,10 @@
 	// Do any additional setup after loading the view.
     [self loadUserData];
     [self loadUserCompletions];
+    
+    if ([self.globals.currentUser.adminId integerValue] != -1){
+        self.navigationItem.rightBarButtonItems = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,6 +78,14 @@
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
     }];
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"makeAdmin"]) {
+        makeAdminTableViewController *makeAdminTVC = segue.destinationViewController;
+        makeAdminTVC.userToUpdate = self.user;
+    }
 }
 
 #pragma mark - Table view data source

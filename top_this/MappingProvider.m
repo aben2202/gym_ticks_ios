@@ -16,6 +16,7 @@
 
 @implementation MappingProvider
 
+//gym mappings
 + (RKMapping *)gymMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Gym class]];
     [mapping addAttributeMappingsFromArray:@[@"name",@"street_address",@"city",@"state",@"zip"]];
@@ -31,6 +32,7 @@
     return mapping;
 }
 
+//route mappings
 + (RKMapping *)routeMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Route class]];
     [mapping addAttributeMappingsFromArray:@[@"name",@"rating",@"location",@"setter"]];
@@ -53,7 +55,7 @@
     return mapping;
 }
 
-
+//route completion mappings
 + (RKMapping *)routeCompletionMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[RouteCompletion class]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"routeCompletionId",
@@ -76,6 +78,8 @@
     return mapping;
 }
 
+
+//user mappings
 + (RKMapping *)userMapping {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[User class]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"userId",
@@ -93,11 +97,13 @@
     [mapping addAttributeMappingsFromDictionary:@{@"email": @"email",
                                                   @"firstName": @"first_name",
                                                   @"lastName": @"last_name",
-                                                  @"password": @"password"}];
+                                                  @"password": @"password",
+                                                  @"adminId": @"admin_to"}];
     
     return mapping;
 }
 
+//beta mappings
 + (RKMapping *)betaMapping{
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Beta class]];
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"betaId",
@@ -122,7 +128,7 @@
     return mapping;
 }
 
-
+//session mappings (login/logout)
 + (RKMapping *)sessionMapping{
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Session class]];
     [mapping addAttributeMappingsFromArray:@[@"auth_token"]];

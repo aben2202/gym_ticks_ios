@@ -255,7 +255,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="wt2-rY-gP7">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="5kq-jJ-53p"/>
-                                                        <constraint firstAttribute="height" constant="52" id="8Cf-Vg-kia"/>
+                                                        <constraint firstAttribute="height" constant="52" id="VoQ-tU-GyN"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-UV-48E">
@@ -285,8 +285,8 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZd-Xx-FsW">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="55" id="Cm5-qX-35l"/>
-                                                        <constraint firstAttribute="height" constant="24" id="PRi-qQ-LrT"/>
+                                                        <constraint firstAttribute="height" constant="17" id="ARs-TI-kds"/>
+                                                        <constraint firstAttribute="width" constant="39" id="gWp-7c-Isr"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Edit">
@@ -300,25 +300,35 @@
                                                         <segue destination="kde-aN-SFk" kind="modal" identifier="editResult" id="ucL-l9-V7L"/>
                                                     </connections>
                                                 </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="first_ascent_medal.png" translatesAutoresizingMaskIntoConstraints="NO" id="lxp-KG-5kl">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="45" id="TEj-U1-VYb"/>
+                                                        <constraint firstAttribute="height" constant="45" id="mb1-JH-5Yy"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="leading" secondItem="Vgt-QF-Six" secondAttribute="leading" type="default" id="Brs-0F-GpA"/>
-                                            <constraint firstItem="Vgt-QF-Six" firstAttribute="centerY" secondItem="QSb-Nf-5UE" secondAttribute="centerY" type="default" id="C7k-HE-oTF"/>
+                                            <constraint firstItem="lxp-KG-5kl" firstAttribute="top" secondItem="QSb-Nf-5UE" secondAttribute="top" constant="5" id="LU9-O0-5qc"/>
+                                            <constraint firstItem="wt2-rY-gP7" firstAttribute="centerY" secondItem="QSb-Nf-5UE" secondAttribute="centerY" type="default" id="NTC-ID-fHN"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="bottom" secondItem="wt2-rY-gP7" secondAttribute="bottom" type="default" id="Ucs-fD-xUK"/>
+                                            <constraint firstItem="lxp-KG-5kl" firstAttribute="centerY" secondItem="Vgt-QF-Six" secondAttribute="centerY" type="default" id="VgC-3k-Hsj"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="top" secondItem="gqY-UV-48E" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="VgG-ae-3ED"/>
                                             <constraint firstItem="gqY-UV-48E" firstAttribute="leading" secondItem="wt2-rY-gP7" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="XFD-2A-3mC"/>
+                                            <constraint firstAttribute="trailing" secondItem="lxp-KG-5kl" secondAttribute="trailing" constant="40" id="aFO-dr-cBT"/>
+                                            <constraint firstAttribute="trailing" secondItem="VZd-Xx-FsW" secondAttribute="trailing" constant="80" id="bUZ-fT-B1P"/>
                                             <constraint firstItem="Vgt-QF-Six" firstAttribute="leading" secondItem="QSb-Nf-5UE" secondAttribute="leading" constant="98" id="e8b-UJ-3Ci"/>
+                                            <constraint firstItem="VZd-Xx-FsW" firstAttribute="top" secondItem="wt2-rY-gP7" secondAttribute="top" type="default" id="gAg-OX-env"/>
                                             <constraint firstItem="wt2-rY-gP7" firstAttribute="leading" secondItem="QSb-Nf-5UE" secondAttribute="leading" constant="21" id="l6f-xl-FKN"/>
-                                            <constraint firstItem="wt2-rY-gP7" firstAttribute="centerY" secondItem="Vgt-QF-Six" secondAttribute="centerY" type="default" id="mu8-cJ-AVD"/>
-                                            <constraint firstAttribute="trailing" secondItem="VZd-Xx-FsW" secondAttribute="trailing" constant="39" id="sVc-ND-7Th"/>
-                                            <constraint firstItem="VZd-Xx-FsW" firstAttribute="top" secondItem="QSb-Nf-5UE" secondAttribute="top" constant="25" id="vA9-uR-4S6"/>
+                                            <constraint firstItem="XHQ-5m-cih" firstAttribute="baseline" secondItem="VZd-Xx-FsW" secondAttribute="baseline" type="default" id="ya0-Ft-QJO"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="climbViaLabel" destination="Vgt-QF-Six" id="mWA-7g-Ydj"/>
                                             <outlet property="completionDateLabel" destination="XHQ-5m-cih" id="EPC-fj-tmX"/>
                                             <outlet property="editButton" destination="VZd-Xx-FsW" id="Vav-7E-P5t"/>
+                                            <outlet property="firstAscentImageView" destination="lxp-KG-5kl" id="fNW-DM-wFd"/>
                                             <outlet property="userNameLabel" destination="gqY-UV-48E" id="bcu-s5-eiN"/>
                                             <outlet property="userProfilePicture" destination="wt2-rY-gP7" id="SQC-EI-ACb"/>
                                             <segue destination="zcK-I4-ABy" kind="push" identifier="userProfile" trigger="accessoryAction" id="YaK-t8-tLe"/>
@@ -593,8 +603,8 @@
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="top" secondItem="woh-Xr-f8I" secondAttribute="top" constant="22" id="ZMR-aB-Huf"/>
                                             <constraint firstItem="teU-nO-Vp4" firstAttribute="leading" secondItem="woh-Xr-f8I" secondAttribute="leading" constant="48" id="d5q-H8-5xN"/>
                                             <constraint firstAttribute="trailing" secondItem="Md3-fW-gal" secondAttribute="trailing" constant="10" id="eGI-M1-S6W"/>
-                                            <constraint firstItem="ZTH-bg-bZ0" firstAttribute="top" secondItem="woh-Xr-f8I" secondAttribute="top" constant="3" id="eua-dO-jUu"/>
                                             <constraint firstItem="ZTH-bg-bZ0" firstAttribute="leading" secondItem="woh-Xr-f8I" secondAttribute="leading" constant="30" id="oN6-CG-Sjm"/>
+                                            <constraint firstItem="ZTH-bg-bZ0" firstAttribute="top" secondItem="woh-Xr-f8I" secondAttribute="top" constant="3" id="tTi-Ug-UrF"/>
                                             <constraint firstItem="Md3-fW-gal" firstAttribute="centerY" secondItem="woh-Xr-f8I" secondAttribute="centerY" type="default" id="ug3-hv-dS5"/>
                                         </constraints>
                                         <connections>
@@ -644,17 +654,65 @@
                             <constraint firstItem="MrS-o2-tyT" firstAttribute="top" secondItem="zeA-Av-8tL" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="zxH-lc-JyU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mfb-wp-kR8"/>
+                    <navigationItem key="navigationItem" id="mfb-wp-kR8">
+                        <barButtonItem key="rightBarButtonItem" title="Make Admin" id="RDc-ej-6cg">
+                            <connections>
+                                <segue destination="UNy-ts-Ur9" kind="modal" identifier="makeAdmin" id="Vck-GV-8tM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="climbersNameLabel" destination="moz-mQ-Ieu" id="cPR-QC-QwV"/>
                         <outlet property="climbsCompletedLabel" destination="MrS-o2-tyT" id="CEz-vB-5I6"/>
+                        <outlet property="makeAdminButton" destination="RDc-ej-6cg" id="TfT-fE-7oC"/>
                         <outlet property="profilePic" destination="zeA-Av-8tL" id="N0r-7e-Joq"/>
                         <outlet property="recentClimbsTable" destination="2u8-yo-9j7" id="Xpf-UM-MfC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lOo-Sf-r1A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2216" y="-638"/>
+            <point key="canvasLocation" x="2175" y="-462"/>
+        </scene>
+        <!--Make Admin Table View Controller-->
+        <scene sceneID="2Tl-e5-tcM">
+            <objects>
+                <tableViewController id="UNy-ts-Ur9" customClass="makeAdminTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pAz-ME-uci">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gymCell" textLabel="Ald-0A-kJ5" detailTextLabel="qu2-SD-KX3" style="IBUITableViewCellStyleSubtitle" id="oX1-Gi-lMq">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ald-0A-kJ5">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-SD-KX3">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="UNy-ts-Ur9" id="AtY-Gl-0ra"/>
+                            <outlet property="delegate" destination="UNy-ts-Ur9" id="aHE-pY-gOc"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dyC-En-D95" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2175" y="242"/>
         </scene>
         <!--Beta Log Table View Controller - Beta Log-->
         <scene sceneID="84B-HP-Ela">
@@ -1655,6 +1713,7 @@
     <resources>
         <image name="06-magnify.png" width="24" height="24"/>
         <image name="111-user.png" width="24" height="21"/>
+        <image name="first_ascent_medal.png" width="144" height="144"/>
         <image name="initProfilePic.jpg" width="281" height="282"/>
         <image name="login_background.jpg" width="267" height="400"/>
         <image name="wall.jpg" width="267" height="400"/>
@@ -1749,6 +1808,7 @@
             <relationships>
                 <relationship kind="outlet" name="climbersNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="climbsCompletedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="makeAdminButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="recentClimbsTable" candidateClass="UITableView"/>
             </relationships>
@@ -1800,6 +1860,7 @@
                 <relationship kind="outlet" name="barButtonToolbar" candidateClass="UIToolbar"/>
                 <relationship kind="outlet" name="deleteRouteBarButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="editRouteBarButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="firstAscentImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="personalResultsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postResultBarButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="resultsTableView" candidateClass="UITableView"/>
@@ -1826,9 +1887,13 @@
                 <relationship kind="outlet" name="climbViaLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="completionDateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="firstAscentImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userProfilePicture" candidateClass="UIImageView"/>
             </relationships>
+        </class>
+        <class className="makeAdminTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/makeAdminTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1837,8 +1902,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nnS-mT-nPi"/>
-        <segue reference="OLu-AX-30p"/>
-        <segue reference="TBt-ab-33f"/>
+        <segue reference="8pt-fD-U0a"/>
+        <segue reference="ucL-l9-V7L"/>
+        <segue reference="YaK-t8-tLe"/>
     </inferredMetricsTieBreakers>
 </document>
