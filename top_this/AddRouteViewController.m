@@ -24,6 +24,7 @@
 @synthesize objectManager = _objectManager;
 @synthesize routeTypes;
 @synthesize okToAddRoute = _okToAddRoute;
+@synthesize routeType = _routeType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +50,15 @@
     [self.view sendSubviewToBack:self.bgImageView];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    if ([self.routeToUpdate.routeType isEqualToString:@"Boulder"]) {
+        [self.routeType selectRow:0 inComponent:0 animated:NO];
+    }
+    else{
+        [self.routeType selectRow:1 inComponent:0 animated:YES];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,12 +69,7 @@
         self.ratingTextField.text = self.routeToUpdate.rating;
         self.locationTextField.text = self.routeToUpdate.location;
         self.routeSetterTextField.text = self.routeToUpdate.setter;
-        if ([self.routeToUpdate.routeType isEqualToString:@"Boulder"]) {
-            [self.routeType selectRow:0 inComponent:0 animated:NO];
-        }
-        else{
-            [self.routeType selectRow:1 inComponent:0 animated:NO];
-        }
+        [self.routeType reloadAllComponents];
     }
 }
 

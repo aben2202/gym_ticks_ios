@@ -531,6 +531,7 @@
                     <navigationItem key="navigationItem" id="Zet-66-xGX"/>
                     <connections>
                         <outlet property="completionTypeSelector" destination="Ru0-Zj-PLP" id="qbJ-8o-BS7"/>
+                        <outlet property="navBar" destination="Mln-EA-MEP" id="4vS-r3-9ph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u94-1S-4BF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1860,6 +1861,7 @@
                 <relationship kind="action" name="cancel:"/>
                 <relationship kind="action" name="submitRouteCompletion:"/>
                 <relationship kind="outlet" name="completionTypeSelector" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
             </relationships>
         </class>
         <class className="AddRouteViewController" superclassName="UIViewController">

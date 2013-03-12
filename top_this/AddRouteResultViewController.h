@@ -13,6 +13,7 @@
 
 @interface AddRouteResultViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (retain, nonatomic) IBOutlet UIPickerView *completionTypeSelector;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) NSMutableArray *completionTypes;
 @property (strong, nonatomic) Route *theRoute;
 @property (strong, nonatomic) Global *globals;

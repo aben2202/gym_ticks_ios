@@ -112,11 +112,16 @@
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-        if (error.code == -1011) {
-            [SVProgressHUD showErrorWithStatus:@"Invalid username or password"];
-        }
-        else if (error.code == 500){
+        NSHTTPURLResponse *response = operation.HTTPRequestOperation.response;
+        NSInteger responseCode = [response statusCode];
+        if (responseCode == 500){
             [SVProgressHUD showErrorWithStatus:@"The server is experiencing issues.  Please try again later."];
+        }
+        else if(responseCode == 401){
+            [SVProgressHUD showErrorWithStatus:@"Invalid email or password.  Please try again."];
+        }
+        else{
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong.  Please try again later."];
         }
     }];
 

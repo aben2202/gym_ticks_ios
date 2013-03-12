@@ -25,6 +25,7 @@
 @synthesize objectManager = _objectManager;
 @synthesize requestType = _requestType;
 @synthesize submittedResult = _submittedResult;
+@synthesize navBar = _navBar;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -57,7 +58,8 @@
     }
     return self;
 }
--(void)viewWillAppear:(BOOL)animated{
+
+-(void)viewDidAppear:(BOOL)animated{
     if ([self.requestType isEqualToString:@"PUT"]) {// we are updating a result so set dial to old result
         if ([self.completionToUpdate.completionType isEqualToString:@"ONSITE"]) {
             [self.completionTypeSelector selectRow:0 inComponent:0 animated:NO];
@@ -74,6 +76,12 @@
     }
     else{
         [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if ([self.requestType isEqualToString:@"PUT"]){
+        self.navBar.topItem.title = @"Edit Status";
     }
 }
 
