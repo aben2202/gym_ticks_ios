@@ -91,7 +91,6 @@
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="beta requested!!!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8O-Qg-wDQ">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="Xku-W4-uE5"/>
                                                 <constraint firstAttribute="width" constant="92" id="rl9-N0-xuP"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -108,8 +107,13 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="***" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-v2-BJe">
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.72553604009999995" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="***" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnc-P7-4i4">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="f6N-AS-bbZ"/>
+                                                <constraint firstAttribute="height" constant="22" id="j02-tR-NOk"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.72553604009999995" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -128,18 +132,22 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="top" secondItem="iOg-v2-BJe" secondAttribute="top" type="default" id="2k9-Vi-Th1"/>
                                     <constraint firstItem="A8O-Qg-wDQ" firstAttribute="trailing" secondItem="8US-7U-RqK" secondAttribute="trailing" type="default" id="72U-Sd-bqL"/>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="-2" id="9sm-6y-VJA"/>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="leading" secondItem="HcP-Z3-7Yd" secondAttribute="leading" type="default" id="B4h-2c-F0r"/>
                                     <constraint firstItem="A8O-Qg-wDQ" firstAttribute="leading" secondItem="8US-7U-RqK" secondAttribute="leading" type="default" id="E7C-X5-6CE"/>
                                     <constraint firstItem="A8O-Qg-wDQ" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" type="default" id="EBt-kM-wZQ"/>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="bottom" secondItem="A8O-Qg-wDQ" secondAttribute="bottom" type="default" id="Gsc-cc-HgQ"/>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="30" id="IXa-ji-jSE"/>
                                     <constraint firstItem="HcP-Z3-7Yd" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="17" id="Ku3-ui-HC8"/>
+                                    <constraint firstItem="fnc-P7-4i4" firstAttribute="baseline" secondItem="iOg-v2-BJe" secondAttribute="baseline" type="default" id="Ne1-ti-a8m"/>
                                     <constraint firstItem="R2N-Yh-2T1" firstAttribute="centerY" secondItem="SAd-3z-zu3" secondAttribute="centerY" type="default" id="PGG-3M-H1f"/>
                                     <constraint firstAttribute="trailing" secondItem="R2N-Yh-2T1" secondAttribute="trailing" constant="10" id="PdP-QY-JJZ"/>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="4" id="Q0a-W3-NOC"/>
                                     <constraint firstItem="8US-7U-RqK" firstAttribute="bottom" secondItem="SAd-3z-zu3" secondAttribute="bottom" type="default" id="XVY-AR-CFL"/>
-                                    <constraint firstItem="iOg-v2-BJe" firstAttribute="top" secondItem="SAd-3z-zu3" secondAttribute="top" constant="-2" id="cAm-Kp-CSK"/>
                                     <constraint firstItem="iOg-v2-BJe" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="4" id="fdv-Lx-tPB"/>
                                     <constraint firstAttribute="trailing" secondItem="A8O-Qg-wDQ" secondAttribute="trailing" constant="66" id="fii-jW-zPS"/>
-                                    <constraint firstItem="HcP-Z3-7Yd" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="30" id="goS-mL-nuU"/>
                                     <constraint firstItem="3ex-7z-VHB" firstAttribute="leading" secondItem="SAd-3z-zu3" secondAttribute="leading" constant="16" id="iZd-w1-kiC"/>
                                 </constraints>
                                 <connections>
@@ -149,6 +157,7 @@
                                     <outlet property="recentlyAddedLabel" destination="8US-7U-RqK" id="f5J-vk-tpE"/>
                                     <outlet property="routeNameLabel" destination="3ex-7z-VHB" id="V72-aI-Ip2"/>
                                     <outlet property="userProgressLabel" destination="iOg-v2-BJe" id="fOg-84-zcM"/>
+                                    <outlet property="userProgressLabelSport" destination="fnc-P7-4i4" id="QCA-oa-4qb"/>
                                     <segue destination="B2g-MT-Sd8" kind="push" identifier="showRouteDetails" id="IlE-Ya-khc"/>
                                 </connections>
                             </tableViewCell>
@@ -328,15 +337,15 @@
                                             <constraint firstItem="VZd-Xx-FsW" firstAttribute="top" secondItem="QSb-Nf-5UE" secondAttribute="top" constant="1" id="2ff-QK-WlM"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="leading" secondItem="Vgt-QF-Six" secondAttribute="leading" type="default" id="Brs-0F-GpA"/>
                                             <constraint firstItem="lxp-KG-5kl" firstAttribute="top" secondItem="QSb-Nf-5UE" secondAttribute="top" constant="5" id="LU9-O0-5qc"/>
-                                            <constraint firstItem="wt2-rY-gP7" firstAttribute="centerY" secondItem="QSb-Nf-5UE" secondAttribute="centerY" type="default" id="NTC-ID-fHN"/>
+                                            <constraint firstItem="wt2-rY-gP7" firstAttribute="centerY" secondItem="QSb-Nf-5UE" secondAttribute="centerY" type="default" id="S6T-We-RZ9"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="bottom" secondItem="wt2-rY-gP7" secondAttribute="bottom" type="default" id="Ucs-fD-xUK"/>
-                                            <constraint firstItem="lxp-KG-5kl" firstAttribute="centerY" secondItem="Vgt-QF-Six" secondAttribute="centerY" type="default" id="VgC-3k-Hsj"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="top" secondItem="gqY-UV-48E" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="VgG-ae-3ED"/>
                                             <constraint firstItem="gqY-UV-48E" firstAttribute="leading" secondItem="wt2-rY-gP7" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="XFD-2A-3mC"/>
                                             <constraint firstAttribute="trailing" secondItem="lxp-KG-5kl" secondAttribute="trailing" constant="40" id="aFO-dr-cBT"/>
                                             <constraint firstAttribute="trailing" secondItem="VZd-Xx-FsW" secondAttribute="trailing" constant="80" id="bUZ-fT-B1P"/>
                                             <constraint firstItem="Vgt-QF-Six" firstAttribute="leading" secondItem="QSb-Nf-5UE" secondAttribute="leading" constant="98" id="e8b-UJ-3Ci"/>
                                             <constraint firstItem="wt2-rY-gP7" firstAttribute="leading" secondItem="QSb-Nf-5UE" secondAttribute="leading" constant="21" id="l6f-xl-FKN"/>
+                                            <constraint firstItem="Vgt-QF-Six" firstAttribute="top" secondItem="QSb-Nf-5UE" secondAttribute="top" constant="19" id="nIA-aS-Vhn"/>
                                             <constraint firstItem="XHQ-5m-cih" firstAttribute="baseline" secondItem="VZd-Xx-FsW" secondAttribute="baseline" type="default" id="ya0-Ft-QJO"/>
                                         </constraints>
                                         <connections>
@@ -1967,6 +1976,7 @@
                 <relationship kind="outlet" name="recentlyAddedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userProgressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userProgressLabelSport" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="RouteDetailViewController" superclassName="UIViewController">
@@ -2033,7 +2043,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="nnS-mT-nPi"/>
-        <segue reference="YaK-t8-tLe"/>
         <segue reference="ucL-l9-V7L"/>
+        <segue reference="YaK-t8-tLe"/>
     </inferredMetricsTieBreakers>
 </document>

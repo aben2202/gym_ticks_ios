@@ -167,35 +167,39 @@
     return ([self.globals.currentUser.adminId integerValue] == -1 || [self.globals.currentUser.adminId integerValue] == [self.gym.gymId integerValue]);
 }
 
--(BOOL)userHasSentRoute:(Route *)route{
+-(BOOL)userHasSentRoute:(Route *)route viaClimb:(NSString *)climbType{
     //only returns true if the user has SENT the route.  returns false for projects.
     int i;
     for (i=0; i < self.userCompletions.count; i++) {
         RouteCompletion *currentCompletion = [self.userCompletions objectAtIndex:i];
         if ([currentCompletion.route.routeId integerValue] == [route.routeId integerValue]) {
-            if ([currentCompletion.completionType isEqualToString:@"Project"] ||
-              [currentCompletion.completionType isEqualToString:@"PROJECT"]){
-                return false;
-            }
-            else{
-                return true;
-            }
+            if ([currentCompletion.climbType isEqualToString:climbType]) {
+                if ([currentCompletion.completionType isEqualToString:@"Project"] ||
+                    [currentCompletion.completionType isEqualToString:@"PROJECT"]){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }       
         }
     }
     return false;
 }
 
--(BOOL)userIsProjectingRoute:(Route *)route{
+-(BOOL)userIsProjectingRoute:(Route *)route viaClimb:(NSString *)climbType{
     int i;
     for (i=0; i < self.userCompletions.count; i++) {
         RouteCompletion *currentCompletion = [self.userCompletions objectAtIndex:i];
         if ([currentCompletion.route.routeId integerValue] == [route.routeId integerValue]) {
-            if ([currentCompletion.completionType isEqualToString:@"Project"] ||
-                [currentCompletion.completionType isEqualToString:@"PROJECT"]){
-                return true;
-            }
-            else{
-                return false;
+            if ([currentCompletion.climbType isEqualToString:climbType]) {
+                if ([currentCompletion.completionType isEqualToString:@"Project"] ||
+                    [currentCompletion.completionType isEqualToString:@"PROJECT"]){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         }
     }
@@ -281,19 +285,54 @@
         cell.recentlyAddedLabel.hidden = YES;
     }
     
-    //configure progress dots
-    if ([self userHasSentRoute:theRoute]) {
-        //make the dots purple
-        cell.userProgressLabel.hidden = false;
-        [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(185/255) green:(0/255) blue:(255/255) alpha:1]];    }
-    else if ([self userIsProjectingRoute:theRoute]){
-        //make the dots red/orange
-        cell.userProgressLabel.hidden = false;
-        [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(255/255) green:(100/255) blue:(0/255) alpha:1]];
+    //configure progress dots for vertical routes
+    if ([theRoute.routeType isEqualToString:@"Vertical"]) {
+        if ([self userHasSentRoute:theRoute viaClimb:@"Toprope"]) {
+            //make the dots purple
+            cell.userProgressLabel.hidden = false;
+            [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(185/255) green:(0/255) blue:(255/255) alpha:1]];    }
+        else if ([self userIsProjectingRoute:theRoute viaClimb:@"Toprope"]){
+            //make the dots red/orange
+            cell.userProgressLabel.hidden = false;
+            [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(255/255) green:(0/255) blue:(0/255) alpha:1]];
+        }
+        else{
+            cell.userProgressLabel.hidden = true;
+        }
+        
+        //and progress dots for sport
+        if ([self userHasSentRoute:theRoute viaClimb:@"Sport"]) {
+            //make the dots purple
+            cell.userProgressLabelSport.hidden = false;
+            [cell.userProgressLabelSport setTextColor:[UIColor colorWithRed:(185/255) green:(0/255) blue:(255/255) alpha:1]];    }
+        else if ([self userIsProjectingRoute:theRoute viaClimb:@"Sport"]){
+            //make the dots red/orange
+            cell.userProgressLabelSport.hidden = false;
+            [cell.userProgressLabelSport setTextColor:[UIColor colorWithRed:(255/255) green:(0/255) blue:(0/255) alpha:1]];
+        }
+        else{
+            cell.userProgressLabelSport.hidden = true;
+        }
     }
     else{
-        cell.userProgressLabel.hidden = true;
+        //and progress dots for boulder
+        if ([self userHasSentRoute:theRoute viaClimb:@"Boulder"]) {
+            //make the dots purple
+            cell.userProgressLabel.hidden = false;
+            [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(185/255) green:(0/255) blue:(255/255) alpha:1]];    }
+        else if ([self userIsProjectingRoute:theRoute viaClimb:@"Boulder"]){
+            //make the dots red/orange
+            cell.userProgressLabel.hidden = false;
+            [cell.userProgressLabel setTextColor:[UIColor colorWithRed:(255/255) green:(0/255) blue:(0/255) alpha:1]];
+        }
+        else{
+            cell.userProgressLabel.hidden = true;
+        }
+        //boulder routes have no sport so these are always hidden
+        cell.userProgressLabelSport.hidden = true;
     }
+
+
     
     //configure label for beta requests...
     if([self routeHasPendingBetaRequest:theRoute]){

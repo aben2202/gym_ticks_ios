@@ -76,13 +76,14 @@
         }
         
         //and set climb type to old result as well
-        if ([self.completionToUpdate.climbType isEqualToString:@"Toprope"]) {
-            [self.completionTypeSelector selectRow:0 inComponent:1 animated:NO];
+        if ([self.completionToUpdate.route.routeType isEqualToString:@"Vertical"]) {
+            if ([self.completionToUpdate.climbType isEqualToString:@"Toprope"]) {
+                [self.completionTypeSelector selectRow:0 inComponent:1 animated:NO];
+            }
+            else{
+                [self.completionTypeSelector selectRow:1 inComponent:1 animated:NO];
+            }
         }
-        else{
-            [self.completionTypeSelector selectRow:1 inComponent:1 animated:NO];
-        }
-
     }
     else{
         [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];

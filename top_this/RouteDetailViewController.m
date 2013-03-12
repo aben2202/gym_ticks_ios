@@ -257,7 +257,10 @@
                     (tag == 1 && [currentIterCompletion.climbType isEqualToString:@"Toprope"]) ||
                     (tag == 2 && [currentIterCompletion.climbType isEqualToString:@"Sport"])) {
                     resultsVC.completionToUpdate = currentIterCompletion;
-                    break;
+                    //we don't break here beacuse we still need to check for unavailable climb types in the rest of the completions
+                }
+                else{
+                    [resultsVC.unavailableVerticalClimbTypes addObject:currentIterCompletion.climbType];
                 }
             }
         }
@@ -412,6 +415,13 @@
             
             cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
             cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
+            if ([theCompletion.climbType isEqualToString:@"Toprope"]) {
+                cell.climbViaLabel.textColor = [UIColor blueColor];
+            }
+            else if ([theCompletion.climbType isEqualToString:@"Sport"]){
+                cell.climbViaLabel.textColor = [UIColor redColor];
+            }
+            
             NSDateComponents *compDateComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:theCompletion.completionDate];
             cell.completionDateLabel.text = [NSString stringWithFormat:@"on %u-%u-%u",compDateComps.month, compDateComps.day, compDateComps.year];
             //cell.userProfilePicture

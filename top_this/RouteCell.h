@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *userProgressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *betaRequestedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userProgressLabelSport;
 
 @end

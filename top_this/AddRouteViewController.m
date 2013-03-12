@@ -51,11 +51,13 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    if ([self.routeToUpdate.routeType isEqualToString:@"Boulder"]) {
-        [self.routeType selectRow:0 inComponent:0 animated:NO];
-    }
-    else{
-        [self.routeType selectRow:1 inComponent:0 animated:YES];
+    if ([self.requestType isEqualToString:@"PUT"]) {
+        if ([self.routeToUpdate.routeType isEqualToString:@"Boulder"]) {
+            [self.routeType selectRow:0 inComponent:0 animated:NO];
+        }
+        else{
+            [self.routeType selectRow:1 inComponent:0 animated:YES];
+        }
     }
 }
 

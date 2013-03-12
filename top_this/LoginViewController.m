@@ -120,6 +120,9 @@
         else if(responseCode == 401){
             [SVProgressHUD showErrorWithStatus:@"Invalid email or password.  Please try again."];
         }
+        else if(responseCode == 422){
+            [SVProgressHUD showErrorWithStatus:@"Please fill in both email and password."];
+        }
         else{
             [SVProgressHUD showErrorWithStatus:@"Something went wrong.  Please try again later."];
         }
