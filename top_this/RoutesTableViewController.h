@@ -13,5 +13,6 @@
 @interface RoutesTableViewController : UITableViewController
 
 @property (nonatomic, strong) Gym *gym;
+@property (nonatomic, strong) NSString *locationFilter;
 
 @end

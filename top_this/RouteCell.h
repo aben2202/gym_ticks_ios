@@ -17,5 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *betaRequestedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userProgressLabelSport;
+@property (weak, nonatomic) IBOutlet UIButton *locationButton;
+
+@property (strong, nonatomic) NSNumber *routeNameLabelWidth;
 
 @end

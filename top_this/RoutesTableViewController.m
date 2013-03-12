@@ -39,6 +39,7 @@
 @synthesize verticalRoutes = _verticalRoutes;
 @synthesize userCompletions = _userCompletions;
 @synthesize allPendingBetaRequests = _allPendingBetaRequests;
+@synthesize locationFilter = _locationFilter;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -139,14 +140,15 @@
     self.boulderProblems = [NSMutableArray array];
     self.verticalRoutes = [NSMutableArray array];
  
-    int i = 0;
-    for (i=0; i<self.routes.count; i++) {
+    for (int i=0; i<self.routes.count; i++) {
         Route *currentRoute = [self.routes objectAtIndex:i];
-        if ([currentRoute.routeType isEqualToString:@"Boulder"]) {
-            [self.boulderProblems addObject:currentRoute];
-        }
-        else if ([currentRoute.routeType isEqualToString:@"Vertical"]){
-            [self.verticalRoutes addObject:currentRoute];
+        if (self.locationFilter == nil || [[currentRoute.location lowercaseString] isEqualToString:[self.locationFilter lowercaseString]]){
+            if ([currentRoute.routeType isEqualToString:@"Boulder"]) {
+                [self.boulderProblems addObject:currentRoute];
+            }
+            else if ([currentRoute.routeType isEqualToString:@"Vertical"]){
+                [self.verticalRoutes addObject:currentRoute];
+            }
         }
     }
         
@@ -287,6 +289,7 @@
     
     //configure progress dots for vertical routes
     if ([theRoute.routeType isEqualToString:@"Vertical"]) {
+        cell.userProgressLabel.text = @"TR";
         if ([self userHasSentRoute:theRoute viaClimb:@"Toprope"]) {
             //make the dots purple
             cell.userProgressLabel.hidden = false;
@@ -316,6 +319,7 @@
     }
     else{
         //and progress dots for boulder
+        cell.userProgressLabel.text = @"B";
         if ([self userHasSentRoute:theRoute viaClimb:@"Boulder"]) {
             //make the dots purple
             cell.userProgressLabel.hidden = false;
@@ -331,19 +335,22 @@
         //boulder routes have no sport so these are always hidden
         cell.userProgressLabelSport.hidden = true;
     }
-
-
     
-    //configure label for beta requests...
+    //configure label for beta requests and resize route name label width accordingly...
     if([self routeHasPendingBetaRequest:theRoute]){
         cell.betaRequestedLabel.hidden = false;
+        //when this label is shown we have less room for the route name
+        cell.routeNameLabelWidth = @132;
     }
     else{
         cell.betaRequestedLabel.hidden = true;
+        //when this label is hidden we have more room for the route name
+        cell.routeNameLabelWidth = @211;
     }
     
-    //add location
-
+    //tag button to filter to location
+    //  the tag is equal to the id of the route that is selected
+    cell.locationButton.tag = [theRoute.routeId integerValue];
     
     return cell;
 }
@@ -392,6 +399,23 @@
     else if ([segue.identifier isEqualToString:@"addRoute"]){
         AddRouteViewController *addRouteController = segue.destinationViewController;
         addRouteController.gym = self.gym;
+    }
+    else if ([segue.identifier isEqualToString:@"filterToLocation"]){
+        UIButton *buttonSender = (UIButton *)sender;
+        RoutesTableViewController *routesFilteredToLocationTVC = segue.destinationViewController;
+
+        NSInteger theTag = buttonSender.tag;
+        Route *routeWithLocation = [[Route alloc] init];
+        for (int x = 0; x<self.routes.count; x++) {
+            Route *currentIterRoute = [self.routes objectAtIndex:x];
+            if (theTag == [currentIterRoute.routeId integerValue]) {
+                routeWithLocation = currentIterRoute;
+                break;
+            }
+        }
+        
+        routesFilteredToLocationTVC.locationFilter = routeWithLocation.location;
+        routesFilteredToLocationTVC.gym = self.gym;
     }
 }
 
