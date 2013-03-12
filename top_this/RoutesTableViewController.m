@@ -85,7 +85,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"%@", self.gym.name];
+    if (self.locationFilter != nil) {
+        self.title = self.locationFilter;
+    }
+    else{
+        self.title = [NSString stringWithFormat:@"%@", self.gym.name];
+    }
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
     [tempImageView setFrame:self.tableView.frame];
     [tempImageView setAlpha:0.25f];
