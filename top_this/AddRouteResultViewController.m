@@ -24,6 +24,7 @@
 @synthesize theRoute = _theRoute;
 @synthesize objectManager = _objectManager;
 @synthesize requestType = _requestType;
+@synthesize submittedResult = _submittedResult;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,6 +53,7 @@
             
         self.globals = [Global getInstance];
         self.objectManager = [RKObjectManager sharedManager];
+        self.submittedResult = false;
     }
     return self;
 }
@@ -88,25 +90,35 @@
 }
 
 - (IBAction)submitRouteCompletion:(id)sender {
-    RouteCompletion *theCompletion = [self getRouteCompletionFromFields];
-    if ([self.requestType isEqualToString:@"PUT"]) { //update the current completion
-        NSString *path = [NSString stringWithFormat:@"route_completions/%d", self.completionToUpdate.routeCompletionId.integerValue];
-        [self.objectManager putObject:theCompletion path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            NSLog(@"Successfully submitted result!");
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            NSLog(@"ERROR: %@", error);
-            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-        }];
+    if (self.submittedResult == false){
+        self.submittedResult = true;
+        RouteCompletion *theCompletion = [self getRouteCompletionFromFields];
+        if ([self.requestType isEqualToString:@"PUT"]) { //update the current completion
+            NSString *path = [NSString stringWithFormat:@"route_completions/%d", self.completionToUpdate.routeCompletionId.integerValue];
+            [self.objectManager putObject:theCompletion path:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                NSLog(@"Successfully submitted result!");
+                [self dismissViewControllerAnimated:YES completion:NULL];
+                self.submittedResult = false;
+            } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                NSLog(@"ERROR: %@", error);
+                NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+                self.submittedResult = false;
+            }];
+        }
+        else{ //add a new completion
+            [self.objectManager postObject:theCompletion path:@"route_completions" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                NSLog(@"Successfully submitted result!");
+                [self dismissViewControllerAnimated:YES completion:NULL];
+                self.submittedResult = false;
+            } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                NSLog(@"ERROR: %@", error);
+                NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+                self.submittedResult = false;
+            }];
+        }
     }
-    else{ //add a new completion
-        [self.objectManager postObject:theCompletion path:@"route_completions" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            NSLog(@"Successfully submitted result!");
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            NSLog(@"ERROR: %@", error);
-            NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-        }];
+    else{
+        NSLog(@"Already submitted!!! Skipping this button press!");
     }
 }
 

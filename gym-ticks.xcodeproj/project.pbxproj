@@ -26,6 +26,8 @@
 		CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */; };
 		CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */; };
 		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
+		CB5C744216ED070A00087DCD /* UserIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C744116ED070A00087DCD /* UserIndexCell.m */; };
+		CB5C744516ED078B00087DCD /* UserIndexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C744416ED078B00087DCD /* UserIndexTableViewController.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
 		CB6BACEC16BC403400EA2E9F /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */; };
@@ -61,6 +63,8 @@
 		CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */; };
 		CBB8570116DAFB5F005D79FB /* first_ascent_medal.png in Resources */ = {isa = PBXBuildFile; fileRef = CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */; };
 		CBB8570416DB0076005D79FB /* makeAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */; };
+		CBB8570616DB3C7C005D79FB /* AppIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = CBB8570516DB3C7C005D79FB /* AppIcon57x57.png */; };
+		CBB8570816DB3CF4005D79FB /* AppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBB8570716DB3CF3005D79FB /* AppIcon@2x.png */; };
 		CBBC91B116D2B3B5009E4B86 /* RouteBetaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */; };
 		CBBC91B716D2BAEB009E4B86 /* Beta.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B616D2BAEB009E4B86 /* Beta.m */; };
 		CBBC91BA16D32FB5009E4B86 /* BetaLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBC91B916D32FB5009E4B86 /* BetaLogTableViewController.m */; };
@@ -138,20 +142,24 @@
 		CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUserProfileViewController.m; sourceTree = "<group>"; };
 		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
 		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
+		CB5C744016ED070A00087DCD /* UserIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIndexCell.h; sourceTree = "<group>"; };
+		CB5C744116ED070A00087DCD /* UserIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIndexCell.m; sourceTree = "<group>"; };
+		CB5C744316ED078B00087DCD /* UserIndexTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIndexTableViewController.h; sourceTree = "<group>"; };
+		CB5C744416ED078B00087DCD /* UserIndexTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIndexTableViewController.m; sourceTree = "<group>"; };
 		CB5F612716C44FF200AE4C41 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		CB5F612816C44FF200AE4C41 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		CB6BACE416BB8CF400EA2E9F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		CB6BACE516BB8CF400EA2E9F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		CB6BACEA16BC403400EA2E9F /* RoutesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesTableViewController.h; sourceTree = "<group>"; };
 		CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesTableViewController.m; sourceTree = "<group>"; };
-		CB898FA216BACEF4009544EC /* top_this.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = top_this.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB898FA216BACEF4009544EC /* gym-ticks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gym-ticks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB898FA616BACEF4009544EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB898FA816BACEF4009544EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB898FAA16BACEF4009544EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		CB898FAE16BACEF4009544EC /* top_this-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "top_this-Info.plist"; sourceTree = "<group>"; };
+		CB898FAE16BACEF4009544EC /* gym-ticks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "gym-ticks-Info.plist"; sourceTree = "<group>"; };
 		CB898FB016BACEF4009544EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB898FB216BACEF4009544EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CB898FB416BACEF4009544EC /* top_this-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "top_this-Prefix.pch"; sourceTree = "<group>"; };
+		CB898FB416BACEF4009544EC /* gym-ticks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gym-ticks-Prefix.pch"; sourceTree = "<group>"; };
 		CB898FB516BACEF4009544EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CB898FB616BACEF4009544EC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CB898FB816BACEF4009544EC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -189,6 +197,8 @@
 		CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = first_ascent_medal.png; path = "../../../../Graphics/award medals/first_ascent_medal.png"; sourceTree = "<group>"; };
 		CBB8570216DB0075005D79FB /* makeAdminTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = makeAdminTableViewController.h; sourceTree = "<group>"; };
 		CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = makeAdminTableViewController.m; sourceTree = "<group>"; };
+		CBB8570516DB3C7C005D79FB /* AppIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon57x57.png; sourceTree = "<group>"; };
+		CBB8570716DB3CF3005D79FB /* AppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@2x.png"; sourceTree = "<group>"; };
 		CBBC91AF16D2B3B5009E4B86 /* RouteBetaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteBetaCell.h; sourceTree = "<group>"; };
 		CBBC91B016D2B3B5009E4B86 /* RouteBetaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetaCell.m; sourceTree = "<group>"; };
 		CBBC91B516D2BAEB009E4B86 /* Beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beta.h; sourceTree = "<group>"; };
@@ -249,6 +259,8 @@
 				CB1A14D416D468A8007A2B7F /* RouteCell.m */,
 				CBB856FB16D6F4CA005D79FB /* RouteGeneralInfo.h */,
 				CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */,
+				CB5C744016ED070A00087DCD /* UserIndexCell.h */,
+				CB5C744116ED070A00087DCD /* UserIndexCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -256,6 +268,8 @@
 		CB898F9716BACEF4009544EC = {
 			isa = PBXGroup;
 			children = (
+				CBB8570716DB3CF3005D79FB /* AppIcon@2x.png */,
+				CBB8570516DB3C7C005D79FB /* AppIcon57x57.png */,
 				CB21F63616BB2736007932EC /* RestKit.xcodeproj */,
 				CB898FE916BAD851009544EC /* CFNetwork.framework */,
 				CB898FEA16BAD851009544EC /* CoreData.framework */,
@@ -264,7 +278,7 @@
 				CB898FED16BAD851009544EC /* QuartzCore.framework */,
 				CB898FEE16BAD851009544EC /* Security.framework */,
 				CB898FEF16BAD851009544EC /* SystemConfiguration.framework */,
-				CB898FAC16BACEF4009544EC /* top_this */,
+				CB898FAC16BACEF4009544EC /* gym_ticks */,
 				CB898FA516BACEF4009544EC /* Frameworks */,
 				CB898FA316BACEF4009544EC /* Products */,
 				BA8228C06125478387EC3965 /* Pods.xcconfig */,
@@ -274,7 +288,7 @@
 		CB898FA316BACEF4009544EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB898FA216BACEF4009544EC /* top_this.app */,
+				CB898FA216BACEF4009544EC /* gym-ticks.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,7 +304,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CB898FAC16BACEF4009544EC /* top_this */ = {
+		CB898FAC16BACEF4009544EC /* gym_ticks */ = {
 			isa = PBXGroup;
 			children = (
 				CB5128BA16CD89A0007102DE /* Table Cells */,
@@ -302,16 +316,17 @@
 				CB898FBE16BACEF4009544EC /* MainStoryboard.storyboard */,
 				CB898FAD16BACEF4009544EC /* Supporting Files */,
 			);
+			name = gym_ticks;
 			path = top_this;
 			sourceTree = "<group>";
 		};
 		CB898FAD16BACEF4009544EC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CB898FAE16BACEF4009544EC /* top_this-Info.plist */,
+				CB898FAE16BACEF4009544EC /* gym-ticks-Info.plist */,
 				CB898FAF16BACEF4009544EC /* InfoPlist.strings */,
 				CB898FB216BACEF4009544EC /* main.m */,
-				CB898FB416BACEF4009544EC /* top_this-Prefix.pch */,
+				CB898FB416BACEF4009544EC /* gym-ticks-Prefix.pch */,
 				CB898FB816BACEF4009544EC /* Default.png */,
 				CB898FBA16BACEF4009544EC /* Default@2x.png */,
 				CB898FBC16BACEF4009544EC /* Default-568h@2x.png */,
@@ -350,6 +365,8 @@
 				CB1A14CE16D45CB5007A2B7F /* SlideMenuTableViewController.m */,
 				CBB8570216DB0075005D79FB /* makeAdminTableViewController.h */,
 				CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */,
+				CB5C744316ED078B00087DCD /* UserIndexTableViewController.h */,
+				CB5C744416ED078B00087DCD /* UserIndexTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -410,9 +427,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB898FA116BACEF4009544EC /* top_this */ = {
+		CB898FA116BACEF4009544EC /* gym-ticks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB898FD116BACEF4009544EC /* Build configuration list for PBXNativeTarget "top_this" */;
+			buildConfigurationList = CB898FD116BACEF4009544EC /* Build configuration list for PBXNativeTarget "gym-ticks" */;
 			buildPhases = (
 				CB898F9E16BACEF4009544EC /* Sources */,
 				CB898F9F16BACEF4009544EC /* Frameworks */,
@@ -424,9 +441,9 @@
 			dependencies = (
 				CB21F64916BB277E007932EC /* PBXTargetDependency */,
 			);
-			name = top_this;
+			name = "gym-ticks";
 			productName = top_this;
-			productReference = CB898FA216BACEF4009544EC /* top_this.app */;
+			productReference = CB898FA216BACEF4009544EC /* gym-ticks.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -438,7 +455,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Andrew Benson";
 			};
-			buildConfigurationList = CB898F9C16BACEF4009544EC /* Build configuration list for PBXProject "top_this" */;
+			buildConfigurationList = CB898F9C16BACEF4009544EC /* Build configuration list for PBXProject "gym-ticks" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -456,7 +473,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				CB898FA116BACEF4009544EC /* top_this */,
+				CB898FA116BACEF4009544EC /* gym-ticks */,
 			);
 		};
 /* End PBXProject section */
@@ -513,6 +530,8 @@
 				CB167C3116D1ADF5007E2C8C /* 12809070_s.jpg in Resources */,
 				CB1A14D716D4924D007A2B7F /* initProfilePic.jpg in Resources */,
 				CBB8570116DAFB5F005D79FB /* first_ascent_medal.png in Resources */,
+				CBB8570616DB3C7C005D79FB /* AppIcon57x57.png in Resources */,
+				CBB8570816DB3CF4005D79FB /* AppIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +590,8 @@
 				CB1A14D516D468A8007A2B7F /* RouteCell.m in Sources */,
 				CBB856FD16D6F4CA005D79FB /* RouteGeneralInfo.m in Sources */,
 				CBB8570416DB0076005D79FB /* makeAdminTableViewController.m in Sources */,
+				CB5C744216ED070A00087DCD /* UserIndexCell.m in Sources */,
+				CB5C744516ED078B00087DCD /* UserIndexTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,17 +682,17 @@
 			baseConfigurationReference = BA8228C06125478387EC3965 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "top_this/top_this-Prefix.pch";
+				GCC_PREFIX_HEADER = "top_this/gym-ticks-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "top_this/top_this-Info.plist";
+				INFOPLIST_FILE = "top_this/gym-ticks-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "gym-ticks";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -681,18 +702,18 @@
 			baseConfigurationReference = BA8228C06125478387EC3965 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "top_this/top_this-Prefix.pch";
+				GCC_PREFIX_HEADER = "top_this/gym-ticks-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "top_this/top_this-Info.plist";
+				INFOPLIST_FILE = "top_this/gym-ticks-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "gym-ticks";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -700,7 +721,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB898F9C16BACEF4009544EC /* Build configuration list for PBXProject "top_this" */ = {
+		CB898F9C16BACEF4009544EC /* Build configuration list for PBXProject "gym-ticks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB898FCF16BACEF4009544EC /* Debug */,
@@ -709,7 +730,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB898FD116BACEF4009544EC /* Build configuration list for PBXNativeTarget "top_this" */ = {
+		CB898FD116BACEF4009544EC /* Build configuration list for PBXNativeTarget "gym-ticks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB898FD216BACEF4009544EC /* Debug */,

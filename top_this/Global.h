@@ -18,5 +18,6 @@
 -(NSString *)getURLStringWithPath:(NSString *)path;
 +(Global*)getInstance;
 
+
 @end
 

@@ -250,6 +250,7 @@
     }
     cell.routeNameLabel.text = [theRoute name];
     cell.ratingLabel.text = [theRoute rating];
+    cell.locationLabel.text = [[theRoute location] lowercaseString];
     
     ////calculate how recently the route was added
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
@@ -301,6 +302,8 @@
     else{
         cell.betaRequestedLabel.hidden = true;
     }
+    
+    //add location
 
     
     return cell;

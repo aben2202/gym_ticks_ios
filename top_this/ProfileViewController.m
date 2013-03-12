@@ -47,6 +47,12 @@
     [self loadUserData];
     [self loadUserCompletions];
     self.photoData = UIImagePNGRepresentation(self.profilePic.image);
+    
+    //dont display all users button unless app admin
+    if ([self.globals.currentUser.adminId integerValue] != -1){
+        self.allUsersButton.hidden = true;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,9 +62,10 @@
 }
 
 -(void)loadUserData{
-    self.climbersNameLabel.text = [NSString stringWithFormat:@"%@ %@", self.globals.currentUser.firstName, self.globals.currentUser.lastName];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.globals.serverBaseURL, self.globals.currentUser.profilePicURL]];
-    [self.profilePic setImageWithURL:url];
+    self.climbersNameLabel.text = self.globals.currentUser.fullName;
+    NSURL *url = [NSURL URLWithString:self.globals.currentUser.profilePicURL];
+    UIImage *placeholder = [UIImage imageNamed:@"initProfilePic.jpg"];
+    [self.profilePic setImageWithURL:url placeholderImage:placeholder];
 }
 
 -(void)loadUserCompletions{
@@ -92,7 +99,7 @@
     [SVProgressHUD show];
     NSString *path = [NSString stringWithFormat:@"users/%d", [self.globals.currentUser.userId integerValue]];
     NSURLRequest *request = [self.objectManager multipartFormRequestWithObject:self.globals.currentUser method:RKRequestMethodPUT path:path parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpg"];
+        [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpeg"];
     }];
     RKObjectRequestOperation *operation =
     [self.objectManager objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {

@@ -76,7 +76,7 @@
         [SVProgressHUD show];
         User *newUser = [self getUserFromFields];
         NSURLRequest *request = [self.objectManager multipartFormRequestWithObject:newUser method:RKRequestMethodPOST path:@"users" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpg"];
+            [formData appendPartWithFileData:self.photoData name:@"user[profile_pic]" fileName:@"profile_pic.jpg" mimeType:@"image/jpeg"];
         }];
         RKObjectRequestOperation *operation =
         [self.objectManager objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -102,9 +102,6 @@
 - (IBAction)addPhoto:(id)sender{
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary | UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        imagePickerController.sourceType |= UIImagePickerControllerSourceTypeCamera;
-    }
     
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
@@ -161,6 +158,7 @@
      newUser.lastName = self.lastNameTextField.text;
      newUser.password = self.passwordTextField.text;
      newUser.adminId = 0;
+     newUser.photoData = UIImageJPEGRepresentation(self.profilePic.image, 1);
      
      return newUser;
  }

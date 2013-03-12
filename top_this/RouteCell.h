@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userProgressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *betaRequestedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end

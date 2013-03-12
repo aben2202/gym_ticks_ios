@@ -87,7 +87,8 @@
                                                   @"first_name": @"firstName",
                                                   @"last_name": @"lastName",
                                                   @"admin_to": @"adminId",
-                                                  @"profile_pic_url": @"profilePicURL"}];
+                                                  @"profile_pic_url": @"profilePicURL",
+                                                  @"created_at": @"createdAt"}];
 
     return mapping;
 }

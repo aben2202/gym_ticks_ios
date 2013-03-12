@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB898FA116BACEF4009544EC"
-               BuildableName = "top_this.app"
-               BlueprintName = "top_this"
-               ReferencedContainer = "container:top_this.xcodeproj">
+               BuildableName = "gym-ticks.app"
+               BlueprintName = "gym-ticks"
+               ReferencedContainer = "container:gym-ticks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB898FA116BACEF4009544EC"
-            BuildableName = "top_this.app"
-            BlueprintName = "top_this"
-            ReferencedContainer = "container:top_this.xcodeproj">
+            BuildableName = "gym-ticks.app"
+            BlueprintName = "gym-ticks"
+            ReferencedContainer = "container:gym-ticks.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,16 +52,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB898FA116BACEF4009544EC"
-            BuildableName = "top_this.app"
-            BlueprintName = "top_this"
-            ReferencedContainer = "container:top_this.xcodeproj">
+            BuildableName = "gym-ticks.app"
+            BlueprintName = "gym-ticks"
+            ReferencedContainer = "container:gym-ticks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "NSZombieEnabled"
             value = "YES"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB898FA116BACEF4009544EC"
-            BuildableName = "top_this.app"
-            BlueprintName = "top_this"
-            ReferencedContainer = "container:top_this.xcodeproj">
+            BuildableName = "gym-ticks.app"
+            BlueprintName = "gym-ticks"
+            ReferencedContainer = "container:gym-ticks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

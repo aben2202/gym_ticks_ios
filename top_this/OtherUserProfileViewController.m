@@ -65,8 +65,8 @@
 
 -(void)loadUserData{
     self.climbersNameLabel.text = [NSString stringWithFormat:@"%@ %@", self.user.firstName, self.user.lastName];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.globals.serverBaseURL, self.user.profilePicURL]];
-    [self.profilePic setImageWithURL:url];
+    NSURL *url = [NSURL URLWithString:self.user.profilePicURL];
+    [self.profilePic setImageWithURL:url placeholderImage:[UIImage imageNamed:@"initProfilePic.jpg"]];
 }
 
 -(void)loadUserCompletions{

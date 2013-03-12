@@ -142,8 +142,8 @@
         Beta *currentBeta = [self.allTheBeta objectAtIndex:indexPath.row];
         cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@ says...", currentBeta.user.firstName, currentBeta.user.lastName];
         cell.betaTextView.text = currentBeta.comment;
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, currentBeta.user.profilePicURL]];
-        [cell.profilePicImageView setImageWithURL:url];
+        NSURL *url = [NSURL URLWithString:currentBeta.user.profilePicURL];
+        [cell.profilePicImageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"initProfilePic.jpg"]];
         cell.backgroundColor  = [UIColor clearColor];
         cell.userNameLabel.backgroundColor = [UIColor clearColor];
         cell.betaTextView.backgroundColor = [UIColor clearColor];

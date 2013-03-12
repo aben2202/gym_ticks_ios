@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *climbTypes;
 @property (strong, nonatomic) NSString *requestType;
 @property (strong, nonatomic) RouteCompletion *completionToUpdate;
+@property BOOL submittedResult;
 
 - (IBAction)submitRouteCompletion:(id)sender;
 - (IBAction)cancel:(id)sender;

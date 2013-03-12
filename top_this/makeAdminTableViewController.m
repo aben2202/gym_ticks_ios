@@ -60,6 +60,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wall.jpg"]];
+    [tempImageView setFrame:self.tableView.frame];
+    [tempImageView setAlpha:0.25f];
 
 }
 

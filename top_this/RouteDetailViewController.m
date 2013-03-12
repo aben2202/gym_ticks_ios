@@ -159,10 +159,11 @@
             [self.projects addObject:currentCompletion];
         }
         
-        if (self.firstAscent == nil){
+        //check for first ascent
+        if (!([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) && self.firstAscent == nil){
             self.firstAscent = currentCompletion;
         }
-        else if (currentCompletion.completionDate < self.firstAscent.completionDate){
+        else if (!([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) && [currentCompletion.completionDate compare:self.firstAscent.completionDate] == NSOrderedAscending){
             self.firstAscent = currentCompletion;
         }
     }
@@ -369,8 +370,8 @@
             }
 
             //set url for profile pic
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.globals.serverBaseURL, theCompletion.user.profilePicURL]];
-            [cell.userProfilePicture setImageWithURL:url];
+            NSURL *url = [NSURL URLWithString:theCompletion.user.profilePicURL];
+            [cell.userProfilePicture setImageWithURL:url placeholderImage:[UIImage imageNamed:@"initProfilePic.jpg"]];
             
             cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@",theCompletion.user.firstName, theCompletion.user.lastName];
             cell.climbViaLabel.text = [NSString stringWithFormat:@"via %@",theCompletion.climbType];
@@ -410,9 +411,12 @@
 
 #pragma mark - Table view delegate
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"userProfile" sender:self];
+    if (indexPath.section != 0) {
+        [self performSegueWithIdentifier:@"userProfile" sender:self];
+    }
 }
 
 @end

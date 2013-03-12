@@ -17,5 +17,11 @@
 @synthesize adminId = _adminId;
 @synthesize photoData = _photoData;
 @synthesize profilePicURL = _profilePicURL;
+@synthesize fullName = _fullName;
+@synthesize createdAt = _createdAt;
+
+-(NSString *)fullName{
+    return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+}
 
 @end

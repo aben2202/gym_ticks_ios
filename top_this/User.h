@@ -18,5 +18,7 @@
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSData *photoData;
 @property (strong, nonatomic) NSString *profilePicURL;
+@property (strong, nonatomic) NSDate *createdAt;
+@property (strong, nonatomic, readonly) NSString *fullName;
 
 @end

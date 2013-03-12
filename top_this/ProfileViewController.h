@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *climbsCompletedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *climbersNameLabel;
 @property (strong, nonatomic) NSData *photoData;
+@property (weak, nonatomic) IBOutlet UIButton *allUsersButton;
 
 - (IBAction)uploadNewImage:(id)sender;
 
