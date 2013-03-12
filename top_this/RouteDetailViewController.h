@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editRouteBarButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *retireRouteBarButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteRouteBarButton;
+@property BOOL alreadySubmittedBoulder;
+@property BOOL alreadySubmittedVerticalTopRope;
+@property BOOL alreadySubmittedVerticalSport;
 
 @property (retain, nonatomic) IBOutlet UILabel *personalResultsLabel;
 @property (retain, nonatomic) IBOutlet UITableView *resultsTableView;

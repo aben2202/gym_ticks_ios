@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *climbTypes;
 @property (strong, nonatomic) NSString *requestType;
 @property (strong, nonatomic) RouteCompletion *completionToUpdate;
+@property (strong, nonatomic) NSMutableArray *unavailableVerticalClimbTypes;
 @property BOOL submittedResult;
 
 - (IBAction)submitRouteCompletion:(id)sender;

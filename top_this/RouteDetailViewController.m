@@ -143,8 +143,7 @@
     self.sends = [NSMutableArray array];
     self.projects = [NSMutableArray array];
     
-    int i = 0;
-    for(i = 0; i < [self.routeCompletions count]; i++){
+    for(int i = 0; i < [self.routeCompletions count]; i++){
         RouteCompletion *currentCompletion = self.routeCompletions[i];
         if ([currentCompletion.completionType isEqualToString:@"Onsite"] || [currentCompletion.completionType isEqualToString:@"ONSITE"]) {
             [self.onsites addObject:currentCompletion];
@@ -170,16 +169,31 @@
 }
 
 -(void)displayButtons{
-    //Don't show the 'Add Results' button if we've already submitted our results for this route.
-    int x = 0;
-    BOOL alreadySubmitted = FALSE;
-    for (x=0; x < self.routeCompletions.count; x++){
+    //Logic to decide if we should show the 'Post Results' button
+    
+    self.alreadySubmittedBoulder = FALSE;
+    self.alreadySubmittedVerticalTopRope = FALSE;
+    self.alreadySubmittedVerticalSport = FALSE;
+    
+    for (int x=0; x < self.routeCompletions.count; x++){
         RouteCompletion *thisIterRoute = self.routeCompletions[x];
-        if ([thisIterRoute.user.userId integerValue] == [self.globals.currentUser.userId integerValue]){
-            alreadySubmitted = TRUE;
+        if ([self.theRoute.routeType isEqualToString:@"Boulder"]) {
+            if ([thisIterRoute.user.userId integerValue] == [self.globals.currentUser.userId integerValue]){
+                self.alreadySubmittedBoulder = TRUE;
+            }
+        }
+        else{
+            if ([thisIterRoute.user.userId integerValue] == [self.globals.currentUser.userId integerValue]){
+                if ([thisIterRoute.climbType isEqualToString:@"Toprope"]) {
+                    self.alreadySubmittedVerticalTopRope = TRUE;
+                }
+                else{
+                    self.alreadySubmittedVerticalSport = TRUE;
+                }
+            }
         }
     }
-    if (alreadySubmitted == TRUE) {
+    if (self.alreadySubmittedBoulder || (self.alreadySubmittedVerticalSport && self.alreadySubmittedVerticalTopRope)) {
         [self.postResultBarButton setEnabled:NO];
     }
 }
@@ -221,18 +235,30 @@
     if ([segue.identifier isEqualToString:@"postResult"]){
         AddRouteResultViewController *resultsVC = segue.destinationViewController;
         resultsVC.theRoute = self.theRoute;
+        if (self.alreadySubmittedVerticalTopRope){
+            [resultsVC.unavailableVerticalClimbTypes addObject:@"Toprope"];
+        }
+        if (self.alreadySubmittedVerticalSport){
+            [resultsVC.unavailableVerticalClimbTypes addObject:@"Sport"];
+        }
     }
     else if ([segue.identifier isEqualToString:@"editResult"]){
+        UIButton *sendButton = (UIButton *)sender;
+        NSInteger tag = sendButton.tag;
         AddRouteResultViewController *resultsVC = segue.destinationViewController;
         resultsVC.theRoute = self.theRoute;
         resultsVC.requestType = @"PUT";
-        //get current user completion
-        int i;
-        for (i=0; i < self.routeCompletions.count; i++) {
-            RouteCompletion *currentIterCompletion = [self.routeCompletions objectAtIndex:i];
-            if (currentIterCompletion.user.userId.integerValue == self.globals.currentUser.userId.integerValue) {
-                resultsVC.completionToUpdate = currentIterCompletion;
-                break;
+        //get user completion to edit
+        RouteCompletion *currentIterCompletion = [[RouteCompletion alloc] init];
+        for (int i=0; i < self.routeCompletions.count; i++) {
+            currentIterCompletion = [self.routeCompletions objectAtIndex:i];
+            if ((currentIterCompletion.user.userId.integerValue == self.globals.currentUser.userId.integerValue)){
+                if ((tag == 0 && [currentIterCompletion.climbType isEqualToString:@"Boulder"]) ||
+                    (tag == 1 && [currentIterCompletion.climbType isEqualToString:@"Toprope"]) ||
+                    (tag == 2 && [currentIterCompletion.climbType isEqualToString:@"Sport"])) {
+                    resultsVC.completionToUpdate = currentIterCompletion;
+                    break;
+                }
             }
         }
     }
@@ -367,6 +393,17 @@
             //hide editing button if not completion for current user
             if (theCompletion.user.userId.integerValue != self.globals.currentUser.userId.integerValue){
                 cell.editButton.hidden = true;
+            }
+            
+            //tag the cell based on climb type.  this helps us identify the completion when we try to edit it.
+            if ([theCompletion.climbType isEqualToString:@"Boulder"]){
+                cell.editButton.tag = 0;
+            }
+            else if ([theCompletion.climbType isEqualToString:@"Toprope"]){
+                cell.editButton.tag = 1;
+            }
+            else{
+                cell.editButton.tag = 2;
             }
 
             //set url for profile pic

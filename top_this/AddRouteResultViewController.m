@@ -26,6 +26,7 @@
 @synthesize requestType = _requestType;
 @synthesize submittedResult = _submittedResult;
 @synthesize navBar = _navBar;
+@synthesize unavailableVerticalClimbTypes = _unavailableVerticalClimbTypes;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,9 +50,8 @@
         [self.completionTypes addObject:@"PROJECT"];
         
         self.climbTypes = [NSMutableArray array];
-        [self.climbTypes addObject:@"Toprope"];
-        [self.climbTypes addObject:@"Sport"];
-            
+        self.unavailableVerticalClimbTypes = [NSMutableArray array];
+                
         self.globals = [Global getInstance];
         self.objectManager = [RKObjectManager sharedManager];
         self.submittedResult = false;
@@ -60,7 +60,8 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    if ([self.requestType isEqualToString:@"PUT"]) {// we are updating a result so set dial to old result
+    if ([self.requestType isEqualToString:@"PUT"]) {
+        // we are updating a result so set completion type old result
         if ([self.completionToUpdate.completionType isEqualToString:@"ONSITE"]) {
             [self.completionTypeSelector selectRow:0 inComponent:0 animated:NO];
         }
@@ -73,6 +74,15 @@
         else if ([self.completionToUpdate.completionType isEqualToString:@"PROJECT"]) {
             [self.completionTypeSelector selectRow:3 inComponent:0 animated:NO];
         }
+        
+        //and set climb type to old result as well
+        if ([self.completionToUpdate.climbType isEqualToString:@"Toprope"]) {
+            [self.completionTypeSelector selectRow:0 inComponent:1 animated:NO];
+        }
+        else{
+            [self.completionTypeSelector selectRow:1 inComponent:1 animated:NO];
+        }
+
     }
     else{
         [self.completionTypeSelector selectRow:2 inComponent:0 animated:NO];
@@ -83,6 +93,16 @@
     if ([self.requestType isEqualToString:@"PUT"]){
         self.navBar.topItem.title = @"Edit Status";
     }
+    
+    //display correct climb types
+    [self.climbTypes removeAllObjects];
+    if (![self.unavailableVerticalClimbTypes containsObject:@"Toprope"]) {
+        [self.climbTypes addObject:@"Toprope"];
+    }
+    if (![self.unavailableVerticalClimbTypes containsObject:@"Sport"]){
+        [self.climbTypes addObject:@"Sport"];
+    }
+    [self.completionTypeSelector reloadComponent:1];
 }
 
 - (void)viewDidLoad
