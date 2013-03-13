@@ -1994,6 +1994,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="betaRequestedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="recentlyAddedLabel" candidateClass="UILabel"/>

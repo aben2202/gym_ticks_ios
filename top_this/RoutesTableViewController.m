@@ -357,6 +357,8 @@
     //  the tag is equal to the id of the route that is selected
     cell.locationButton.tag = [theRoute.routeId integerValue];
     
+    [cell layoutIfNeeded];
+    
     return cell;
 }
 

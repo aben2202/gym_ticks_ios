@@ -170,6 +170,7 @@
 
 -(void)displayButtons{
     //Logic to decide if we should show the 'Post Results' button
+    //  this also sets up the variables for when a user does post a route, it only shows the available options
     
     self.alreadySubmittedBoulder = FALSE;
     self.alreadySubmittedVerticalTopRope = FALSE;
