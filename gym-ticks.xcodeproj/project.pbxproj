@@ -31,6 +31,8 @@
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
 		CB6BACE616BB8CF400EA2E9F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACE516BB8CF400EA2E9F /* Route.m */; };
 		CB6BACEC16BC403400EA2E9F /* RoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */; };
+		CB89262216F0F96600680014 /* editButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CB89262116F0F96600680014 /* editButton.png */; };
+		CB89262516F111DE00680014 /* GeneralUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB89262416F111DE00680014 /* GeneralUserInfoCell.m */; };
 		CB898FA716BACEF4009544EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB898FA616BACEF4009544EC /* UIKit.framework */; };
 		CB898FA916BACEF4009544EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB898FA816BACEF4009544EC /* Foundation.framework */; };
 		CB898FAB16BACEF4009544EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB898FAA16BACEF4009544EC /* CoreGraphics.framework */; };
@@ -152,6 +154,9 @@
 		CB6BACE516BB8CF400EA2E9F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		CB6BACEA16BC403400EA2E9F /* RoutesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesTableViewController.h; sourceTree = "<group>"; };
 		CB6BACEB16BC403400EA2E9F /* RoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesTableViewController.m; sourceTree = "<group>"; };
+		CB89262116F0F96600680014 /* editButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = editButton.png; path = "../../../../Graphics/edit buttons/editButton.png"; sourceTree = "<group>"; };
+		CB89262316F111DE00680014 /* GeneralUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUserInfoCell.h; sourceTree = "<group>"; };
+		CB89262416F111DE00680014 /* GeneralUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUserInfoCell.m; sourceTree = "<group>"; };
 		CB898FA216BACEF4009544EC /* gym-ticks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gym-ticks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB898FA616BACEF4009544EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB898FA816BACEF4009544EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -261,6 +266,8 @@
 				CBB856FC16D6F4CA005D79FB /* RouteGeneralInfo.m */,
 				CB5C744016ED070A00087DCD /* UserIndexCell.h */,
 				CB5C744116ED070A00087DCD /* UserIndexCell.m */,
+				CB89262316F111DE00680014 /* GeneralUserInfoCell.h */,
+				CB89262416F111DE00680014 /* GeneralUserInfoCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -409,6 +416,7 @@
 		CBBE979516BDEBAA000556B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CB89262116F0F96600680014 /* editButton.png */,
 				CBB8570016DAFB5F005D79FB /* first_ascent_medal.png */,
 				CB1A14D616D4924D007A2B7F /* initProfilePic.jpg */,
 				CB167C3016D1ADF5007E2C8C /* 12809070_s.jpg */,
@@ -532,6 +540,7 @@
 				CBB8570116DAFB5F005D79FB /* first_ascent_medal.png in Resources */,
 				CBB8570616DB3C7C005D79FB /* AppIcon57x57.png in Resources */,
 				CBB8570816DB3CF4005D79FB /* AppIcon@2x.png in Resources */,
+				CB89262216F0F96600680014 /* editButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +601,7 @@
 				CBB8570416DB0076005D79FB /* makeAdminTableViewController.m in Sources */,
 				CB5C744216ED070A00087DCD /* UserIndexCell.m in Sources */,
 				CB5C744516ED078B00087DCD /* UserIndexTableViewController.m in Sources */,
+				CB89262516F111DE00680014 /* GeneralUserInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

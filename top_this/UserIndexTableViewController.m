@@ -45,6 +45,10 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self loadUsers];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,8 +57,6 @@
     [tempImageView setFrame:self.tableView.frame];
     [tempImageView setAlpha:0.25f];
     self.tableView.backgroundView = tempImageView;
-    
-    [self loadUsers];
 }
 
 - (void)didReceiveMemoryWarning

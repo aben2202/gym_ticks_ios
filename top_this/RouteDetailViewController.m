@@ -162,7 +162,7 @@
         if (!([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) && self.firstAscent == nil){
             self.firstAscent = currentCompletion;
         }
-        else if (!([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) && [currentCompletion.completionDate compare:self.firstAscent.completionDate] == NSOrderedAscending){
+        else if (!([currentCompletion.completionType isEqualToString:@"Project"] || [currentCompletion.completionType isEqualToString:@"PROJECT"]) && [currentCompletion.sendDate compare:self.firstAscent.sendDate] == NSOrderedAscending){
             self.firstAscent = currentCompletion;
         }
     }
@@ -430,19 +430,27 @@
             //color cell backgrounds
             if ([theCompletion.completionType isEqualToString:@"ONSITE"]) {
                 //light green background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];                
+                UIColor *lightGreen = [UIColor colorWithRed:(200/255.0) green:(255/255.0) blue:(200/255.0) alpha:.5];
+                cell.contentView.backgroundColor = lightGreen;
+                cell.accessoryView.backgroundColor = lightGreen;
             }
             else if ([theCompletion.completionType isEqualToString:@"FLASH"]) {
                 //light yellow background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+                UIColor *lightYellow = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(204/255.0) alpha:.5];
+                cell.contentView.backgroundColor = lightYellow;
+                cell.accessoryView.backgroundColor = lightYellow;
             }
             else if ([theCompletion.completionType isEqualToString:@"SEND"]) {
                 //light blue background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+                UIColor *lightBlue = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(255/255.0) alpha:.5];
+                cell.contentView.backgroundColor = lightBlue;
+                cell.accessoryView.backgroundColor = lightBlue;
             }
             else if ([theCompletion.completionType isEqualToString:@"PROJECT"]) {
                 //light red background color
-                cell.contentView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+                UIColor *lightRed = [UIColor colorWithRed:(255/255.0) green:(200/255.0) blue:(200/255.0) alpha:.5];
+                cell.contentView.backgroundColor = lightRed;
+                cell.accessoryView.backgroundColor = lightRed;
             }
             
             //if route is first ascent put gold border around cell

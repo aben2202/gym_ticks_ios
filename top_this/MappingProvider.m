@@ -61,7 +61,8 @@
     [mapping addAttributeMappingsFromDictionary:@{@"id": @"routeCompletionId",
                                                   @"climb_type": @"climbType",
                                                   @"completion_type": @"completionType",
-                                                  @"completion_date": @"completionDate"}];
+                                                  @"completion_date": @"completionDate",
+                                                  @"send_date": @"sendDate"}];
     [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
     
@@ -73,7 +74,8 @@
     [mapping addAttributeMappingsFromDictionary:@{@"climbType": @"climb_type",
                                                   @"completionType": @"completion_type",
                                                   @"route.routeId": @"route_id",
-                                                  @"user.userId": @"user_id"}];
+                                                  @"user.userId": @"user_id",
+                                                  @"sendDate": @"send_date"}];
   
     return mapping;
 }

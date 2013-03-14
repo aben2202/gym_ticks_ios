@@ -27,6 +27,7 @@
 @synthesize submittedResult = _submittedResult;
 @synthesize navBar = _navBar;
 @synthesize unavailableVerticalClimbTypes = _unavailableVerticalClimbTypes;
+@synthesize completionToUpdate = _completionToUpdate;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -164,6 +165,29 @@
     else{
         theNewCompletion.climbType = [self.climbTypes objectAtIndex:[self.completionTypeSelector selectedRowInComponent:1]];
     }
+    
+    //if new route, set send date if the completion was a send or better
+    if (![self.requestType isEqualToString:@"PUT"]){
+        if (![theNewCompletion.completionType isEqualToString:@"PROJECT"]) {
+            theNewCompletion.sendDate = [NSDate date];
+        }
+    }
+    else{ //we are updating a route, so check previous completion type and new type to see if we need to set the send date
+        // only need to set send date if the previous completion type was 'project' and we are changing to a send or better
+        // i.e. we do not reset it if changed from 'onsite' to 'flash' for example
+        if ([self.completionToUpdate.completionType isEqualToString:@"PROJECT"] && ![theNewCompletion.completionType isEqualToString:@"PROJECT"]) {
+            theNewCompletion.sendDate = [NSDate date];
+        }
+        //if we are moving from a send to a project, we set the send date back to nil
+        else if (![self.completionToUpdate.completionType isEqualToString:@"PROJECT"] && [theNewCompletion.completionType isEqualToString:@"PROJECT"]){
+            theNewCompletion.sendDate = nil;
+        }
+        //otherwise we just keep it the same
+        else{
+            theNewCompletion.sendDate = self.completionToUpdate.sendDate;
+        }
+    }
+    
     theNewCompletion.route = self.theRoute;
     theNewCompletion.user = self.globals.currentUser;
     

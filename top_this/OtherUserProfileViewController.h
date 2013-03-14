@@ -23,5 +23,4 @@
 @property (strong, nonatomic) User *user;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *makeAdminButton;
 
-
 @end

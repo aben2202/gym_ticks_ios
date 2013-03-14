@@ -14,5 +14,6 @@
 @synthesize completionType = _completionType;
 @synthesize completionDate = _completionDate;
 @synthesize completionDateComponents = _completionDateComponents;
+@synthesize sendDate = _sendDate;
 
 @end
