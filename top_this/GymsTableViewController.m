@@ -13,6 +13,7 @@
 #import "RoutesTableViewController.h"
 #import "AddGymViewController.h"
 #import "Global.h"
+#import "GymMenuViewController.h"
 
 
 @interface GymsTableViewController ()
@@ -99,12 +100,12 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"showGymRoutes"]){
-        RoutesTableViewController *routeTableViewController = segue.destinationViewController;
+    if([segue.identifier isEqualToString:@"showGymMenu"]){
+        GymMenuViewController *gymMenuViewController = segue.destinationViewController;
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         self.selectedGym = [self.gyms objectAtIndex:indexPath.row];
-        routeTableViewController.gym = self.selectedGym;
+        gymMenuViewController.gym = self.selectedGym;
     }
 }
 

@@ -26,6 +26,9 @@
 		CB3F1B3316D3657E00400EAD /* AddBetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3216D3657E00400EAD /* AddBetaViewController.m */; };
 		CB3F1B3C16D415E900400EAD /* OtherUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */; };
 		CB5128B916CD898A007102DE /* RecentClimbsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5128B816CD898A007102DE /* RecentClimbsCell.m */; };
+		CB570FB516F8C9A2004BA038 /* GymMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB570FB416F8C9A2004BA038 /* GymMenuViewController.m */; };
+		CB570FBB16F8CD9E004BA038 /* ActivityFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB570FBA16F8CD9E004BA038 /* ActivityFeedTableViewController.m */; };
+		CB570FBE16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB570FBD16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.m */; };
 		CB5C744216ED070A00087DCD /* UserIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C744116ED070A00087DCD /* UserIndexCell.m */; };
 		CB5C744516ED078B00087DCD /* UserIndexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5C744416ED078B00087DCD /* UserIndexTableViewController.m */; };
 		CB5F612916C44FF200AE4C41 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5F612816C44FF200AE4C41 /* Global.m */; };
@@ -144,6 +147,12 @@
 		CB3F1B3B16D415E900400EAD /* OtherUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUserProfileViewController.m; sourceTree = "<group>"; };
 		CB5128B716CD898A007102DE /* RecentClimbsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentClimbsCell.h; sourceTree = "<group>"; };
 		CB5128B816CD898A007102DE /* RecentClimbsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentClimbsCell.m; sourceTree = "<group>"; };
+		CB570FB316F8C9A2004BA038 /* GymMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GymMenuViewController.h; sourceTree = "<group>"; };
+		CB570FB416F8C9A2004BA038 /* GymMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GymMenuViewController.m; sourceTree = "<group>"; };
+		CB570FB916F8CD9E004BA038 /* ActivityFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFeedTableViewController.h; sourceTree = "<group>"; };
+		CB570FBA16F8CD9E004BA038 /* ActivityFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFeedTableViewController.m; sourceTree = "<group>"; };
+		CB570FBC16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFeedRouteCompletionCell.h; sourceTree = "<group>"; };
+		CB570FBD16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFeedRouteCompletionCell.m; sourceTree = "<group>"; };
 		CB5C744016ED070A00087DCD /* UserIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIndexCell.h; sourceTree = "<group>"; };
 		CB5C744116ED070A00087DCD /* UserIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIndexCell.m; sourceTree = "<group>"; };
 		CB5C744316ED078B00087DCD /* UserIndexTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIndexTableViewController.h; sourceTree = "<group>"; };
@@ -268,6 +277,8 @@
 				CB5C744116ED070A00087DCD /* UserIndexCell.m */,
 				CB89262316F111DE00680014 /* GeneralUserInfoCell.h */,
 				CB89262416F111DE00680014 /* GeneralUserInfoCell.m */,
+				CB570FBC16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.h */,
+				CB570FBD16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -374,6 +385,10 @@
 				CBB8570316DB0075005D79FB /* makeAdminTableViewController.m */,
 				CB5C744316ED078B00087DCD /* UserIndexTableViewController.h */,
 				CB5C744416ED078B00087DCD /* UserIndexTableViewController.m */,
+				CB570FB316F8C9A2004BA038 /* GymMenuViewController.h */,
+				CB570FB416F8C9A2004BA038 /* GymMenuViewController.m */,
+				CB570FB916F8CD9E004BA038 /* ActivityFeedTableViewController.h */,
+				CB570FBA16F8CD9E004BA038 /* ActivityFeedTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -602,6 +617,9 @@
 				CB5C744216ED070A00087DCD /* UserIndexCell.m in Sources */,
 				CB5C744516ED078B00087DCD /* UserIndexTableViewController.m in Sources */,
 				CB89262516F111DE00680014 /* GeneralUserInfoCell.m in Sources */,
+				CB570FB516F8C9A2004BA038 /* GymMenuViewController.m in Sources */,
+				CB570FBB16F8CD9E004BA038 /* ActivityFeedTableViewController.m in Sources */,
+				CB570FBE16F8CE3C004BA038 /* ActivityFeedRouteCompletionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,7 +147,7 @@
         cell.backgroundColor  = [UIColor clearColor];
         cell.userNameLabel.backgroundColor = [UIColor clearColor];
         cell.betaTextView.backgroundColor = [UIColor clearColor];
-        cell.date.text = [self getTimeAgoInHumanReadable:currentBeta.postedAt];
+        cell.date.text = [Global getTimeAgoInHumanReadable:currentBeta.postedAt];
         
         cell.betaTextView.editable = NO;
         
@@ -172,40 +172,6 @@
     }
     
     return cell;
-}
-
--(NSString *)getTimeAgoInHumanReadable:(NSDate *)previous_time{
-    //calculate how recently the route was added
-    
-    unsigned int unitFlags = NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    
-    NSDateComponents *components = [calendar components:unitFlags fromDate:previous_time  toDate:[NSDate date]  options:0];
-    
-    if ([components day] >= 7){
-        //just return the date
-        return [NSDateFormatter localizedStringFromDate:previous_time
-                                              dateStyle:NSDateFormatterShortStyle
-                                              timeStyle:NSDateFormatterNoStyle];
-    }
-    else if ([components day] > 1){
-        return [NSString stringWithFormat:@"%d days ago", [components day]];
-    }
-    else if ([components day] == 1){
-        return [NSString stringWithFormat:@"%d day ago", [components day]];
-    }
-    else if ([components hour] > 1){
-        return [NSString stringWithFormat:@"%d hours ago", [components hour]];
-    }
-    else if ([components hour] == 1){
-        return [NSString stringWithFormat:@"%d hour ago", [components hour]];
-    }
-    else if ([components minute] > 1){
-        return [NSString stringWithFormat:@"%d minutes ago", [components minute]];
-    }
-    else{
-        return @"1 minute ago";
-    }
 }
 
 #pragma mark - Table view delegate

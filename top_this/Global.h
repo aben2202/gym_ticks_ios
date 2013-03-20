@@ -18,6 +18,8 @@
 -(NSString *)getURLStringWithPath:(NSString *)path;
 +(Global*)getInstance;
 
+//generic functions for use in all classes
++(NSString *)getTimeAgoInHumanReadable:(NSDate *)previous_time;
 
 @end
 
