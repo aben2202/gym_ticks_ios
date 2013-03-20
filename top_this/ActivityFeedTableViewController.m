@@ -12,6 +12,7 @@
 #import "Global.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "RouteCompletion.h"
+#import "OtherUserProfileViewController.h"
 
 @interface ActivityFeedTableViewController ()
 @property (strong, nonatomic) RKObjectManager *objectManager;
@@ -19,7 +20,6 @@
 @property (strong, nonatomic) NSNumber *numberOfFeedItemsShown;
 @property (strong, nonatomic) NSNumber *pageToFetch;
 @property BOOL moreFeedToLoad;
-@property BOOL firstLoad;
 @property BOOL aboutToRemoveViewMoreCell;
 
 
@@ -49,7 +49,6 @@
         // Custom initialization
         self.feedItems = [NSMutableArray array];
         self.moreFeedToLoad = true;
-        self.firstLoad = true;
         self.viewMoreCellIsPresent = false;
         self.aboutToRemoveViewMoreCell = false;
     }
@@ -60,6 +59,10 @@
     self.numberOfFeedItemsShown = @0;
     self.pageToFetch = @1;
     [self.feedItems removeAllObjects];
+    [self.tableView reloadData];
+    self.viewMoreCellIsPresent = false;
+    self.moreFeedToLoad = true;
+    
     [self loadNextFeedPage];
 }
 
@@ -119,6 +122,16 @@
     NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"completionDate" ascending:NO];
     NSArray *sortDescriptors = @[dateDescriptor];
    self.feedItems = [NSMutableArray arrayWithArray:[self.feedItems sortedArrayUsingDescriptors:sortDescriptors]];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"showUserProfile"]) {
+        UITableViewCell *theSender = (UITableViewCell *)sender;
+        
+        RouteCompletion *theCompletion = [self.feedItems objectAtIndex:theSender.tag];
+        OtherUserProfileViewController *profileVC = segue.destinationViewController;
+        profileVC.user = theCompletion.user;
+    }
 }
 
 #pragma mark - Table view data source
@@ -211,6 +224,8 @@
         cell.timeLabel.text = [Global getTimeAgoInHumanReadable:currentCompletion.completionDate];
         cell.ratingLabel.text = currentCompletion.route.rating;
         
+        cell.tag = indexPath.row;
+        
         return cell;
     }
     else{  //return the 'view more' button cell
@@ -242,11 +257,10 @@
             [indexPaths addObject:indexPathToAdd];
         }
         //add the index path for the 'view more' cell in not done already
-        if (self.firstLoad == true) {
+        if (self.viewMoreCellIsPresent == false) {
             NSInteger row = (self.numberOfFeedItemsShown.integerValue + 20);
             NSIndexPath *indexPathToAdd = [NSIndexPath indexPathForRow:row inSection:0];
             [indexPaths addObject:indexPathToAdd];
-            self.firstLoad = false;
             self.viewMoreCellIsPresent = true;
         }
     }
