@@ -62,6 +62,7 @@
                                                   @"climb_type": @"climbType",
                                                   @"completion_type": @"completionType",
                                                   @"completion_date": @"completionDate",
+                                                  @"created_at": @"createdAt",
                                                   @"send_date": @"sendDate"}];
     [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];

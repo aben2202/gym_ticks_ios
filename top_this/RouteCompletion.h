@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSString *completionType;
 @property (strong, nonatomic) NSString *climbType;
 @property (strong, nonatomic) NSDate *completionDate;
+@property (strong, nonatomic) NSDate *createdAt;
 @property (strong, nonatomic) NSDateComponents *completionDateComponents;
 @property (strong, nonatomic) NSDate *sendDate;
 

@@ -221,7 +221,7 @@
         }
         
         //set time ago text
-        cell.timeLabel.text = [Global getTimeAgoInHumanReadable:currentCompletion.completionDate];
+        cell.timeLabel.text = [Global getTimeAgoInHumanReadable:currentCompletion.createdAt];
         cell.ratingLabel.text = currentCompletion.route.rating;
         
         cell.tag = indexPath.row;
