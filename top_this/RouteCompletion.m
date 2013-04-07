@@ -15,5 +15,7 @@
 @synthesize completionDate = _completionDate;
 @synthesize completionDateComponents = _completionDateComponents;
 @synthesize sendDate = _sendDate;
+@synthesize createdAt = _createdAt;
+@synthesize updatedAt = _updatedAt;
 
 @end

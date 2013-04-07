@@ -63,6 +63,7 @@
                                                   @"completion_type": @"completionType",
                                                   @"completion_date": @"completionDate",
                                                   @"created_at": @"createdAt",
+                                                  @"updated_at": @"updatedAt",
                                                   @"send_date": @"sendDate"}];
     [mapping addRelationshipMappingWithSourceKeyPath:@"user" mapping:[MappingProvider userMapping]];
     [mapping addRelationshipMappingWithSourceKeyPath:@"route" mapping:[MappingProvider routeMapping]];
