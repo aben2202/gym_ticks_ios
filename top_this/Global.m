@@ -19,8 +19,8 @@
 }
 
 -(NSMutableString *)serverBaseURL{
-    return [NSMutableString stringWithFormat:@"http://localhost:3000"];
-    //return [NSMutableString stringWithFormat:@"http://gym-ticks.herokuapp.com"];
+    //return [NSMutableString stringWithFormat:@"http://localhost:3000"];
+    return [NSMutableString stringWithFormat:@"http://gym-ticks.herokuapp.com"];
 }
 
 -(NSString *)getURLStringWithPath:(NSString *)path{
@@ -49,6 +49,15 @@ static Global *instance =nil;
     
     NSDateComponents *components = [calendar components:unitFlags fromDate:previous_time  toDate:[NSDate date]  options:0];
     
+    NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+    NSDate *thePreviousMidnight = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:[NSDate date]]];
+    
+    NSDateComponents *componentsFromPreviousMidnight = [calendar components:NSDayCalendarUnit | NSSecondCalendarUnit
+                                                        fromDate:previous_time
+                                                        toDate:thePreviousMidnight
+                                                        options:0];
+
+    
     if ([components day] >= 7){
         //just return the date
         return [NSDateFormatter localizedStringFromDate:previous_time
@@ -56,23 +65,40 @@ static Global *instance =nil;
                                               timeStyle:NSDateFormatterNoStyle];
     }
     else if ([components day] > 1){
-        return [NSString stringWithFormat:@"%d days ago", [components day]];
+        if ([componentsFromPreviousMidnight day] == 0) {
+            return [NSString stringWithFormat:@"%d days ago", ([components day])];
+        }
+        else{
+            return [NSString stringWithFormat:@"%d days ago", ([components day] + 1)];
+        }
+        
     }
     else if ([components day] == 1){
-        return [NSString stringWithFormat:@"%d day ago", [components day]];
+        if ([componentsFromPreviousMidnight day] == 0) {
+            return @"yesterday";
+        }
+        else{
+            return @"2 days ago";
+        }
     }
     else if ([components hour] > 1){
-        return [NSString stringWithFormat:@"%d hours ago", [components hour]];
+        if ([componentsFromPreviousMidnight hour] > 0) {
+            return @"yesterday";
+        }
+        else{
+            return [NSString stringWithFormat:@"%d hours ago", [components hour]];
+        }
     }
     else if ([components hour] == 1){
         return [NSString stringWithFormat:@"%d hour ago", [components hour]];
     }
     else if ([components minute] > 1){
-        return [NSString stringWithFormat:@"%d minutes ago", [components minute]];
+        return [NSString stringWithFormat:@"%d min ago", [components minute]];
     }
     else{
         return @"1 minute ago";
     }
+    
 }
 
 
